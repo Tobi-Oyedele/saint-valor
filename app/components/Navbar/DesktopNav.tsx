@@ -1,10 +1,12 @@
 import Image from "next/image";
 import { ChevronDown, ShoppingCart, Heart, UserRound } from "lucide-react";
 import Link from "next/link";
+import { CurrencyDropdown } from "../CurrencyDropdown";
+import { DesktopHoverDropdown } from "../DesktopHoverDropdown";
 
 const DesktopNav = () => {
   return (
-    <nav className="py-4 px-10 space-y-6">
+    <nav className="py-4 px-10 space-y-6 bg-ivory">
       {/* top nav section*/}
       <nav className="flex justify-between">
         <div>
@@ -47,34 +49,83 @@ const DesktopNav = () => {
 
           {/* Divider */}
           <div className="w-px h-6 bg-charcoal" />
+          {/* Currency */}
           <div>
-            {/* Currency */}
-            <button
-              type="button"
-              className="flex items-center justify-center h-10 px-3 text-charcoal cursor-pointer"
-              aria-label="Change currency"
-            >
-              <span>USD</span>
-              <ChevronDown className="w-4 h-4 ml-1" />
-            </button>
+            <CurrencyDropdown />
           </div>
         </div>
       </nav>
 
       {/* bottom nav section */}
       <nav className="flex justify-center items-center gap-7">
-        <Link href="/new-arrivals" className="bottom-nav-link-style">
-          New Arrivals
-        </Link>
-        <Link href="/female" className="bottom-nav-link-style">
-          Female
-        </Link>
-        <Link href="/male" className="bottom-nav-link-style">
-          Male
-        </Link>
-        <Link href="/fashion" className="bottom-nav-link-style">
-          Fashion
-        </Link>
+        <DesktopHoverDropdown
+          label="New Arrivals"
+          href="/new-arrivals"
+          items={[
+            { label: "Rings", href: "/new-arrivals/latest", count: 22 },
+            { label: "Necklaces", href: "/new-arrivals/trending", count: 88 },
+            { label: "Earrings", href: "/new-arrivals/earrings", count: 39 },
+            { label: "Bracelets", href: "/new-arrivals/bracelets", count: 23 },
+            {
+              label: "Pant Chains",
+              href: "/new-arrivals/pant-chains",
+              count: 12,
+            },
+            { label: "Anklet", href: "/new-arrivals/anklet", count: 12 },
+          ]}
+        />
+
+        <DesktopHoverDropdown
+          label="Female"
+          href="/female"
+          items={[
+            { label: "Rings", href: "/new-arrivals/latest", count: 22 },
+            { label: "Necklaces", href: "/new-arrivals/trending", count: 88 },
+            { label: "Earrings", href: "/new-arrivals/earrings", count: 39 },
+            { label: "Bracelets", href: "/new-arrivals/bracelets", count: 23 },
+            {
+              label: "Pant Chains",
+              href: "/new-arrivals/pant-chains",
+              count: 12,
+            },
+            { label: "Anklet", href: "/new-arrivals/anklet", count: 12 },
+          ]}
+        />
+
+        <DesktopHoverDropdown
+          label="Male"
+          href="/male"
+          items={[
+            { label: "Rings", href: "/new-arrivals/latest", count: 22 },
+            { label: "Necklaces", href: "/new-arrivals/trending", count: 88 },
+            { label: "Earrings", href: "/new-arrivals/earrings", count: 39 },
+            { label: "Bracelets", href: "/new-arrivals/bracelets", count: 23 },
+            {
+              label: "Pant Chains",
+              href: "/new-arrivals/pant-chains",
+              count: 12,
+            },
+            { label: "Anklet", href: "/new-arrivals/anklet", count: 12 },
+          ]}
+        />
+
+        <DesktopHoverDropdown
+          label="Fashion"
+          href="/fashion"
+          items={[
+            { label: "Rings", href: "/new-arrivals/latest", count: 22 },
+            { label: "Necklaces", href: "/new-arrivals/trending", count: 88 },
+            { label: "Earrings", href: "/new-arrivals/earrings", count: 39 },
+            { label: "Bracelets", href: "/new-arrivals/bracelets", count: 23 },
+            {
+              label: "Pant Chains",
+              href: "/new-arrivals/pant-chains",
+              count: 12,
+            },
+            { label: "Anklet", href: "/new-arrivals/anklet", count: 12 },
+          ]}
+        />
+
         <Link href="/bespoke-collection" className="bottom-nav-link-style">
           Bespoke Collection
         </Link>
