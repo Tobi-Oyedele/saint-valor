@@ -60,22 +60,9 @@ const DesktopNav = () => {
 
       {/* bottom nav section */}
       <nav className="flex justify-center items-center gap-7">
-        <DesktopHoverDropdown
-          label="New Arrivals"
-          href="/new-arrivals"
-          items={[
-            { label: "Rings", href: "/new-arrivals/latest", count: 22 },
-            { label: "Necklaces", href: "/new-arrivals/trending", count: 88 },
-            { label: "Earrings", href: "/new-arrivals/earrings", count: 39 },
-            { label: "Bracelets", href: "/new-arrivals/bracelets", count: 23 },
-            {
-              label: "Pant Chains",
-              href: "/new-arrivals/pant-chains",
-              count: 12,
-            },
-            { label: "Anklet", href: "/new-arrivals/anklet", count: 12 },
-          ]}
-        />
+        <Link href="/new-arrivals" className="bottom-nav-link-style">
+          New Arrivals
+        </Link>
 
         <DesktopHoverDropdown
           label="Female"

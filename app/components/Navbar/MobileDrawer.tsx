@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   ChevronDown,
   ChevronRight,
@@ -12,147 +12,16 @@ import {
   Search,
 } from "lucide-react";
 import { CurrencyDropdown } from "../CurrencyDropdown";
+import { MENU } from "../data/mobileDrawer";
 
 type DrawerProps = {
   isOpen: boolean;
   onClose: () => void;
 };
 
-type ChildLink = {
-  label: string;
-  href: string;
-  count?: number; // placeholder now, backend later
-};
-
-type MenuItem =
-  | { type: "link"; label: string; href: string; rightIcon?: "chevron" }
-  | {
-      type: "accordion";
-      label: string;
-      children: ChildLink[];
-    };
-
 export default function MobileDrawer({ isOpen, onClose }: DrawerProps) {
   const [openSection, setOpenSection] = useState<string | null>(null);
   const [query, setQuery] = useState("");
-
-  const menu: MenuItem[] = useMemo(() => {
-    const placeholderCounts = {
-      female: {
-        rings: 22,
-        necklaces: 44,
-        earrings: 30,
-        bracelets: 23,
-        pantChains: 12,
-        anklets: 12,
-      },
-      male: {
-        rings: 10,
-        necklaces: 8,
-      },
-      fashion: {
-        rings: 5,
-        necklaces: 9,
-      },
-    };
-
-    return [
-      { type: "link", label: "NEW ARRIVALS", href: "/new-arrivals" },
-
-      {
-        type: "accordion",
-        label: "FEMALE",
-        children: [
-          { label: "JEWELRY TYPE", href: "/female/jewelry-type" },
-          {
-            label: "RINGS",
-            href: "/female/rings",
-            count: placeholderCounts.female.rings,
-          },
-          {
-            label: "NECKLACES",
-            href: "/female/necklaces",
-            count: placeholderCounts.female.necklaces,
-          },
-          {
-            label: "EARRINGS",
-            href: "/female/earrings",
-            count: placeholderCounts.female.earrings,
-          },
-          {
-            label: "BRACELETS",
-            href: "/female/bracelets",
-            count: placeholderCounts.female.bracelets,
-          },
-          {
-            label: "PANT CHAINS",
-            href: "/female/pant-chains",
-            count: placeholderCounts.female.pantChains,
-          },
-          {
-            label: "ANKLETS",
-            href: "/female/anklets",
-            count: placeholderCounts.female.anklets,
-          },
-        ],
-      },
-
-      {
-        type: "accordion",
-        label: "MALE",
-        children: [
-          { label: "JEWELRY TYPE", href: "/male/jewelry-type" },
-          {
-            label: "RINGS",
-            href: "/male/rings",
-            count: placeholderCounts.male.rings,
-          },
-          {
-            label: "NECKLACES",
-            href: "/male/necklaces",
-            count: placeholderCounts.male.necklaces,
-          },
-        ],
-      },
-
-      {
-        type: "accordion",
-        label: "FASHION",
-        children: [
-          { label: "JEWELRY TYPE", href: "/fashion/jewelry-type" },
-          {
-            label: "RINGS",
-            href: "/fashion/rings",
-            count: placeholderCounts.fashion.rings,
-          },
-          {
-            label: "NECKLACES",
-            href: "/fashion/necklaces",
-            count: placeholderCounts.fashion.necklaces,
-          },
-        ],
-      },
-
-      {
-        type: "link",
-        label: "BESPOKE COLLECTION",
-        href: "/bespoke-collection",
-        rightIcon: "chevron",
-      },
-      {
-        type: "link",
-        label: "CUSTOM INQUIRY",
-        href: "/custom-inquiry",
-        rightIcon: "chevron",
-      },
-      {
-        type: "link",
-        label: "ABOUT US",
-        href: "/about-us",
-        rightIcon: "chevron",
-      },
-    ];
-  }, []);
 
   // Close on ESC
   useEffect(() => {
@@ -216,23 +85,21 @@ export default function MobileDrawer({ isOpen, onClose }: DrawerProps) {
             </div>
           </div>
 
-          {/* Menu */}
+          {/* Menu items */}
           <nav className="mt-4 flex-1 overflow-y-auto px-4 pb-6">
             <ul className="space-y-1">
-              {menu.map((item) => {
+              {MENU.map((item) => {
                 if (item.type === "link") {
                   return (
                     <li key={item.label}>
                       <Link
                         href={item.href}
                         onClick={onClose}
-                        className="flex items-center justify-between py-3 text-xs font-semibold tracking-wide text-burgundy"
+                        className="flex items-center justify-between py-3 text-xs font-semibold tracking-wide text-charcoal"
                       >
                         <span>{item.label}</span>
-                        {item.rightIcon === "chevron" ? (
+                        {item.rightIcon === "chevron" && (
                           <ChevronRight className="h-4 w-4" />
-                        ) : (
-                          <ChevronDown className="h-4 w-4 opacity-60" />
                         )}
                       </Link>
                     </li>
@@ -249,7 +116,7 @@ export default function MobileDrawer({ isOpen, onClose }: DrawerProps) {
                           prev === item.label ? null : item.label,
                         )
                       }
-                      className="flex w-full items-center justify-between py-3 text-xs font-semibold tracking-wide text-burgundy"
+                      className="flex w-full items-center justify-between py-3 text-xs font-semibold tracking-wide text-charcoal"
                     >
                       <span>{item.label}</span>
                       <ChevronDown
@@ -273,7 +140,7 @@ export default function MobileDrawer({ isOpen, onClose }: DrawerProps) {
                                 <span>{child.label}</span>
 
                                 {typeof child.count === "number" && (
-                                  <span className="text-burgundy/60">
+                                  <span className="text-charcoal">
                                     ({child.count})
                                   </span>
                                 )}
@@ -296,25 +163,25 @@ export default function MobileDrawer({ isOpen, onClose }: DrawerProps) {
               <Link
                 href="/cart"
                 onClick={onClose}
-                className="flex items-center justify-between py-2 text-xs font-semibold text-burgundy"
+                className="flex items-center justify-between py-2 text-xs font-semibold text-charcoal"
               >
                 <span className="flex items-center gap-2">
-                  <ShoppingCart className="h-4 w-4" />
+                  <ShoppingCart className="h-4 w-4 text-burgundy" />
                   CART
                 </span>
-                <ChevronRight className="h-4 w-4" />
+                <ChevronRight className="h-4 w-4 text-charcoal" />
               </Link>
 
               <Link
                 href="/favourites"
                 onClick={onClose}
-                className="flex items-center justify-between py-2 text-xs font-semibold text-burgundy"
+                className="flex items-center justify-between py-2 text-xs font-semibold text-charcoal"
               >
                 <span className="flex items-center gap-2">
-                  <Heart className="h-4 w-4" />
+                  <Heart className="h-4 w-4 text-burgundy" />
                   FAVOURITES
                 </span>
-                <ChevronRight className="h-4 w-4" />
+                <ChevronRight className="h-4 w-4 text-charcoal" />
               </Link>
             </div>
           </nav>
