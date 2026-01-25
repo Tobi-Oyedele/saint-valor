@@ -19,21 +19,24 @@ export function DesktopHoverDropdown({
         <ChevronDown className="w-4 h-4 ml-1 transition-transform duration-200 group-hover:rotate-180" />
       </Link>
 
-      {/* Hover bridge */}
-      <div className="fixed left-0 right-0 top-(--nav-height) h-5 opacity-0" />
+      <div className="fixed left-0 right-0 top-(--nav-height) h-20 opacity-0 pointer-events-none group-hover:pointer-events-auto" />
 
-      {/* Dropdown */}
+      {/* Dropdown - positioned right below the bridge */}
       <div
         className="
-      fixed left-0 right-0 top-(--nav-height) bg-ivory z-50 mt-5
+      fixed left-0 right-0 top-(--nav-height) bg-ivory z-50 
+      transform translate-y-5
 
-      opacity-0 invisible translate-y-1 pointer-events-none
+      opacity-0 invisible pointer-events-none
       group-hover:opacity-100 group-hover:visible
-      group-hover:translate-y-0 group-hover:pointer-events-auto
+      group-hover:pointer-events-auto
 
       transition duration-150
     "
       >
+        {/* Spacer inside the dropdown instead of outside */}
+        <div className="h-5" />
+
         <h1 className="uppercase px-14 pt-10 pb-4">Jewelry Type</h1>
         <ul className="py-2">
           {items.map((item) => (
