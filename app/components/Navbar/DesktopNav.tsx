@@ -10,12 +10,14 @@ const DesktopNav = () => {
       {/* top nav section*/}
       <nav className="flex justify-between">
         <div>
-          <Image
-            src="/images/Logo.svg"
-            width={50}
-            height={50}
-            alt="Saint Valor Logo"
-          />
+          <Link href="/" aria-label="Go to homepage">
+            <Image
+              src="/images/Logo.svg"
+              width={50}
+              height={50}
+              alt="Saint Valor Logo"
+            />
+          </Link>
         </div>
 
         <div className="flex items-center gap-2">

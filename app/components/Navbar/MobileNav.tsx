@@ -1,5 +1,48 @@
+"use client";
+
+import { Menu, Search } from "lucide-react";
+import Link from "next/link";
+import Image from "next/image";
+import { useState } from "react";
+import MobileDrawer from "./MobileDrawer";
+
 const MobileNav = () => {
-  return <div>MobileNav</div>;
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <>
+      <nav className="flex items-center justify-between bg-ivory p-3">
+        <div>
+          <button type="button" aria-label="Search">
+            <Search className="text-burgundy" />
+          </button>
+        </div>
+
+        <div>
+          <Link href="/" aria-label="Go to homepage">
+            <Image
+              src="/images/Logo.svg"
+              width={40}
+              height={40}
+              alt="Saint Valor Logo"
+            />
+          </Link>
+        </div>
+
+        <div>
+          <button
+            type="button"
+            aria-label="Open Hamburger Menu"
+            onClick={() => setIsOpen(true)}
+          >
+            <Menu className="text-burgundy" />
+          </button>
+        </div>
+      </nav>
+
+      <MobileDrawer isOpen={isOpen} onClose={() => setIsOpen(false)} />
+    </>
+  );
 };
 
 export default MobileNav;
