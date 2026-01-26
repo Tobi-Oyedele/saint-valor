@@ -5,6 +5,8 @@
   --color-gold: #d4af37; /* buttons & CTA */
   --color-ivory: #f9f7f2; /* background */
   --color-charcoal: #2b2b2b; /* text */
+
+  --animate-hero-in: hero-in 1200ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 h1,
@@ -29,5 +31,23 @@ button {
 
   .bottom-nav-link-style {
     @apply uppercase text-sm hover:text-burgundy cursor-pointer text-charcoal;
+  }
+}
+
+/* Keyframes */
+@keyframes hero-in {
+  from {
+    opacity: 0;
+    transform: translateY(40px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@layer utilities {
+  .animate-hero-in {
+    animation: var(--animate-hero-in);
   }
 }

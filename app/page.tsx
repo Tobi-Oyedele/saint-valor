@@ -1,9 +1,10 @@
+import HeroCarousel from "./components/Hero/HeroCarousel";
+
 const page = () => {
   return (
-    <div>
-      <h1>page</h1>
-      <p>lol</p>
-    </div>
+    <main>
+      <HeroCarousel backgroundSrc="/images/hero-bg.png" autoPlayMs={3500} />
+    </main>
   );
 };
 
