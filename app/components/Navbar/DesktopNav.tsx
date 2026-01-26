@@ -2,7 +2,7 @@ import Image from "next/image";
 import { ChevronDown, ShoppingCart, Heart, UserRound } from "lucide-react";
 import Link from "next/link";
 import { CurrencyDropdown } from "../CurrencyDropdown";
-import { DesktopHoverDropdown } from "../DesktopHoverDropdown";
+import { DesktopDropdown } from "../DesktopDropdown";
 
 const DesktopNav = () => {
   return (
@@ -64,7 +64,7 @@ const DesktopNav = () => {
           New Arrivals
         </Link>
 
-        <DesktopHoverDropdown
+        <DesktopDropdown
           label="Female"
           href="/female"
           items={[
@@ -81,7 +81,7 @@ const DesktopNav = () => {
           ]}
         />
 
-        <DesktopHoverDropdown
+        <DesktopDropdown
           label="Male"
           href="/male"
           items={[
@@ -98,7 +98,7 @@ const DesktopNav = () => {
           ]}
         />
 
-        <DesktopHoverDropdown
+        <DesktopDropdown
           label="Fashion"
           href="/fashion"
           items={[
