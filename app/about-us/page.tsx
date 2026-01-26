@@ -1,4 +1,5 @@
 import Story from "../components/About/Story";
+import Team from "../components/About/Team";
 
 export default function AboutUs() {
   const bgUrl = "/images/hero-bg.png";
@@ -31,6 +32,7 @@ export default function AboutUs() {
       </section>
 
       <Story />
+      <Team />
     </>
   );
 }
