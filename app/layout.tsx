@@ -27,9 +27,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${plex.variable} ${inter.variable} antialiased`}>
+      <body
+        className={`${plex.variable} ${inter.variable} antialiased flex flex-col min-h-screen`}
+      >
         <Navbar />
-        {children}
+        <main className="grow">{children}</main>
         <Footer />
       </body>
     </html>
