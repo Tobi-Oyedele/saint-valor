@@ -12,13 +12,13 @@ export const footerColumns: FooterColumn[] = [
   {
     title: "Company",
     links: [
-      { label: "About us", href: "#" },
-      { label: "New arrivals", href: "#" },
-      { label: "Female", href: "#" },
-      { label: "Male", href: "#" },
-      { label: "Fashion", href: "#" },
-      { label: "Bespoke collection", href: "#" },
-      { label: "Custom Inquiry", href: "#" },
+      { label: "About us", href: "/about-us" },
+      { label: "New arrivals", href: "/new-arrivals" },
+      { label: "Female", href: "/female" },
+      { label: "Male", href: "/male" },
+      { label: "Fashion", href: "/fashion" },
+      { label: "Bespoke collection", href: "/bespoke-collection" },
+      { label: "Custom Inquiry", href: "/custom-inquiry" },
     ],
   },
   {

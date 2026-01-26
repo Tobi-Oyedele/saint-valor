@@ -81,20 +81,20 @@ export default function HeroCarousel({
         <div className="absolute inset-0 flex items-center justify-center px-4 sm:px-6 lg:px-8">
           <div
             key={active.id}
-            className="mx-auto max-w-4xl text-center text-white animate-hero-in"
+            className="mx-auto max-w-4xl text-center text-ivory animate-hero-in"
           >
             <h1 className="whitespace-pre-line text-3xl font-semibold leading-tight md:text-4xl lg:text-5xl">
               {active.title}
             </h1>
 
-            <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-white/85">
+            <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-ivory/85">
               {active.subtitle}
             </p>
 
             <div className="mt-6">
               <Link
                 href={active.ctaHref}
-                className="inline-flex items-center justify-center rounded-full bg-gold px-10 py-3 text-sm text-white transition hover:brightness-110 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/80 sm:text-base"
+                className="inline-flex items-center justify-center rounded-full bg-gold px-10 py-3 text-sm text-ivory transition hover:brightness-110 focus:outline-none focus-visible:ring-2 focus-visible:ring-ivory/80 sm:text-base"
               >
                 {active.ctaLabel}
               </Link>
@@ -107,7 +107,7 @@ export default function HeroCarousel({
           type="button"
           onClick={prev}
           aria-label="Previous slide"
-          className="absolute left-3 top-1/2 z-10 -translate-y-1/2 rounded-full border border-white/50 bg-black/20 p-2 text-white backdrop-blur transition hover:bg-black/35 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/80 sm:left-6 sm:p-3"
+          className="absolute left-3 top-1/2 z-10 -translate-y-1/2 rounded-full border border-ivory/50 bg-black/20 p-2 text-ivory backdrop-blur transition hover:bg-black/35 focus:outline-none focus-visible:ring-2 focus-visible:ring-ivory/80 sm:left-6 sm:p-3"
         >
           <ChevronLeft className="h-5 w-5 " />
         </button>
@@ -117,7 +117,7 @@ export default function HeroCarousel({
           type="button"
           onClick={next}
           aria-label="Next slide"
-          className="absolute right-3 top-1/2 z-10 -translate-y-1/2 rounded-full border border-white/50 bg-black/20 p-2 text-white backdrop-blur transition hover:bg-black/35 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/80 sm:right-6 sm:p-3"
+          className="absolute right-3 top-1/2 z-10 -translate-y-1/2 rounded-full border border-ivory/50 bg-black/20 p-2 text-ivory backdrop-blur transition hover:bg-black/35 focus:outline-none focus-visible:ring-2 focus-visible:ring-ivory/80 sm:right-6 sm:p-3"
         >
           <ChevronRight className="h-5 w-5" />
         </button>

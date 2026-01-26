@@ -4,7 +4,7 @@ import { footerColumns } from "./footerData";
 
 export default function Footer() {
   return (
-    <footer className="bg-burgundy text-white">
+    <footer className="bg-burgundy text-ivory">
       {/* Top */}
       <div className="mx-auto max-w-7xl py-10 px-6">
         <div className="grid gap-10 md:grid-cols-12 md:gap-8">
@@ -25,7 +25,7 @@ export default function Footer() {
                 <p className="text-lg font-semibold leading-tight">
                   Saint Valor
                 </p>
-                <p className="mt-2 max-w-sm text-sm leading-relaxed text-white/75">
+                <p className="mt-2 max-w-sm text-sm leading-relaxed text-ivory/75">
                   Where elegance meets distinction — explore our collections and
                   bespoke experiences with care.
                 </p>
@@ -45,7 +45,7 @@ export default function Footer() {
                       <li key={link.label}>
                         <Link
                           href={link.href}
-                          className="text-sm text-white/70 transition hover:text-white"
+                          className="text-sm text-ivory/70 transition hover:text-ivory"
                         >
                           {link.label}
                         </Link>
@@ -59,17 +59,17 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-6 flex flex-col gap-3 text-xs text-white/70 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-6 flex flex-col gap-3 text-xs text-ivory/70 sm:flex-row sm:items-center sm:justify-between">
           <p>
             © {new Date().getFullYear()} Saint valor, Inc. All rights reserved
           </p>
 
           <div className="flex flex-wrap gap-x-6 gap-y-2">
-            <Link href="#" className="transition hover:text-white">
+            <Link href="#" className="transition hover:text-ivory">
               Privacy policy
             </Link>
 
-            <Link href="#" className="transition hover:text-white">
+            <Link href="#" className="transition hover:text-ivory">
               Terms and conditions
             </Link>
           </div>
