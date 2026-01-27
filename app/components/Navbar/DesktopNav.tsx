@@ -1,10 +1,16 @@
+"use client";
+
 import Image from "next/image";
 import { ChevronDown, ShoppingCart, Heart, UserRound } from "lucide-react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { CurrencyDropdown } from "./CurrencyDropdown";
 import { DesktopDropdown } from "./DesktopDropdown";
 
 const DesktopNav = () => {
+  const pathname = usePathname();
+  const isActive = (href: string) => pathname === href;
+
   return (
     <nav className="py-4 px-10 space-y-6 bg-ivory">
       {/* top nav section*/}
@@ -60,7 +66,10 @@ const DesktopNav = () => {
 
       {/* bottom nav section */}
       <nav className="flex justify-center items-center gap-7">
-        <Link href="/new-arrivals" className="bottom-nav-link-style">
+        <Link
+          href="/new-arrivals"
+          className={`bottom-nav-link-style ${isActive("/new-arrivals") ? "text-burgundy" : ""}`}
+        >
           New Arrivals
         </Link>
 
@@ -115,13 +124,22 @@ const DesktopNav = () => {
           ]}
         />
 
-        <Link href="/bespoke-collection" className="bottom-nav-link-style">
+        <Link
+          href="/bespoke-collection"
+          className={`bottom-nav-link-style ${isActive("/bespoke-collection") ? "text-burgundy" : ""}`}
+        >
           Bespoke Collection
         </Link>
-        <Link href="/custom-inquiry" className="bottom-nav-link-style">
+        <Link
+          href="/custom-inquiry"
+          className={`bottom-nav-link-style ${isActive("/custom-inquiry") ? "text-burgundy" : ""}`}
+        >
           Custom Inquiry
         </Link>
-        <Link href="/about-us" className="bottom-nav-link-style">
+        <Link
+          href="/about-us"
+          className={`bottom-nav-link-style ${isActive("/about-us") ? "text-burgundy" : ""}`}
+        >
           About Us
         </Link>
       </nav>

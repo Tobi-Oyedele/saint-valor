@@ -33,7 +33,7 @@ button {
   }
 
   .bottom-nav-link-style {
-    @apply uppercase text-sm hover:text-burgundy cursor-pointer text-charcoal;
+    @apply uppercase text-sm hover:text-burgundy cursor-pointer text-charcoal font-medium;
   }
 
   .about-social-media {
