@@ -64,7 +64,7 @@ export function DesktopDropdown({
       <div
         className={`
           fixed left-0 right-0 top-(--nav-height) bg-ivory z-50 
-          transform translate-y-5
+          transform translate-y-4 border-t border-burgundy
           transition-all duration-150
           ${
             isOpen
@@ -73,7 +73,7 @@ export function DesktopDropdown({
           }
         `}
       >
-        <h1 className="uppercase px-14 pt-10 pb-4">Jewelry Type</h1>
+        <h1 className="uppercase px-14 pt-10 font-medium">Jewelry Type</h1>
         <ul className="py-2">
           {items.map((item) => (
             <li key={item.href}>

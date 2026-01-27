@@ -50,21 +50,27 @@ export default function MobileDrawer({ isOpen, onClose }: DrawerProps) {
         <div className="flex h-full flex-col">
           {/* Top: Search */}
           <div className="px-4 pt-4">
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-burgundy/70" />
-              <input
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                placeholder="Search...."
-                className="w-full border-b border-burgundy/30 bg-transparent py-2 pl-9 pr-9 text-sm outline-none focus:border-burgundy"
-              />
+            <div className="flex items-center gap-3">
+              {/* Search Field */}
+              <div className="relative flex-1 max-w-md border-b border-burgundy/30 focus-within:border-burgundy transition-colors">
+                <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-burgundy/70" />
+
+                <input
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  placeholder="Search..."
+                  className="w-full bg-transparent py-2 pl-9 pr-2 text-sm outline-none"
+                />
+              </div>
+
+              {/* Close Button */}
               <button
                 type="button"
                 aria-label="Close menu"
                 onClick={onClose}
-                className="absolute right-2 top-1/2 -translate-y-1/2 rounded p-1"
+                className="rounded p-2"
               >
-                <X className="h-4 w-4 text-burgundy" />
+                <X className="h-5 w-5 text-burgundy" />
               </button>
             </div>
 
