@@ -74,10 +74,6 @@ export default function HeroCarousel({
           className="object-cover"
         />
 
-        {/* Overlay for readability */}
-        <div className="absolute inset-0 bg-black/35" />
-
-        {/* TEXT LAYER (we animate text only) */}
         <div className="absolute inset-0 flex items-center justify-center px-4 sm:px-6 lg:px-8">
           <div
             key={active.id}

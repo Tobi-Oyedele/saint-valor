@@ -11,8 +11,9 @@ import {
   X,
   Search,
 } from "lucide-react";
-import { CurrencyDropdown } from "../CurrencyDropdown";
+import { CurrencyDropdown } from "./CurrencyDropdown";
 import { MENU } from "../data/mobileDrawer";
+import LinkButton from "../ui/LinkButton";
 
 type DrawerProps = {
   isOpen: boolean;
@@ -189,20 +190,20 @@ export default function MobileDrawer({ isOpen, onClose }: DrawerProps) {
           {/* Bottom buttons */}
           <div className="border-t border-burgundy/15 px-4 py-4">
             <div className="space-y-3">
-              <Link
+              <LinkButton
                 href="/login"
-                onClick={onClose}
-                className="block w-full rounded-full bg-gold px-4 py-3 text-center text-xs font-semibold text-burgundy"
-              >
-                Log In
-              </Link>
-              <Link
+                label="Log In"
+                size="sm"
+                variant="primary"
+                fullWidth
+              />
+              <LinkButton
                 href="/signup"
-                onClick={onClose}
-                className="block w-full rounded-full border border-gold px-4 py-3 text-center text-xs font-semibold text-burgundy"
-              >
-                Sign Up
-              </Link>
+                label="Sign Up"
+                size="sm"
+                variant="outline"
+                fullWidth
+              />
             </div>
           </div>
         </div>

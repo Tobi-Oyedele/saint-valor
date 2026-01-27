@@ -1,8 +1,8 @@
 import Image from "next/image";
 import { ChevronDown, ShoppingCart, Heart, UserRound } from "lucide-react";
 import Link from "next/link";
-import { CurrencyDropdown } from "../CurrencyDropdown";
-import { DesktopDropdown } from "../DesktopDropdown";
+import { CurrencyDropdown } from "./CurrencyDropdown";
+import { DesktopDropdown } from "./DesktopDropdown";
 
 const DesktopNav = () => {
   return (

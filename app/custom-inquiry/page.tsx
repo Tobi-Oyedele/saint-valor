@@ -1,5 +1,11 @@
+import CustomInquiry from "../components/About/CustomInquiry";
+
 const page = () => {
-  return <div>Custom Inquiry</div>;
+  return (
+    <section className="lg:py-8 bg-ivory">
+      <CustomInquiry />
+    </section>
+  );
 };
 
 export default page;
