@@ -1,10 +1,10 @@
-# 🕊️ Saint Valor — Frontend
+# Saint Valor — Frontend
 
 **Saint Valor** is a modern luxury jewelry e-commerce experience built with a focus on elegance, performance, and timeless design. This repository contains the **frontend application** powering the Saint Valor online store.
 
 ---
 
-## ✨ About Saint Valor
+## About Saint Valor
 
 Founded with an unwavering commitment to **quiet luxury** and exquisite refinement, Saint Valor emerged from a passion for jewelry that speaks softly yet confidently. We believe luxury should be felt, not shouted — through impeccable materials, thoughtful proportions, and pieces created to be treasured for generations.
 
@@ -14,7 +14,7 @@ This philosophy guides not only our jewelry, but also the **digital experience**
 
 ---
 
-## 🛠 Tech Stack
+## Tech Stack
 
 This frontend application is built with modern, scalable technologies:
 
@@ -27,7 +27,7 @@ This frontend application is built with modern, scalable technologies:
 
 ---
 
-## 🎯 Project Goals
+## Project Goals
 
 The Saint Valor frontend is designed to:
 
@@ -39,22 +39,22 @@ The Saint Valor frontend is designed to:
 
 ---
 
-## 🧩 Core Features (Frontend)
+## Core Features (Frontend)
 
-- 🏠 Elegant homepage with hero sections & featured collections  
-- 💎 Product listing and product detail pages  
-- 🛍 Shopping cart UI  
-- ❤️ Favourite UI  
-- 🔍 Search interface  
-- 📱 Fully responsive navigation (mobile & desktop)  
-- 🎨 Luxury-focused design system using Tailwind CSS  
-- 🧱 Reusable UI components (buttons, cards, badges, etc.)
+- Elegant homepage with hero sections & featured collections  
+- Product listing and product detail pages  
+- Shopping cart UI  
+- Favourite UI  
+- Search interface  
+- Fully responsive navigation (mobile & desktop)  
+- Luxury-focused design system using Tailwind CSS  
+- Reusable UI components (buttons, cards, badges, etc.)
 
-> ⚠️ Note: This repository contains the **frontend only**. Product data, authentication, orders, and payments are handled by the backend service.
+>  Note: This repository contains the **frontend only**. Product data, authentication, orders, and payments are handled by the backend service.
 
 ---
 
-## 📁 Project Structure (Simplified)
+## Project Structure (Simplified)
 
 ```
 saint-valor-frontend/
@@ -68,16 +68,16 @@ saint-valor-frontend/
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
-### 1️⃣ Clone the Repository
+### Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/saint-valor-frontend.git
+git clone https://github.com/Tobi-Oyedele/saint-valor
 cd saint-valor-frontend
 ```
 
-### 2️⃣ Install Dependencies
+### Install Dependencies
 
 ```bash
 npm install
@@ -87,7 +87,7 @@ yarn install
 pnpm install
 ```
 
-### 3️⃣ Run the Development Server
+### Run the Development Server
 
 ```bash
 npm run dev
@@ -108,7 +108,7 @@ Open **http://localhost:3000** in your browser to view the app.
 
 ---
 
-## 🎨 Styling Approach
+## Styling Approach
 
 Saint Valor’s design system is built using **Tailwind CSS** with a focus on:
 
@@ -121,7 +121,7 @@ Reusable class combinations are managed with **`clsx`** for cleaner conditional 
 
 ---
 
-## 🔌 Backend Integration
+## Backend Integration
 
 This frontend is built to consume APIs from a dedicated backend service.
 
@@ -137,11 +137,11 @@ All API logic should be centralized in a **service or API utility layer** to kee
 
 ---
 
-## 🌍 Deployment
+## Deployment
 
 The project can be deployed easily on platforms that support Next.js, such as:
 
-- **Vercel** (recommended)  
+- **Vercel**
 - Netlify  
 - AWS / Docker-based hosting  
 
@@ -154,7 +154,7 @@ npm run start
 
 ---
 
-## 🤍 Brand Philosophy in Code
+## Brand Philosophy in Code
 
 Saint Valor is more than an e-commerce store — it’s a digital reflection of timeless elegance. Every spacing choice, animation, and layout decision is guided by the same principles as the jewelry itself:
 
@@ -162,7 +162,7 @@ Saint Valor is more than an e-commerce store — it’s a digital reflection of 
 
 ---
 
-## 📌 Future Improvements
+## Future Improvements
 
 - Authentication flows  
 - Checkout and payment integration  
@@ -172,6 +172,6 @@ Saint Valor is more than an e-commerce store — it’s a digital reflection of 
 
 ---
 
-## 📄 License
+## License
 
 This project is proprietary and built for **Saint Valor**.
