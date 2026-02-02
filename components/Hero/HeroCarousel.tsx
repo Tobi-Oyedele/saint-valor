@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { heroSlides } from "./heroData";
+import { heroSlides } from "../../data/heroData";
 
 type Props = {
   autoPlayMs?: number;
