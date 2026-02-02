@@ -97,14 +97,14 @@ export default function B2BCustomInquiry() {
 
                 <div className="mt-3 flex flex-wrap items-center gap-4 text-sm text-charcoal">
                   <Link
-                    href="#"
+                    href="https://www.instagram.com/saint.valor_?igsh=eWQwcXVjb3Bpb3Fy&utm_source=qr"
                     className="about-social-media"
                     aria-label="Instagram"
                   >
                     <Instagram className="h-4 w-4" /> Instagram
                   </Link>
                   <Link
-                    href="#"
+                    href=" https://x.com/saintvalor_?s=21"
                     className="about-social-media"
                     aria-label="Twitter"
                   >
@@ -118,7 +118,7 @@ export default function B2BCustomInquiry() {
                     <Facebook className="h-4 w-4" /> Facebook
                   </Link>
                   <Link
-                    href="#"
+                    href="https://www.tiktok.com/@saint.valor_?_r=1&_t=ZS-93UzpRUktaZ"
                     className="about-social-media"
                     aria-label="TikTok"
                   >

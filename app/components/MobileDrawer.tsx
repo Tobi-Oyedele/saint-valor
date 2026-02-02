@@ -11,9 +11,9 @@ import {
   X,
   Search,
 } from "lucide-react";
-import { CurrencyDropdown } from "./CurrencyDropdown";
-import { MENU } from "../data/mobileDrawer";
-import LinkButton from "../ui/LinkButton";
+import { CurrencyDropdown } from "./Navbar/CurrencyDropdown";
+import { MENU } from "./Navbar/mobileDrawer";
+import LinkButton from "./ui/LinkButton";
 
 type DrawerProps = {
   isOpen: boolean;

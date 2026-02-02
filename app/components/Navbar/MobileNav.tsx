@@ -1,23 +1,17 @@
 "use client";
 
-import { Menu, Search } from "lucide-react";
+import { Menu } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
-import MobileDrawer from "./MobileDrawer";
+import MobileDrawer from "../MobileDrawer";
 
 const MobileNav = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <>
-      <nav className="flex items-center justify-between bg-ivory p-3">
-        <div>
-          <button type="button" aria-label="Search">
-            <Search className="text-burgundy" />
-          </button>
-        </div>
-
+      <nav className="flex items-center justify-between bg-ivory p-4">
         <div>
           <Link href="/" aria-label="Go to homepage">
             <Image
