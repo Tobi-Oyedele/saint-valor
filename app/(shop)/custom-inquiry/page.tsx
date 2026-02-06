@@ -1,4 +1,4 @@
-import CustomInquiry from "../../components/About/CustomInquiry";
+import CustomInquiry from "../../../components/About/CustomInquiry";
 
 const page = () => {
   return (

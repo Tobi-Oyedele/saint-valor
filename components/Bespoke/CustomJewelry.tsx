@@ -46,7 +46,7 @@ export const CustomJewelrySection: React.FC = () => {
             <br />
             Crafted Around You
           </h2>
-          <p className="mt-3 text-sm text-charcoal/70">
+          <p className="mt-3 text-sm text-charcoal">
             Work with Saint Valor to create a piece that reflects your story,
             style, and individuality.
           </p>

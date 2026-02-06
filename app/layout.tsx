@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { IBM_Plex_Sans, Inter } from "next/font/google";
 import "./globals.css";
-import Navbar from "../components/Navbar/Navbar";
-import Footer from "../components/Footer/Footer";
 
 export const inter = Inter({
   variable: "--font-inter",
@@ -31,9 +29,7 @@ export default function RootLayout({
       <body
         className={`${plex.variable} ${inter.variable} antialiased flex flex-col min-h-screen`}
       >
-        <Navbar />
-        <main className="grow">{children}</main>
-        <Footer />
+        {children}
       </body>
     </html>
   );

@@ -57,7 +57,6 @@ export default function ShopCollectionSection() {
           {collections.map((item) => (
             <article key={item.id} className="group flex flex-col items-center">
               <div className="w-full overflow-hidden">
-                {/* Image wrapper keeps consistent height */}
                 <div className="relative aspect-4/3 w-full overflow-hidden">
                   <Image
                     src={item.imageSrc}

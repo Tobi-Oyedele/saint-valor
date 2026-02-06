@@ -1,5 +1,5 @@
-import HeroCarousel from "../components/Hero/HeroCarousel";
-import Collection from "../components/Home/Collection";
+import HeroCarousel from "../../components/Hero/HeroCarousel";
+import Collection from "../../components/Home/Collection";
 
 const page = () => {
   return (
