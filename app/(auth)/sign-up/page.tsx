@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { EyeOff } from "lucide-react";
+import { EyeOff, Eye } from "lucide-react";
 
 type SignUpFormData = {
   email: string;
@@ -23,6 +23,7 @@ export default function SignUpPage() {
   const [formData, setFormData] = useState<SignUpFormData>(initialSignUpData);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string>("");
+  const [showPassword, setShowPassword] = useState(false);
 
   // One handler for all inputs
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -102,7 +103,7 @@ export default function SignUpPage() {
                 type="email"
                 autoComplete="email"
                 placeholder="Enter Email Address"
-                className="w-full rounded-lg border border-placeholder bg-white px-3 py-2.5 text-sm outline-none focus:border-burgundy/40 focus:ring-2 focus:ring-burgundy/10"
+                className="w-full rounded-lg border border-placeholder bg-white px-3 py-2.5 text-sm outline-none"
               />
             </div>
 
@@ -114,17 +115,22 @@ export default function SignUpPage() {
                   name="password"
                   value={formData.password}
                   onChange={handleChange}
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   autoComplete="new-password"
                   placeholder="Enter Password"
-                  className="w-full rounded-lg border border-placeholder bg-white px-3 py-2.5 pr-10 text-sm outline-none focus:border-burgundy/40 focus:ring-2 focus:ring-burgundy/10"
+                  className="w-full rounded-lg border border-placeholder bg-white px-3 py-2.5 pr-10 text-sm outline-none"
                 />
                 <button
                   type="button"
                   aria-label="Toggle password visibility"
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-charcoal/50 hover:text-charcoal"
+                  onClick={() => setShowPassword((prev) => !prev)}
+                  className="cursor-pointer absolute right-3 top-1/2 -translate-y-1/2 text-charcoal/50 hover:text-charcoal"
                 >
-                  <EyeOff className="h-4 w-4" />
+                  {showPassword ? (
+                    <Eye className="h-4 w-4" />
+                  ) : (
+                    <EyeOff className="h-4 w-4" />
+                  )}
                 </button>
               </div>
             </div>
@@ -139,7 +145,7 @@ export default function SignUpPage() {
                   type="text"
                   autoComplete="given-name"
                   placeholder="Enter First Name"
-                  className="w-full rounded-lg border border-placeholder bg-white px-3 py-2.5 text-sm outline-none focus:border-burgundy/40 focus:ring-2 focus:ring-burgundy/10"
+                  className="w-full rounded-lg border border-placeholder bg-white px-3 py-2.5 text-sm outline-none"
                 />
               </div>
 
@@ -152,7 +158,7 @@ export default function SignUpPage() {
                   type="text"
                   autoComplete="family-name"
                   placeholder="Enter Last Name"
-                  className="w-full rounded-lg border border-placeholder bg-white px-3 py-2.5 text-sm outline-none focus:border-burgundy/40 focus:ring-2 focus:ring-burgundy/10"
+                  className="w-full rounded-lg border border-placeholder bg-white px-3 py-2.5 text-sm outline-none"
                 />
               </div>
             </div>
