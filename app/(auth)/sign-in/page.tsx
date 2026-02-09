@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import PasswordInput from "@/components/ui/PasswordInput";
 
 type SignInFormData = {
   email: string;
@@ -67,15 +68,13 @@ export default function SignInPage() {
         </div>
 
         <div className="space-y-1">
-          <label className="text-sm">Password</label>
-          <input
+          <PasswordInput
+            label="Password"
             name="password"
             value={formData.password}
             onChange={handleChange}
-            type="password"
+            placeholder="Enter Password"
             autoComplete="current-password"
-            className="w-full rounded border p-3"
-            placeholder="••••••••"
           />
         </div>
 
