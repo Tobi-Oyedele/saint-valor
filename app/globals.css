@@ -6,6 +6,7 @@
   --color-ivory: #f9f7f2; /* background */
   --color-charcoal: #2b2b2b; /* text */
   --color-placeholder: #c8c8c8; /* placeholder color */
+  --color-secondary: #878787; /* secondary text color */
 
   --animate-hero-in: hero-in 1200ms cubic-bezier(0.16, 1, 0.3, 1);
 }
