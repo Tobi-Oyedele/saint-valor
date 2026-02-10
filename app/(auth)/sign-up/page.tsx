@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import PasswordInput from "@/components/ui/PasswordInput";
+import EmailInput from "@/components/ui/EmailInput";
 
 type SignUpFormData = {
   email: string;
@@ -51,13 +52,16 @@ export default function SignUpPage() {
 
     if (!formData.email.trim()) newErrors.email = "Email is required.";
     if (!formData.password.trim()) newErrors.password = "Password is required.";
-
+    if (!formData.firstName.trim())
+      newErrors.firstName = "First Name is required.";
+    if (!formData.lastName.trim()) newErrors.lastName = "Last Name is required";
     setErrors(newErrors);
     if (Object.keys(newErrors).length > 0) return;
 
     try {
       setLoading(true);
 
+      //remove & replace with API call later
       console.log("SIGN UP payload:", formData);
 
       setFormData(initialSignUpData);
@@ -103,19 +107,14 @@ export default function SignUpPage() {
 
           <form onSubmit={handleSubmit} className="mt-6 space-y-4">
             <div className="space-y-1.5">
-              <label className="text-sm text-charcoal">Email Address</label>
-              <input
+              <EmailInput
+                label="Email Address"
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                type="email"
-                autoComplete="email"
                 placeholder="Enter Email Address"
-                className="w-full rounded-lg border border-placeholder bg-white px-3 py-2.5 text-sm outline-none"
+                error={errors.email}
               />
-              {errors.email ? (
-                <p className="text-xs text-red-600">{errors.email}</p>
-              ) : null}
             </div>
 
             <div className="relative">
@@ -125,7 +124,6 @@ export default function SignUpPage() {
                 value={formData.password}
                 onChange={handleChange}
                 placeholder="Enter Password"
-                autoComplete="new-password"
                 error={errors.password}
               />
             </div>
@@ -140,8 +138,11 @@ export default function SignUpPage() {
                   type="text"
                   autoComplete="given-name"
                   placeholder="Enter First Name"
-                  className="w-full rounded-lg border border-placeholder bg-white px-3 py-2.5 text-sm outline-none"
+                  className={`w-full rounded-lg border bg-white px-3 py-2.5 text-sm outline-none ${errors.firstName ? "border-red-500 focus:border-red-500 focus:ring-red-200" : "border-placeholder"}`}
                 />
+                {errors.firstName ? (
+                  <p className="text-xs text-red-600">{errors.firstName}</p>
+                ) : null}
               </div>
 
               <div className="space-y-1.5">
@@ -153,8 +154,11 @@ export default function SignUpPage() {
                   type="text"
                   autoComplete="family-name"
                   placeholder="Enter Last Name"
-                  className="w-full rounded-lg border border-placeholder bg-white px-3 py-2.5 text-sm outline-none"
+                  className={`w-full rounded-lg border bg-white px-3 py-2.5 text-sm outline-none ${errors.lastName ? "border-red-500 focus:border-red-500 focus:ring-red-200" : "border-placeholder"}`}
                 />
+                {errors.lastName ? (
+                  <p className="text-xs text-red-600">{errors.lastName}</p>
+                ) : null}
               </div>
             </div>
 
@@ -168,10 +172,7 @@ export default function SignUpPage() {
 
             <p className="pt-1 text-center text-xs text-secondary">
               Already have an account?
-              <Link
-                href="/sign-in"
-                className="text-charcoal underline underline-offset-4"
-              >
+              <Link href="/sign-in" className="text-charcoal underline pl-2">
                 Log In
               </Link>
             </p>

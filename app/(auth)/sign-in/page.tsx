@@ -2,10 +2,19 @@
 
 import { useState } from "react";
 import PasswordInput from "@/components/ui/PasswordInput";
+import EmailInput from "@/components/ui/EmailInput";
+import Link from "next/link";
+import Image from "next/image";
 
 type SignInFormData = {
   email: string;
   password: string;
+};
+
+type FormErrors = {
+  email?: string;
+  password?: string;
+  form?: string;
 };
 
 const initialSignInData: SignInFormData = {
@@ -16,7 +25,7 @@ const initialSignInData: SignInFormData = {
 export default function SignInPage() {
   const [formData, setFormData] = useState<SignInFormData>(initialSignInData);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string>("");
+  const [errors, setErrors] = useState<FormErrors>({});
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = e.target;
@@ -25,67 +34,99 @@ export default function SignInPage() {
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    setError("");
+    const newErrors: FormErrors = {};
 
-    if (!formData.email || !formData.password) {
-      setError("Email and password are required.");
-      return;
-    }
+    if (!formData.email.trim()) newErrors.email = "Email is required.";
+    if (!formData.password.trim()) newErrors.password = "Password is required.";
+    setErrors(newErrors);
+    if (Object.keys(newErrors).length > 0) return;
 
     try {
       setLoading(true);
 
-      // Backend-ready: replace with API call later
+      //remove & replace with API call later
       console.log("SIGN IN payload:", formData);
 
       // Optionally reset
       setFormData(initialSignInData);
-    } catch (err) {
-      setError("Invalid credentials or something went wrong.");
+      setErrors({});
+    } catch {
+      setErrors({ form: "Something went wrong. Please try again." });
     } finally {
       setLoading(false);
     }
   }
 
   return (
-    <main className="mx-auto max-w-md p-6">
-      <h1 className="text-2xl font-semibold">Welcome back</h1>
+    <main className="min-h-screen lg:grid lg:grid-cols-2">
+      <div className="relative hidden lg:block min-h-screen">
+        <Image
+          src="/images/sign-in.png"
+          alt="sign up image"
+          fill
+          priority
+          className="object-cover"
+          sizes="50vw"
+        />
+      </div>
 
-      {error ? <p className="mt-3 text-sm text-red-600">{error}</p> : null}
+      <div className="flex min-h-screen items-center justify-center px-4 sm:px-8">
+        <div className="w-full max-w-115 rounded-2xl bg-white p-6 sm:p-10">
+          <Link href="/" aria-label="Go to homepage" className="inline-flex">
+            <Image
+              src="/images/Logo.svg"
+              width={44}
+              height={44}
+              alt="Saint Valor Logo"
+            />
+          </Link>
 
-      <form onSubmit={handleSubmit} className="mt-6 space-y-4">
-        <div className="space-y-1">
-          <label className="text-sm">Email address</label>
-          <input
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            type="email"
-            autoComplete="email"
-            className="w-full rounded border p-3"
-            placeholder="you@example.com"
-          />
+          <h1 className="text-2xl font-semibold">Sign In</h1>
+          <p className="mt-3 text-sm leading-relaxed text-secondary">
+            Welcome back to Saint Valor — continue your journey through curated
+            luxury jewelry.
+          </p>
+
+          <form onSubmit={handleSubmit} className="mt-6 space-y-4">
+            <div className="space-y-1">
+              <EmailInput
+                label="Email Address"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                placeholder="Enter Email Address"
+                error={errors.email}
+              />
+            </div>
+
+            <div className="space-y-1">
+              <PasswordInput
+                label="Password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                placeholder="Enter Password"
+                error={errors.password}
+              />
+            </div>
+
+            <button
+              type="submit"
+              disabled={loading}
+              className="cursor-pointer mt-2 w-full rounded-full bg-gold py-3 text-sm font-medium text-white disabled:opacity-60"
+            >
+              {loading ? "Signing in..." : "Sign in"}
+            </button>
+
+            <p className="pt-1 text-center text-xs text-secondary">
+              Don&apos;t have an account?
+              <Link href="/sign-up" className="text-charcoal underline pl-2">
+                Sign Up
+              </Link>
+            </p>
+          </form>
         </div>
-
-        <div className="space-y-1">
-          <PasswordInput
-            label="Password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            placeholder="Enter Password"
-            autoComplete="current-password"
-          />
-        </div>
-
-        <button
-          type="submit"
-          disabled={loading}
-          className="w-full rounded bg-black p-3 text-white disabled:opacity-60"
-        >
-          {loading ? "Signing in..." : "Sign in"}
-        </button>
-      </form>
+      </div>
     </main>
   );
 }

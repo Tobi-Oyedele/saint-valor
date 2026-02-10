@@ -1,11 +1,7 @@
-"use client";
-
-import { useState } from "react";
-import { EyeOff, Eye } from "lucide-react";
 import clsx from "clsx";
 
-type PasswordInputProps = {
-  label?: string;
+type EmailInputProps = {
+  label: string;
   name: string;
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -13,16 +9,14 @@ type PasswordInputProps = {
   error?: string;
 };
 
-const PasswordInput = ({
-  label = "Password",
+const EmailInput = ({
+  label = "Email",
   name,
   value,
   onChange,
-  placeholder = "Enter Password",
+  placeholder,
   error,
-}: PasswordInputProps) => {
-  const [showPassword, setShowPassword] = useState(false);
-
+}: EmailInputProps) => {
   return (
     <div className="space-y-1.5">
       <label htmlFor={name} className="text-sm text-charcoal">
@@ -31,11 +25,11 @@ const PasswordInput = ({
 
       <div className="relative">
         <input
+          type="text"
           id={name}
           name={name}
           value={value}
           onChange={onChange}
-          type={showPassword ? "text" : "password"}
           placeholder={placeholder}
           className={clsx(
             "w-full rounded-lg border bg-white px-3 py-2.5 pr-10 text-sm outline-none",
@@ -44,25 +38,10 @@ const PasswordInput = ({
               : "border-placeholder",
           )}
         />
-
-        <button
-          type="button"
-          aria-label={showPassword ? "Hide password" : "Show password"}
-          onClick={() => setShowPassword((prev) => !prev)}
-          className="absolute right-3 top-1/2 -translate-y-1/2 text-charcoal/50 hover:text-charcoal"
-        >
-          {showPassword ? (
-            <Eye className="h-4 w-4" />
-          ) : (
-            <EyeOff className="h-4 w-4" />
-          )}
-        </button>
       </div>
-
-      {/* Error Message */}
       {error && <p className="text-xs text-red-600">{error}</p>}
     </div>
   );
 };
 
-export default PasswordInput;
+export default EmailInput;
