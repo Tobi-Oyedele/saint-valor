@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import PasswordInput from "@/components/ui/PasswordInput";
 import EmailInput from "@/components/ui/EmailInput";
+import { signUpSchema } from "@/lib/validation/auth";
 
 type SignUpFormData = {
   email: string;
@@ -48,15 +49,19 @@ export default function SignUpPage() {
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    const newErrors: FormErrors = {};
+    const result = signUpSchema.safeParse(formData);
 
-    if (!formData.email.trim()) newErrors.email = "Email is required.";
-    if (!formData.password.trim()) newErrors.password = "Password is required.";
-    if (!formData.firstName.trim())
-      newErrors.firstName = "First Name is required.";
-    if (!formData.lastName.trim()) newErrors.lastName = "Last Name is required";
-    setErrors(newErrors);
-    if (Object.keys(newErrors).length > 0) return;
+    if (!result.success) {
+      const fieldErrors: FormErrors = {};
+
+      result.error.issues.forEach((issue) => {
+        const field = issue.path[0] as keyof FormErrors;
+        fieldErrors[field] = issue.message;
+      });
+
+      setErrors(fieldErrors);
+      return;
+    }
 
     try {
       setLoading(true);

@@ -5,6 +5,7 @@ import PasswordInput from "@/components/ui/PasswordInput";
 import EmailInput from "@/components/ui/EmailInput";
 import Link from "next/link";
 import Image from "next/image";
+import { signInSchema } from "@/lib/validation/auth";
 
 type SignInFormData = {
   email: string;
@@ -34,20 +35,26 @@ export default function SignInPage() {
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const newErrors: FormErrors = {};
 
-    if (!formData.email.trim()) newErrors.email = "Email is required.";
-    if (!formData.password.trim()) newErrors.password = "Password is required.";
-    setErrors(newErrors);
-    if (Object.keys(newErrors).length > 0) return;
+    const result = signInSchema.safeParse(formData);
+
+    if (!result.success) {
+      const fieldErrors: FormErrors = {};
+
+      result.error.issues.forEach((issue) => {
+        const field = issue.path[0] as keyof FormErrors;
+        fieldErrors[field] = issue.message;
+      });
+
+      setErrors(fieldErrors);
+      return;
+    }
 
     try {
       setLoading(true);
 
-      //remove & replace with API call later
-      console.log("SIGN IN payload:", formData);
+      console.log("SIGN IN payload:", result.data);
 
-      // Optionally reset
       setFormData(initialSignInData);
       setErrors({});
     } catch {
