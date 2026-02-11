@@ -79,7 +79,7 @@ export default function SignUpPage() {
   }
 
   return (
-    <main className="min-h-screen lg:grid lg:grid-cols-2">
+    <main className="min-h-screen lg:grid lg:grid-cols-2 w-full">
       <div className="relative hidden lg:block min-h-screen">
         <Image
           src="/images/sign-up.png"
@@ -93,14 +93,12 @@ export default function SignUpPage() {
 
       <div className="flex min-h-screen items-center justify-center px-4 sm:px-8">
         <div className="w-full max-w-115 rounded-2xl bg-white p-6 sm:p-10">
-          <Link href="/" aria-label="Go to homepage" className="inline-flex">
-            <Image
-              src="/images/Logo.svg"
-              width={44}
-              height={44}
-              alt="Saint Valor Logo"
-            />
-          </Link>
+          <Image
+            src="/images/Logo.svg"
+            width={44}
+            height={44}
+            alt="Saint Valor Logo"
+          />
 
           <h1 className="mt-5 text-3xl font-semibold text-charcoal sm:text-4xl">
             Sign Up

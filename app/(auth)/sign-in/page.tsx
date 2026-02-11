@@ -65,7 +65,7 @@ export default function SignInPage() {
   }
 
   return (
-    <main className="min-h-screen lg:grid lg:grid-cols-2">
+    <main className="min-h-screen lg:grid lg:grid-cols-2 w-full">
       <div className="relative hidden lg:block min-h-screen">
         <Image
           src="/images/sign-in.png"
@@ -115,6 +115,9 @@ export default function SignInPage() {
                 placeholder="Enter Password"
                 error={errors.password}
               />
+              <Link href="/forgot-password" className="text-xs text-charcoal">
+                Forgot Password?
+              </Link>
             </div>
 
             <button
