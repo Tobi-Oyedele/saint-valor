@@ -47,9 +47,6 @@ export default function ForgotPasswordPage() {
     try {
       const res = await mockForgotPassword(email);
 
-      // SECURITY + REALISTIC FLOW:
-      // Always go to the same "check inbox" UI.
-      // (Even if email doesn't exist)
       if (res.ok) {
         router.push(`/check-inbox?email=${encodeURIComponent(email)}`);
         setFormData({ email: "" });
