@@ -5,15 +5,14 @@ import Image from "next/image";
 import EmailInput from "@/components/ui/EmailInput";
 import { emailSchema } from "@/lib/validation/auth";
 import Button from "@/components/ui/Button";
+import { useRouter } from "next/navigation";
+import { mockForgotPassword } from "@/lib/mockAuth";
 
 type FormData = { email: string };
 type FormErrors = { email?: string; form?: string };
 
-function sleep(ms: number) {
-  return new Promise((res) => setTimeout(res, ms));
-}
-
 export default function ForgotPasswordPage() {
+  const router = useRouter();
   const [formData, setFormData] = useState<FormData>({ email: "" });
   const [errors, setErrors] = useState<FormErrors>({});
   const [loading, setLoading] = useState(false);
@@ -41,23 +40,22 @@ export default function ForgotPasswordPage() {
       return;
     }
 
-    // const email = result.data;
+    const email = result.data.trim().toLowerCase();
 
     setLoading(true);
 
     try {
-      // Simulate API call for now (remove when backend is ready)
-      await sleep(900);
+      const res = await mockForgotPassword(email);
 
-      // Use `email` when backend is ready
-      // await fetch("/api/auth/forgot-password", {
-      //   method: "POST",
-      //   headers: { "Content-Type": "application/json" },
-      //   body: JSON.stringify({ email }),
-      // });
-
-      setSuccess(true);
-      setFormData({ email: "" });
+      // SECURITY + REALISTIC FLOW:
+      // Always go to the same "check inbox" UI.
+      // (Even if email doesn't exist)
+      if (res.ok) {
+        router.push(`/check-inbox?email=${encodeURIComponent(email)}`);
+        setFormData({ email: "" });
+      } else {
+        setErrors({ form: "Something went wrong. Please try again." });
+      }
     } catch {
       setErrors({ form: "Something went wrong. Please try again." });
     } finally {
