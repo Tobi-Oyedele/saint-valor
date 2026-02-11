@@ -6,6 +6,7 @@ import EmailInput from "@/components/ui/EmailInput";
 import Link from "next/link";
 import Image from "next/image";
 import { signInSchema } from "@/lib/validation/auth";
+import Button from "@/components/ui/Button";
 
 type SignInFormData = {
   email: string;
@@ -120,13 +121,13 @@ export default function SignInPage() {
               </Link>
             </div>
 
-            <button
+            <Button
               type="submit"
-              disabled={loading}
-              className="cursor-pointer mt-2 w-full rounded-full bg-gold py-3 text-sm font-medium text-white disabled:opacity-60"
-            >
-              {loading ? "Signing in..." : "Sign in"}
-            </button>
+              label="Sign in"
+              fullWidth
+              loading={loading}
+              loadingText="Signing in..."
+            />
 
             <p className="pt-1 text-center text-xs text-secondary">
               Don&apos;t have an account?

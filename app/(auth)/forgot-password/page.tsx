@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import EmailInput from "@/components/ui/EmailInput";
 import { emailSchema } from "@/lib/validation/auth";
+import Button from "@/components/ui/Button";
 
 type FormData = { email: string };
 type FormErrors = { email?: string; form?: string };
@@ -103,13 +104,7 @@ export default function ForgotPasswordPage() {
             error={errors.email}
           />
 
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full cursor-pointer rounded-full bg-gold px-4 py-3 text-sm font-medium text-ivory transition disabled:opacity-60"
-          >
-            {loading ? "Sending..." : "Send"}
-          </button>
+          <Button type="submit" label="Send" fullWidth loading={loading} />
         </form>
       </div>
     </main>

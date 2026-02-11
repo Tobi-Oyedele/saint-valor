@@ -6,6 +6,7 @@ import Image from "next/image";
 import PasswordInput from "@/components/ui/PasswordInput";
 import EmailInput from "@/components/ui/EmailInput";
 import { signUpSchema } from "@/lib/validation/auth";
+import Button from "@/components/ui/Button";
 
 type SignUpFormData = {
   email: string;
@@ -92,7 +93,7 @@ export default function SignUpPage() {
       </div>
 
       <div className="flex min-h-screen items-center justify-center px-4 sm:px-8">
-        <div className="w-full max-w-115 rounded-2xl bg-white p-6 sm:p-10">
+        <div className="w-full max-w-115 bg-white p-6 sm:p-10">
           <Image
             src="/images/Logo.svg"
             width={44}
@@ -165,13 +166,13 @@ export default function SignUpPage() {
               </div>
             </div>
 
-            <button
+            <Button
               type="submit"
-              disabled={loading}
-              className="cursor-pointer mt-2 w-full rounded-full bg-gold py-3 text-sm font-medium text-white disabled:opacity-60"
-            >
-              {loading ? "Creating account..." : "Create Account"}
-            </button>
+              label="Create Account"
+              fullWidth
+              loading={loading}
+              loadingText="Creating account..."
+            />
 
             <p className="pt-1 text-center text-xs text-secondary">
               Already have an account?
