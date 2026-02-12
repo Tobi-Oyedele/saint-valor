@@ -1,4 +1,3 @@
-// src/lib/mockAuth.ts
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
 const MOCK_EXISTING_EMAILS = new Set([
