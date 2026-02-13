@@ -5,6 +5,7 @@ import { resetPasswordSchema } from "@/lib/validation/auth";
 import PasswordInput from "@/components/ui/PasswordInput";
 import Button from "@/components/ui/Button";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 type FormErrors = {
   password?: string;
@@ -21,7 +22,8 @@ const InitialPasswordData: FormData = {
   confirmPassword: "",
 };
 
-export default function NewPasswordPage() {
+export default function ResetPasswordPage() {
+  const router = useRouter();
   const [errors, setErrors] = useState<FormErrors>({});
   const [formData, setFormData] = useState<FormData>(InitialPasswordData);
   const [loading, setLoading] = useState(false);
@@ -66,8 +68,7 @@ export default function NewPasswordPage() {
       // Make mock API call
       await new Promise((resolve) => setTimeout(resolve, 2000));
 
-      // Success! Clear the form
-      setFormData(InitialPasswordData);
+      // Success! Route ro success page
     } catch (error) {
       // Handle errors
       console.error("Password reset error:", error);
@@ -79,6 +80,8 @@ export default function NewPasswordPage() {
       // Always stop loading
       setLoading(false);
     }
+
+    router.push("/reset-password/success");
   }
 
   return (
