@@ -14,7 +14,7 @@ const EmailVerification: React.FC = () => {
 
   return (
     <div className=" bg-white flex items-center justify-center p-4 mx-4 rounded-2xl">
-      <div className="p-8 max-w-md w-full">
+      <div className="p-8 max-w-md w-full flex flex-col">
         {/* Email Icon */}
         <div className="flex justify-center mb-6">
           {/* <div className="w-24 h-24 bg-yellow-50 rounded-full flex items-center justify-center border-2 border-yellow-100">
@@ -45,14 +45,14 @@ const EmailVerification: React.FC = () => {
         {/* Description */}
         <p className="text-charcoal text-sm mb-6">
           Click on the link we sent to{" "}
-          <span className="font-medium text-gray-700">{email}</span> to finish
+          <span className="font-bold text-charcoal">{email}</span> to finish
           your account set-up.
         </p>
 
         {/* Open Email Button */}
         <button
           onClick={handleOpenEmail}
-          className="w-full bg-white border border-gray-300 text-gray-700 font-medium py-3 px-4 rounded-full hover:bg-gray-50 transition-colors flex items-center justify-center gap-2 mb-6"
+          className="w-full cursor-pointer bg-white border border-gray-300 text-gray-700 font-medium py-3 px-4 rounded-full transition-colors flex items-center justify-center gap-2 mb-6"
         >
           <svg
             className="w-5 h-5"
@@ -80,16 +80,15 @@ const EmailVerification: React.FC = () => {
           Open Email
         </button>
 
-        {/* Resend Link */}
         <p className="text-center text-sm text-gray-500">
-          No email in your inbox or spam folder?{" "}
-          <button
-            onClick={handleResend}
-            className="text-gray-700 font-medium underline"
-          >
-            Let&apos;s resend it
-          </button>
+          No email in your inbox or spam folder?
         </p>
+        <button
+          onClick={handleResend}
+          className="text-charcoal font-medium underline text-xs cursor-pointer"
+        >
+          Let&apos;s resend it
+        </button>
       </div>
     </div>
   );

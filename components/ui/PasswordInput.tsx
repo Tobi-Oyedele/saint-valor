@@ -5,11 +5,11 @@ import { EyeOff, Eye } from "lucide-react";
 import clsx from "clsx";
 
 type PasswordInputProps = {
-  label?: string;
+  label?: "Password" | "Confirm Password";
   name: string;
-  value: string;
+  value: string | undefined;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  placeholder: string;
+  placeholder: "Enter Password" | "Confirm Password";
   error?: string;
 };
 
@@ -33,7 +33,7 @@ const PasswordInput = ({
         <input
           id={name}
           name={name}
-          value={value}
+          value={value ?? ""}
           onChange={onChange}
           type={showPassword ? "text" : "password"}
           placeholder={placeholder}

@@ -16,7 +16,6 @@ export default function ForgotPasswordPage() {
   const [formData, setFormData] = useState<FormData>({ email: "" });
   const [errors, setErrors] = useState<FormErrors>({});
   const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(false);
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = e.target;
@@ -31,7 +30,6 @@ export default function ForgotPasswordPage() {
     e.preventDefault();
 
     setErrors({});
-    setSuccess(false);
 
     const result = emailSchema.safeParse(formData.email);
 
@@ -78,12 +76,6 @@ export default function ForgotPasswordPage() {
             send you a link to reset your password.
           </p>
         </div>
-        {success && (
-          <div className="rounded-md border border-green-200 bg-green-50 p-3 text-sm text-green-800">
-            If an account exists for that email, we’ve sent a password reset
-            link.
-          </div>
-        )}
         {errors.form && (
           <div className="rounded-md border border-red-200 bg-red-50 p-3 text-sm text-red-800">
             {errors.form}
