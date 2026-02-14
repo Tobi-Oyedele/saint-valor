@@ -129,7 +129,6 @@ export default function SignUpPage() {
                 onChange={handleChange}
                 placeholder="Enter Password"
                 error={errors.password}
-                autoComplete="new-password"
               />
             </div>
 

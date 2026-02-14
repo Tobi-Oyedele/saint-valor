@@ -11,18 +11,11 @@ import {
   Music2,
   Ghost,
 } from "lucide-react";
-import { inquirySchema } from "@/lib/validation/auth";
 
 type FormState = {
   email: string;
   subject: string;
   message: string;
-};
-
-type FormErrors = {
-  email?: string;
-  subject?: string;
-  message?: string;
 };
 
 const MAX_MESSAGE = 250;
@@ -33,15 +26,11 @@ export default function B2BCustomInquiry() {
     subject: "",
     message: "",
   });
-  const [errors, setErrors] = useState<FormErrors>({});
 
   const onChange =
     (key: keyof FormState) =>
     (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       const value = e.target.value;
-
-      // Clear error when user types
-      setErrors((prev) => ({ ...prev, [key]: undefined }));
 
       if (key === "message") {
         setForm((prev) => ({ ...prev, message: value.slice(0, MAX_MESSAGE) }));
@@ -54,27 +43,14 @@ export default function B2BCustomInquiry() {
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const result = inquirySchema.safeParse(form);
-
-    if (!result.success) {
-      const fieldErrors: FormErrors = {};
-      result.error.issues.forEach((issue) => {
-        const field = issue.path[0] as keyof FormErrors;
-        fieldErrors[field] = issue.message;
-      });
-      setErrors(fieldErrors);
-      return;
-    }
-
     // ✅ Placeholder for when your backend is ready:
     // await fetch("/api/b2b-inquiry", {
     //   method: "POST",
     //   headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify(result.data),
+    //   body: JSON.stringify(form),
     // });
 
-    setForm({ email: "", subject: "", message: "" });
-    setErrors({});
+    console.log("B2B Inquiry (placeholder):", form);
     alert("Submitted (placeholder). Connect this to your backend when ready.");
   };
 
@@ -172,11 +148,9 @@ export default function B2BCustomInquiry() {
                   value={form.email}
                   onChange={onChange("email")}
                   placeholder="Enter your email address"
-                  className={`h-11 w-full rounded-md border bg-[#F8F5EE] px-3 text-sm text-charcoal placeholder:text-[#9A948A] outline-none focus:ring-2 ${errors.email ? "border-red-500 focus:border-red-500 focus:ring-red-200" : "border-[#E5DED3] focus:border-[#C9BBA6] focus:ring-[#D4AF37]/20"}`}
+                  className="h-11 w-full rounded-md border border-[#E5DED3] bg-[#F8F5EE] px-3 text-sm text-charcoal placeholder:text-[#9A948A] outline-none focus:border-[#C9BBA6] focus:ring-2 focus:ring-[#D4AF37]/20"
+                  required
                 />
-                {errors.email && (
-                  <p className="mt-1 text-xs text-red-600">{errors.email}</p>
-                )}
               </div>
 
               <div>
@@ -188,11 +162,9 @@ export default function B2BCustomInquiry() {
                   value={form.subject}
                   onChange={onChange("subject")}
                   placeholder="Enter title of message"
-                  className={`h-11 w-full rounded-md border bg-[#F8F5EE] px-3 text-sm text-charcoal placeholder:text-[#9A948A] outline-none focus:ring-2 ${errors.subject ? "border-red-500 focus:border-red-500 focus:ring-red-200" : "border-[#E5DED3] focus:border-[#C9BBA6] focus:ring-[#D4AF37]/20"}`}
+                  className="h-11 w-full rounded-md border border-[#E5DED3] bg-[#F8F5EE] px-3 text-sm text-charcoal placeholder:text-[#9A948A] outline-none focus:border-[#C9BBA6] focus:ring-2 focus:ring-[#D4AF37]/20"
+                  required
                 />
-                {errors.subject && (
-                  <p className="mt-1 text-xs text-red-600">{errors.subject}</p>
-                )}
               </div>
 
               <div>
@@ -204,15 +176,10 @@ export default function B2BCustomInquiry() {
                   onChange={onChange("message")}
                   placeholder="Write message here..."
                   rows={6}
-                  className={`w-full resize-none rounded-md border bg-[#F8F5EE] px-3 py-3 text-sm text-charcoal placeholder:text-[#9A948A] outline-none focus:ring-2 ${errors.message ? "border-red-500 focus:border-red-500 focus:ring-red-200" : "border-[#E5DED3] focus:border-[#C9BBA6] focus:ring-[#D4AF37]/20"}`}
+                  className="w-full resize-none rounded-md border border-[#E5DED3] bg-[#F8F5EE] px-3 py-3 text-sm text-charcoal placeholder:text-[#9A948A] outline-none focus:border-[#C9BBA6] focus:ring-2 focus:ring-[#D4AF37]/20"
                 />
-                <div className="mt-2 flex items-center justify-between text-xs">
-                  {errors.message ? (
-                    <p className="text-red-600">{errors.message}</p>
-                  ) : (
-                    <span />
-                  )}
-                  <span className="text-[#8B847A]">
+                <div className="mt-2 flex justify-end text-xs text-[#8B847A]">
+                  <span>
                     {Math.min(form.message.length, MAX_MESSAGE)}/{MAX_MESSAGE}
                   </span>
                 </div>

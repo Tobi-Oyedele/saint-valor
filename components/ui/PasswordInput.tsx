@@ -11,7 +11,6 @@ type PasswordInputProps = {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   placeholder: "Enter Password" | "Confirm Password";
   error?: string;
-  autoComplete?: "current-password" | "new-password";
 };
 
 const PasswordInput = ({
@@ -21,7 +20,6 @@ const PasswordInput = ({
   onChange,
   placeholder = "Enter Password",
   error,
-  autoComplete = "current-password",
 }: PasswordInputProps) => {
   const [showPassword, setShowPassword] = useState(false);
 
@@ -38,7 +36,6 @@ const PasswordInput = ({
           value={value ?? ""}
           onChange={onChange}
           type={showPassword ? "text" : "password"}
-          autoComplete={autoComplete}
           placeholder={placeholder}
           className={clsx(
             "w-full rounded-lg border bg-white px-3 py-2.5 pr-10 text-sm outline-none",
