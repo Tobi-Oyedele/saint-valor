@@ -110,6 +110,7 @@ export default function ResetPasswordPage() {
             onChange={handleChange}
             placeholder="Enter Password"
             error={errors.password}
+            autoComplete="new-password"
           />
 
           <PasswordInput
@@ -119,6 +120,7 @@ export default function ResetPasswordPage() {
             onChange={handleChange}
             placeholder="Confirm Password"
             error={errors.confirmPassword}
+            autoComplete="new-password"
           />
 
           <Button

@@ -29,13 +29,34 @@ export const signInSchema = z.object({
   password: singlePasswordSchema,
 });
 
+const nameSchema = z
+  .string()
+  .min(1, "This field is required")
+  .max(50, "Must be 50 characters or less")
+  .regex(/^[a-zA-Z\s'-]+$/, "Only letters, spaces, hyphens, and apostrophes allowed");
+
 export const signUpSchema = z.object({
   email: emailSchema,
   password: singlePasswordSchema,
+  firstName: nameSchema,
+  lastName: nameSchema,
+});
+
+export const inquirySchema = z.object({
+  email: emailSchema,
+  subject: z
+    .string()
+    .min(1, "Subject is required")
+    .max(150, "Subject must be 150 characters or less"),
+  message: z
+    .string()
+    .min(1, "Message is required")
+    .max(250, "Message must be 250 characters or less"),
 });
 
 export const resetPasswordSchema = passwordConfirmSchema;
 
 export type SignUpSchemaType = z.infer<typeof signUpSchema>;
 export type SignInSchemaType = z.infer<typeof signInSchema>;
+export type InquirySchemaType = z.infer<typeof inquirySchema>;
 export type ResetPasswordSchemaType = z.infer<typeof resetPasswordSchema>;
