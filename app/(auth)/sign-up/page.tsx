@@ -67,9 +67,6 @@ export default function SignUpPage() {
     try {
       setLoading(true);
 
-      //remove & replace with API call later
-      console.log("SIGN UP payload:", formData);
-
       setFormData(initialSignUpData);
       setErrors({});
     } catch {

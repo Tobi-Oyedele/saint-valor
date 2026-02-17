@@ -54,8 +54,6 @@ export default function SignInPage() {
     try {
       setLoading(true);
 
-      console.log("SIGN IN payload:", result.data);
-
       setFormData(initialSignInData);
       setErrors({});
     } catch {

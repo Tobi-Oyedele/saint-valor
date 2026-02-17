@@ -25,7 +25,7 @@ const EmailInput = ({
 
       <div className="relative">
         <input
-          type="text"
+          type="email"
           id={name}
           name={name}
           value={value}

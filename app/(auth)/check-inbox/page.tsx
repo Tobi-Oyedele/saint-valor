@@ -34,6 +34,7 @@ const EmailVerification: React.FC = () => {
             alt="Email Icon"
             width={200}
             height={200}
+            loading="eager"
           />
         </div>
 
