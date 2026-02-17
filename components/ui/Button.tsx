@@ -1,6 +1,6 @@
 import clsx from "clsx";
 
-type ButtonProps = {
+type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   label: string;
   size?: "sm" | "md";
   variant?: "primary" | "outline";
@@ -20,6 +20,7 @@ const Button = ({
   type = "button",
   disabled = false,
   loadingText,
+  ...rest
 }: ButtonProps) => {
   const baseStyles =
     "inline-flex items-center justify-center rounded-full cursor-pointer transition disabled:opacity-60 disabled:cursor-not-allowed";
@@ -36,6 +37,7 @@ const Button = ({
 
   return (
     <button
+      {...rest}
       type={type}
       disabled={disabled || loading}
       className={clsx(

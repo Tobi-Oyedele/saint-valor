@@ -1,4 +1,4 @@
-import CustomInquiry from "../../../components/About/CustomInquiry";
+import CustomInquiry from "../custom-inquiry/page";
 import Story from "../../../components/About/Story";
 import Team from "../../../components/About/Team";
 

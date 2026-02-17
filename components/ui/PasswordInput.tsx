@@ -11,7 +11,6 @@ type PasswordInputProps = {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   placeholder: "Enter Password" | "Confirm Password";
   error?: string;
-  // autoComplete: string;
 };
 
 const PasswordInput = ({
