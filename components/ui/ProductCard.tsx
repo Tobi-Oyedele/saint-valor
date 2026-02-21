@@ -4,14 +4,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { Heart } from "lucide-react";
 import Button from "./Button";
-
-interface Product {
-  id: number;
-  image: string;
-  category: string;
-  name: string;
-  price: number;
-}
+import { Product } from "@/types/product";
 
 interface ProductCardProps {
   product: Product;
@@ -33,8 +26,7 @@ export default function ProductCard({
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      {/* Image wrapper */}
-      <div className="relative overflow-hidden rounded-xl aspect-3/4">
+      <div className="relative overflow-hidden aspect-3/4 max-h-56 w-full">
         <Image
           src={product.image}
           alt={product.name}
@@ -42,30 +34,28 @@ export default function ProductCard({
           className="object-cover"
         />
 
-        {/* Heart button */}
         <button
           onClick={() => {
             setIsFavourite(!isFavourite);
             onFavourite(product.id);
           }}
-          className="absolute top-2 right-2 bg-white rounded-full p-1.5 shadow-sm transition-transform duration-200 hover:scale-110"
+          className="absolute top-2 right-2 bg-white rounded-full p-1.5 shadow-sm transition-transform duration-200 hover:scale-110 cursor-pointer"
         >
           <Heart
-            size={16}
+            size={14}
             className={
               isFavourite ? "fill-red-500 stroke-red-500" : "stroke-gray-400"
             }
           />
         </button>
 
-        {/* Add to Cart overlay */}
         <div
-          className={`absolute bottom-0 left-0 right-0 p-3 transition-opacity duration-300 ${
-            isHovered ? "opacity-100" : "opacity-0"
+          className={`absolute bottom-0 left-0 right-0 p-2.5 transition-all duration-300 ${
+            isHovered ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
           }`}
         >
           <Button
-            label="Add to Cart"
+            label="Add to cart"
             onClick={() => onAddToCart(product.id)}
             fullWidth
             variant="outline"
@@ -73,13 +63,14 @@ export default function ProductCard({
         </div>
       </div>
 
-      {/* Text info */}
-      <div className="flex flex-col gap-0.5 px-1">
-        <p className="text-xs text-gray-400 uppercase tracking-wide">
+      <div className="flex flex-col gap-0.5">
+        <p className="text-[11px] text-gray-400 tracking-wide">
           {product.category}
         </p>
         <p className="text-sm font-medium text-gray-800">{product.name}</p>
-        <p className="text-sm font-semibold">${product.price.toFixed(2)}</p>
+        <p className="text-sm font-semibold text-gray-900">
+          ${product.price.toLocaleString()}
+        </p>
       </div>
     </div>
   );
