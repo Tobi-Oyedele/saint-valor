@@ -90,23 +90,23 @@ export default function SignUpPage() {
       </div>
 
       <div className="flex min-h-screen items-center justify-center px-4">
-        <div className="w-full max-w-115 bg-white p-10">
-          <Image
-            src="/images/Logo.svg"
-            width={44}
-            height={44}
-            alt="Saint Valor Logo"
-          />
+        <div className="w-full max-w-md bg-white p-6">
+          <Link href="/" aria-label="Go to homepage" className="inline-flex">
+            <Image
+              src="/images/Logo.svg"
+              width={44}
+              height={44}
+              alt="Saint Valor Logo"
+            />
+          </Link>
 
-          <h1 className="mt-5 text-3xl font-semibold text-charcoal sm:text-4xl">
-            Sign Up
-          </h1>
-          <p className="mt-3 text-sm leading-relaxed text-secondary">
+          <h1 className="text-3xl font-semibold">Sign Up</h1>
+          <p className="mt-2 text-sm leading-relaxed text-secondary">
             Join Saint Valor and unlock exclusive access to our curated fine
             jewelry collections.
           </p>
 
-          <form onSubmit={handleSubmit} className="mt-6 space-y-4">
+          <form onSubmit={handleSubmit} className="mt-3 space-y-2">
             <div className="space-y-1.5">
               <EmailInput
                 label="Email Address"
@@ -179,7 +179,13 @@ export default function SignUpPage() {
             </p>
           </form>
 
-          <button className="w-full cursor-pointer bg-white border border-gray-300 text-gray-700 font-medium py-3 px-4 rounded-full transition-colors flex items-center justify-center gap-2 mb-6">
+          <div className="flex items-center gap-3 my-3">
+            <hr className="flex-1 border-gray-200" />
+            <span className="text-xs text-secondary">Or</span>
+            <hr className="flex-1 border-gray-200" />
+          </div>
+
+          <button className="google-sso">
             <svg
               className="w-5 h-5"
               viewBox="0 0 24 24"

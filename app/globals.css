@@ -45,6 +45,10 @@ button {
   .slider-icons {
     @apply p-2 rounded-full bg-gold text-white hover:bg-gold disabled:opacity-30 disabled:cursor-not-allowed transition cursor-pointer;
   }
+
+  .google-sso {
+    @apply w-full cursor-pointer bg-white border border-gray-300 text-gray-700 font-medium py-3 px-4 rounded-full transition-colors flex items-center justify-center gap-2;
+  }
 }
 
 /* Keyframes */

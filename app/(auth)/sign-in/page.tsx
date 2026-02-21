@@ -76,8 +76,8 @@ export default function SignInPage() {
         />
       </div>
 
-      <div className="flex min-h-screen items-center justify-center px-4 sm:px-8">
-        <div className="w-full max-w-115 rounded-2xl bg-white p-6 sm:p-10">
+      <div className="flex min-h-screen items-center justify-center px-4 lg:px-16">
+        <div className="w-full max-w-md bg-white p-6">
           <Link href="/" aria-label="Go to homepage" className="inline-flex">
             <Image
               src="/images/Logo.svg"
@@ -87,23 +87,21 @@ export default function SignInPage() {
             />
           </Link>
 
-          <h1 className="text-2xl font-semibold">Sign In</h1>
-          <p className="mt-3 text-sm leading-relaxed text-secondary">
+          <h1 className="text-3xl font-semibold">Sign In</h1>
+          <p className="mt-2 text-sm leading-relaxed text-secondary">
             Welcome back to Saint Valor — continue your journey through curated
             luxury jewelry.
           </p>
 
-          <form onSubmit={handleSubmit} className="mt-6 space-y-4">
-            <div className="space-y-1">
-              <EmailInput
-                label="Email Address"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                placeholder="Enter Email Address"
-                error={errors.email}
-              />
-            </div>
+          <form onSubmit={handleSubmit} className="mt-3 space-y-2">
+            <EmailInput
+              label="Email Address"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              placeholder="Enter Email Address"
+              error={errors.email}
+            />
 
             <div className="space-y-1">
               <PasswordInput
@@ -115,27 +113,35 @@ export default function SignInPage() {
                 error={errors.password}
               />
               <Link href="/forgot-password" className="text-xs text-charcoal">
-                Forgot Password?
+                Forgot password?
               </Link>
             </div>
 
-            <Button
-              type="submit"
-              label="Sign in"
-              fullWidth
-              loading={loading}
-              loadingText="Signing in..."
-            />
+            <div className="pt-2">
+              <Button
+                type="submit"
+                label="Sign Up"
+                fullWidth
+                loading={loading}
+                loadingText="Signing in..."
+              />
+            </div>
 
-            <p className="pt-1 text-center text-xs text-secondary">
+            <p className="text-center text-xs text-secondary">
               Don&apos;t have an account?
-              <Link href="/sign-up" className="text-charcoal underline pl-2">
+              <Link href="/sign-up" className="text-charcoal underline pl-1">
                 Sign Up
               </Link>
             </p>
           </form>
 
-          <button className="w-full cursor-pointer bg-white border border-gray-300 text-gray-700 font-medium py-3 px-4 rounded-full transition-colors flex items-center justify-center gap-2 mb-6">
+          <div className="flex items-center gap-3 my-3">
+            <hr className="flex-1 border-gray-200" />
+            <span className="text-xs text-secondary">Or</span>
+            <hr className="flex-1 border-gray-200" />
+          </div>
+
+          <button className="google-sso">
             <svg
               className="w-5 h-5"
               viewBox="0 0 24 24"
