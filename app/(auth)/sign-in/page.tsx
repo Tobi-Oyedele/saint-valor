@@ -120,7 +120,7 @@ export default function SignInPage() {
             <div className="pt-2">
               <Button
                 type="submit"
-                label="Sign Up"
+                label="Sign In"
                 fullWidth
                 loading={loading}
                 loadingText="Signing in..."

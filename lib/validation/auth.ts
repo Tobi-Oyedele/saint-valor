@@ -8,13 +8,33 @@ export const emailSchema = z
 
 export const singlePasswordSchema = z
   .string()
-  .min(8, { message: "Password must be at least 8 characters" })
-  .max(100, { message: "Password is too long" })
-  .regex(/[A-Z]/, { message: "Must contain at least one uppercase letter" })
-  .regex(/[a-z]/, { message: "Must contain at least one lowercase letter" })
-  .regex(/[0-9]/, { message: "Must contain at least one number" })
-  .regex(/[^a-zA-Z0-9]/, {
+  .refine((val) => val.length > 0, {
+    message: "Password is required",
+    abort: true,
+  })
+  .refine((val) => val.length >= 8, {
+    message: "Password must be at least 8 characters",
+    abort: true,
+  })
+  .refine((val) => val.length <= 64, {
+    message: "Password is too long",
+    abort: true,
+  })
+  .refine((val) => /[A-Z]/.test(val), {
+    message: "Must contain at least one uppercase letter",
+    abort: true,
+  })
+  .refine((val) => /[a-z]/.test(val), {
+    message: "Must contain at least one lowercase letter",
+    abort: true,
+  })
+  .refine((val) => /[0-9]/.test(val), {
+    message: "Must contain at least one number",
+    abort: true,
+  })
+  .refine((val) => /[^a-zA-Z0-9]/.test(val), {
     message: "Must contain at least one special character",
+    abort: true,
   });
 
 export const passwordConfirmSchema = z
