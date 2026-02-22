@@ -80,7 +80,7 @@ export function DesktopDropdown({
               <Link
                 href={item.href}
                 onClick={handleItemClick}
-                className="flex items-center gap-1 px-14 py-2 text-sm uppercasetransition-colors"
+                className="flex items-center gap-1 px-14 py-2 text-sm uppercase transition-colors"
               >
                 <span>{item.label}</span>
                 {typeof item.count === "number" && (

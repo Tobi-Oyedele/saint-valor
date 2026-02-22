@@ -71,7 +71,7 @@ export default function SignInPage() {
       <div className="relative hidden lg:block min-h-screen">
         <Image
           src="/images/sign-in.png"
-          alt="sign up image"
+          alt="sign in image"
           fill
           priority
           className="object-cover"

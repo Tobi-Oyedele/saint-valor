@@ -38,6 +38,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
               </p>
 
               <button
+                aria-label="Add to Cart"
                 onClick={() => onAddToCart(product)}
                 className="mt-2 cursor-pointer rounded-full bg-gold px-4 py-2 text-xs font-semibold text-charcoal transition hover:brightness-95"
               >

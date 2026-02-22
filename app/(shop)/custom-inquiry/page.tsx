@@ -43,14 +43,6 @@ export default function CustomInquiry() {
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // ✅ Placeholder for when your backend is ready:
-    // await fetch("/api/b2b-inquiry", {
-    //   method: "POST",
-    //   headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify(form),
-    // });
-
-    console.log("B2B Inquiry (placeholder):", form);
     alert("Submitted (placeholder). Connect this to your backend when ready.");
   };
 

@@ -35,6 +35,7 @@ export default function ProductCard({
         />
 
         <button
+          aria-label="Heart Icon"
           onClick={() => {
             setIsFavourite(!isFavourite);
             onFavourite(product.id);
