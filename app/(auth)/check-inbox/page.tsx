@@ -1,8 +1,10 @@
 "use client";
 import Image from "next/image";
+import { useSearchParams } from "next/navigation";
 
 const EmailVerification: React.FC = () => {
-  const email = "abcd@gmail.com";
+  const searchParams = useSearchParams();
+  const email = searchParams.get("email");
 
   const handleOpenEmail = () => {
     window.location.href = `mailto:${email}`;
