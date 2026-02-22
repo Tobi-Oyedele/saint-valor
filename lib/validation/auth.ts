@@ -47,11 +47,29 @@ export const passwordConfirmSchema = z
     path: ["confirmPassword"],
   });
 
-export const nameSchema = z
+const nameSchema = z
   .string()
-  .min(1)
-  .max(50)
-  .regex(/^[a-zA-Z\s'-]+$/);
+  .superRefine((val, ctx) => {
+    if (val.trim().length === 0) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "This field is required",
+        fatal: true,
+      });
+    }
+  })
+  .max(50, { message: "Name cannot exceed 50 characters" })
+  .regex(/^[a-zA-Z\s'-]+$/, {
+    message: "Name can only contain letters, spaces, hyphens, and apostrophes",
+  });
+
+export const firstNameSchema = nameSchema.refine((val) => !/\d/.test(val), {
+  message: "First name cannot contain numbers",
+});
+
+export const lastNameSchema = nameSchema.refine((val) => !/\d/.test(val), {
+  message: "Last name cannot contain numbers",
+});
 
 export const signInSchema = z.object({
   email: emailSchema,
@@ -61,6 +79,8 @@ export const signInSchema = z.object({
 export const signUpSchema = z.object({
   email: emailSchema,
   password: singlePasswordSchema,
+  firstName: firstNameSchema,
+  lastName: lastNameSchema,
 });
 
 export const resetPasswordSchema = passwordConfirmSchema;

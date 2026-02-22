@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import PasswordInput from "@/components/ui/PasswordInput";
 import EmailInput from "@/components/ui/EmailInput";
+import TextInput from "@/components/ui/TextInput";
 import { signUpSchema } from "@/lib/validation/auth";
 import Button from "@/components/ui/Button";
 import GoogleSSOButton from "@/components/ui/GoogleSSOButton";
@@ -132,37 +133,23 @@ export default function SignUpPage() {
             </div>
 
             <div className="grid gap-3 grid-cols-2">
-              <div className="space-y-1.5">
-                <label className="text-sm text-charcoal">First name</label>
-                <input
-                  name="firstName"
-                  value={formData.firstName}
-                  onChange={handleChange}
-                  type="text"
-                  autoComplete="given-name"
-                  placeholder="Enter First Name"
-                  className={`w-full rounded-lg border bg-white px-3 py-2.5 text-sm outline-none ${errors.firstName ? "border-red-500 focus:border-red-500 focus:ring-red-200" : "border-placeholder"}`}
-                />
-                {errors.firstName ? (
-                  <p className="text-xs text-red-600">{errors.firstName}</p>
-                ) : null}
-              </div>
+              <TextInput
+                label="First Name"
+                name="firstName"
+                value={formData.firstName}
+                onChange={handleChange}
+                placeholder="Enter First Name"
+                error={errors.firstName}
+              />
 
-              <div className="space-y-1.5">
-                <label className="text-sm text-charcoal">Last name</label>
-                <input
-                  name="lastName"
-                  value={formData.lastName}
-                  onChange={handleChange}
-                  type="text"
-                  autoComplete="family-name"
-                  placeholder="Enter Last Name"
-                  className={`w-full rounded-lg border bg-white px-3 py-2.5 text-sm outline-none ${errors.lastName ? "border-red-500 focus:border-red-500 focus:ring-red-200" : "border-placeholder"}`}
-                />
-                {errors.lastName ? (
-                  <p className="text-xs text-red-600">{errors.lastName}</p>
-                ) : null}
-              </div>
+              <TextInput
+                label="Last Name"
+                name="lastName"
+                value={formData.lastName}
+                onChange={handleChange}
+                placeholder="Enter Last Name"
+                error={errors.lastName}
+              />
             </div>
 
             <Button
