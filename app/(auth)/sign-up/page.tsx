@@ -10,6 +10,7 @@ import { signUpSchema } from "@/lib/validation/auth";
 import Button from "@/components/ui/Button";
 import GoogleSSOButton from "@/components/ui/GoogleSSOButton";
 import OrDivider from "@/components/ui/OrDivider";
+import AuthHeader from "@/components/ui/AuthHeader";
 
 type SignUpFormData = {
   email: string;
@@ -94,20 +95,11 @@ export default function SignUpPage() {
 
       <div className="flex min-h-screen items-center justify-center px-4">
         <div className="w-full max-w-md bg-white p-6">
-          <Link href="/" aria-label="Go to homepage" className="inline-flex">
-            <Image
-              src="/images/Logo.svg"
-              width={44}
-              height={44}
-              alt="Saint Valor Logo"
-            />
-          </Link>
-
-          <h1 className="text-3xl font-semibold">Sign Up</h1>
-          <p className="mt-2 text-sm leading-relaxed text-secondary">
-            Join Saint Valor and unlock exclusive access to our curated fine
-            jewelry collections.
-          </p>
+          <AuthHeader
+            title="Sign Up"
+            description="Join Saint Valor and unlock exclusive access to our curated fine
+            jewelry collections."
+          />
 
           <form onSubmit={handleSubmit} className="mt-3 space-y-2">
             <div className="space-y-1.5">

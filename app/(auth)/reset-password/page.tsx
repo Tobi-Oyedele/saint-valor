@@ -4,8 +4,8 @@ import { useState } from "react";
 import { resetPasswordSchema } from "@/lib/validation/auth";
 import PasswordInput from "@/components/ui/PasswordInput";
 import Button from "@/components/ui/Button";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
+import AuthHeader from "@/components/ui/AuthHeader";
 
 type FormErrors = {
   password?: string;
@@ -86,21 +86,11 @@ export default function ResetPasswordPage() {
 
   return (
     <main className="flex items-center justify-center bg-white p-6 rounded-2xl mx-4">
-      <div className="w-full max-w-md space-y-8">
-        <div className="space-y-2">
-          <Image
-            src="/images/Logo.svg"
-            width={44}
-            height={44}
-            alt="Saint Valor Logo"
-          />
-          <div>
-            <h3 className="text-2xl font-medium mb-2">Create New Password</h3>
-            <p className="text-sm text-charcoal">
-              Enter a password you can remember, to secure your account
-            </p>
-          </div>
-        </div>
+      <div className="w-full max-w-md space-y-4">
+        <AuthHeader
+          title="Create New Password"
+          description="Enter a password you can remember, to secure your account"
+        />
 
         <form onSubmit={handleSubmit} className="space-y-5">
           <PasswordInput

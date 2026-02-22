@@ -1,12 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import EmailInput from "@/components/ui/EmailInput";
 import { emailSchema } from "@/lib/validation/auth";
 import Button from "@/components/ui/Button";
 import { useRouter } from "next/navigation";
 import { mockForgotPassword } from "@/lib/mockAuth";
+import AuthHeader from "@/components/ui/AuthHeader";
 
 type FormData = { email: string };
 type FormErrors = { email?: string; form?: string };
@@ -61,21 +61,12 @@ export default function ForgotPasswordPage() {
   return (
     <main className="flex items-center justify-center bg-white p-10 rounded-2xl mx-4">
       <div className="w-full max-w-md space-y-6">
-        <Image
-          src="/images/Logo.svg"
-          width={44}
-          height={44}
-          alt="Saint Valor Logo"
+        <AuthHeader
+          title="Reset Your Password"
+          description="Enter the email address associated with your account and we will
+            send you a link to reset your password."
         />
-        <div className="space-y-2">
-          <h1 className="text-3xl font-medium text-charcoal">
-            Reset Your Password
-          </h1>
-          <p className="text-sm text-charcoal">
-            Enter the email address associated with your account and we will
-            send you a link to reset your password.
-          </p>
-        </div>
+
         {errors.form && (
           <div className="rounded-md border border-red-200 bg-red-50 p-3 text-sm text-red-800">
             {errors.form}
