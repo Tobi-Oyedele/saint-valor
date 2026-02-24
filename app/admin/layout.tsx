@@ -1,5 +1,12 @@
+import AdminNavbar from "./_components/AdminNavbar";
+
 export default function AuthLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  return <div className="min-h-screen bg-ivory">{children}</div>;
+  return (
+    <div className="min-h-screen bg-ivory">
+      <AdminNavbar />
+      {children}
+    </div>
+  );
 }
