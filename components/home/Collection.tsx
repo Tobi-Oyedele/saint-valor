@@ -40,12 +40,12 @@ export default function ShopCollectionSection() {
       <div className="mx-auto max-w-6xl px-4 py-12 lg:px-8">
         {/* Heading */}
         <div className="mx-auto max-w-2xl text-center">
-          <h1 className="text-4xl font-semibold tracking-tight text-charcoal">
+          <h1 className="text-4xl font-medium tracking-tight text-charcoal">
             Shop the Saint Valor <br className="hidden sm:block" />
             Collection
           </h1>
 
-          <p className="mt-3 text-base leading-relaxed text-charcoal">
+          <p className="mt-3 text-sm leading-relaxed text-charcoal">
             A curated selection of fine jewelry designed to reflect elegance,
             confidence, <br className="hidden sm:block" />
             and enduring style.
