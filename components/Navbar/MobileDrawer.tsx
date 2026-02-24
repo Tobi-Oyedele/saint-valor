@@ -11,7 +11,7 @@ import {
   X,
   Search,
 } from "lucide-react";
-import { CurrencyDropdown } from "../Navbar/CurrencyDropdown";
+import { CurrencyDropdown } from "./CurrencyDropdown";
 import { MENU } from "../../data/mobileDrawer";
 import LinkButton from "../ui/LinkButton";
 

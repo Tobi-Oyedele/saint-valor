@@ -1,5 +1,5 @@
-import HeroCarousel from "../../components/Hero/HeroCarousel";
-import Collection from "../../components/Home/Collection";
+import HeroCarousel from "../../components/hero/HeroCarousel";
+import Collection from "../../components/home/Collection";
 import CustomInquiry from "./custom-inquiry/page";
 import { newArrivals, bestSellers } from "@/data/products";
 import ProductSlider from "@/components/ui/ProductSlider";

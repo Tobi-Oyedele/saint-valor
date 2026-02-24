@@ -1,4 +1,4 @@
-import { CustomJewelrySection } from "../../../components/Bespoke/CustomJewelry";
+import { CustomJewelrySection } from "../../../components/bespoke/CustomJewelry";
 import LinkButton from "../../../components/ui/LinkButton";
 
 const page = () => {

@@ -4,7 +4,7 @@ import { Menu } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
-import MobileDrawer from "../Navbar/MobileDrawer";
+import MobileDrawer from "./MobileDrawer";
 
 const MobileNav = () => {
   const [isOpen, setIsOpen] = useState(false);

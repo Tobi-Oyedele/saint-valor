@@ -1,6 +1,6 @@
 import CustomInquiry from "../custom-inquiry/page";
-import Story from "../../../components/About/Story";
-import Team from "../../../components/About/Team";
+import Story from "../../../components/about/Story";
+import Team from "../../../components/about/Team";
 
 export default function AboutUs() {
   const bgUrl = "/images/hero-bg.png";
