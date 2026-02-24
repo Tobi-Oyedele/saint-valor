@@ -1,5 +1,5 @@
-import { CustomJewelrySection } from "../../../components/bespoke/CustomJewelry";
-import LinkButton from "../../../components/ui/LinkButton";
+import { CustomJewelrySection } from "@/components/bespoke/CustomJewelry";
+import LinkButton from "@/components/ui/LinkButton";
 
 const page = () => {
   const bgUrl = "/images/hero-bg.png";
