@@ -197,14 +197,14 @@ export default function MobileDrawer({ isOpen, onClose }: DrawerProps) {
           <div className="border-t border-burgundy/15 px-4 py-4">
             <div className="space-y-3">
               <LinkButton
-                href="/login"
+                href="/sign-in"
                 label="Log In"
                 size="sm"
                 variant="primary"
                 fullWidth
               />
               <LinkButton
-                href="/signup"
+                href="/sign-up"
                 label="Sign Up"
                 size="sm"
                 variant="outline"

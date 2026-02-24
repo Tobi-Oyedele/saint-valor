@@ -11,6 +11,10 @@ import GoogleSSOButton from "@/components/ui/GoogleSSOButton";
 import OrDivider from "@/components/ui/OrDivider";
 import AuthHeader from "@/components/ui/AuthHeader";
 
+interface SignInFormProps {
+  variant: "shop" | "admin";
+}
+
 type SignInFormData = {
   email: string;
   password: string;
@@ -27,7 +31,7 @@ const initialSignInData: SignInFormData = {
   password: "",
 };
 
-export default function SignInPage() {
+export default function SignInPage({ variant }: SignInFormProps) {
   const [formData, setFormData] = useState<SignInFormData>(initialSignInData);
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState<FormErrors>({});
@@ -106,9 +110,11 @@ export default function SignInPage() {
                 placeholder="Enter Password"
                 error={errors.password}
               />
-              <Link href="/forgot-password" className="text-xs text-charcoal">
-                Forgot password?
-              </Link>
+              {variant === "shop" && (
+                <Link href="/forgot-password" className="text-xs text-charcoal">
+                  Forgot password?
+                </Link>
+              )}
             </div>
 
             <div className="pt-2">
@@ -121,17 +127,18 @@ export default function SignInPage() {
               />
             </div>
 
-            <p className="text-center text-xs text-secondary">
-              Don&apos;t have an account?
-              <Link href="/sign-up" className="text-charcoal underline pl-1">
-                Sign Up
-              </Link>
-            </p>
+            {variant === "shop" && (
+              <p className="text-center text-xs text-secondary">
+                Don&apos;t have an account?
+                <Link href="/sign-up" className="text-charcoal underline pl-1">
+                  Sign Up
+                </Link>
+              </p>
+            )}
           </form>
 
-          <OrDivider />
-
-          <GoogleSSOButton />
+          {variant === "shop" && <OrDivider />}
+          {variant === "shop" && <GoogleSSOButton />}
         </div>
       </div>
     </main>
