@@ -1,4 +1,4 @@
-import StepIndicator from "@/components/bespoke/custom-order/StepIndicator";
+import MultiStepForm from "@/components/bespoke/custom-order/MultiStepForm";
 import { CustomJewelrySection } from "@/components/bespoke/CustomJewelry";
 import LinkButton from "@/components/ui/LinkButton";
 
@@ -36,7 +36,9 @@ const page = () => {
       </section>
 
       <CustomJewelrySection />
-      <StepIndicator currentStep={1} />
+      <div className="bg-ivory">
+        <MultiStepForm />
+      </div>
     </>
   );
 };
