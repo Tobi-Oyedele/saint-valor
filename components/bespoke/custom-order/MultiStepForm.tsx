@@ -1,14 +1,14 @@
 "use client";
 import { useState } from "react";
 import StepIndicator from "./StepIndicator";
-import { FormData } from "@/types/customOrder";
+import { CustomOrderFormData } from "@/types/customOrder";
 import StepOne from "./steps/StepOne";
 import StepTwo from "./steps/StepTwo";
 import StepThree from "./steps/StepThree";
 import StepFour from "./steps/StepFour";
 
 const MultiStepForm = () => {
-  const [formData, setFormData] = useState<FormData>({
+  const [formData, setFormData] = useState<CustomOrderFormData>({
     // Step 1
     country: "",
     firstName: "",
@@ -48,11 +48,13 @@ const MultiStepForm = () => {
   });
   const [currentStep, setCurrentStep] = useState(1);
 
-  const updateFormData = (fields: Partial<FormData>) => {
+  const updateFormData = (fields: Partial<CustomOrderFormData>) => {
     setFormData((prev) => ({ ...prev, ...fields }));
   };
 
-  const nextStep = () => setCurrentStep((prev) => Math.min(prev + 1, 4));
+  const TOTAL_STEPS = 4;
+  const nextStep = () =>
+    setCurrentStep((prev) => Math.min(prev + 1, TOTAL_STEPS));
   const prevStep = () => setCurrentStep((prev) => Math.max(prev - 1, 1));
 
   const renderStep = () => {

@@ -1,41 +1,71 @@
 import { z } from "zod";
+import { emailSchema, firstNameSchema, lastNameSchema } from "./shared";
+export { emailSchema, firstNameSchema, lastNameSchema } from "./shared";
 
-export const emailSchema = z
-  .string()
-  .min(1, { message: "Email is required" })
-  .email({ message: "Must be a valid email address" })
-  .toLowerCase();
+export const singlePasswordSchema = z.string().superRefine((val, ctx) => {
+  if (val.length === 0) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Password is required",
+      fatal: true,
+    });
+    return z.NEVER;
+  }
 
-export const singlePasswordSchema = z
-  .string()
-  .refine((val) => val.length > 0, {
-    message: "Password is required",
-    abort: true,
-  })
-  .refine((val) => val.length >= 8, {
-    message: "Password must be at least 8 characters",
-    abort: true,
-  })
-  .refine((val) => val.length <= 64, {
-    message: "Password is too long",
-    abort: true,
-  })
-  .refine((val) => /[A-Z]/.test(val), {
-    message: "Must contain at least one uppercase letter",
-    abort: true,
-  })
-  .refine((val) => /[a-z]/.test(val), {
-    message: "Must contain at least one lowercase letter",
-    abort: true,
-  })
-  .refine((val) => /[0-9]/.test(val), {
-    message: "Must contain at least one number",
-    abort: true,
-  })
-  .refine((val) => /[^a-zA-Z0-9]/.test(val), {
-    message: "Must contain at least one special character",
-    abort: true,
-  });
+  if (val.length < 8) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Password must be at least 8 characters",
+      fatal: true,
+    });
+    return z.NEVER;
+  }
+
+  if (val.length > 64) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Password is too long",
+      fatal: true,
+    });
+    return z.NEVER;
+  }
+
+  if (!/[A-Z]/.test(val)) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Must contain at least one uppercase letter",
+      fatal: true,
+    });
+    return z.NEVER;
+  }
+
+  if (!/[a-z]/.test(val)) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Must contain at least one lowercase letter",
+      fatal: true,
+    });
+    return z.NEVER;
+  }
+
+  if (!/[0-9]/.test(val)) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Must contain at least one number",
+      fatal: true,
+    });
+    return z.NEVER;
+  }
+
+  if (!/[^a-zA-Z0-9]/.test(val)) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Must contain at least one special character",
+      fatal: true,
+    });
+    return z.NEVER;
+  }
+});
 
 export const passwordConfirmSchema = z
   .object({
@@ -46,30 +76,6 @@ export const passwordConfirmSchema = z
     message: "Passwords do not match",
     path: ["confirmPassword"],
   });
-
-const nameSchema = z
-  .string()
-  .superRefine((val, ctx) => {
-    if (val.trim().length === 0) {
-      ctx.addIssue({
-        code: z.ZodIssueCode.custom,
-        message: "This field is required",
-        fatal: true,
-      });
-    }
-  })
-  .max(50, { message: "Name cannot exceed 50 characters" })
-  .regex(/^[a-zA-Z\s'-]+$/, {
-    message: "Name can only contain letters, spaces, hyphens, and apostrophes",
-  });
-
-export const firstNameSchema = nameSchema.refine((val) => !/\d/.test(val), {
-  message: "First name cannot contain numbers",
-});
-
-export const lastNameSchema = nameSchema.refine((val) => !/\d/.test(val), {
-  message: "Last name cannot contain numbers",
-});
 
 export const signInSchema = z.object({
   email: emailSchema,

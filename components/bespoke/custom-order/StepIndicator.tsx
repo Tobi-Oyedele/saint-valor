@@ -17,14 +17,21 @@ const StepIndicator = ({ currentStep }: StepIndicatorProps) => {
       {steps.map((step, index) => {
         const stepNumber = index + 1;
         const isCompleted = stepNumber < currentStep;
+        const isActive = stepNumber === currentStep;
 
         return (
-          <div key={index} className="flex items-start">
+          <div key={step} className="flex items-start">
             {/* Circle + Label */}
             <div className="flex flex-col items-center gap-2">
               <div
                 className={`flex h-8 w-8 items-center justify-center rounded-full text-xs font-semibold transition-all
-            ${isCompleted ? "bg-burgundy text-ivory" : "bg-placeholder text-charcoal"}`}
+            ${
+              isCompleted
+                ? "bg-burgundy text-ivory"
+                : isActive
+                  ? "ring-2 ring-burgundy bg-ivory text-burgundy font-bold"
+                  : "bg-placeholder text-charcoal"
+            }`}
               >
                 {isCompleted ? <Check size={14} strokeWidth={3} /> : stepNumber}
               </div>

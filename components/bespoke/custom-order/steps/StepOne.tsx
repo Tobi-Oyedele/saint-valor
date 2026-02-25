@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { FormData } from "@/types/customOrder";
+import { CustomOrderFormData, StepOneData } from "@/types/customOrder";
 import TextInput from "@/components/ui/TextInput";
 import EmailInput from "@/components/ui/EmailInput";
 import Button from "@/components/ui/Button";
@@ -9,23 +9,15 @@ import {
   firstNameSchema,
   lastNameSchema,
   emailSchema,
-} from "@/lib/validation/auth";
+} from "@/lib/validation/shared";
 
 type StepOneProps = {
-  data: FormData;
-  updateFormData: (fields: Partial<FormData>) => void;
+  data: StepOneData;
+  updateFormData: (fields: Partial<CustomOrderFormData>) => void;
   onNext: () => void;
 };
 
-type StepOneErrors = {
-  country?: string;
-  firstName?: string;
-  lastName?: string;
-  countryCode?: string;
-  phone?: string;
-  email?: string;
-  jewelryType?: string;
-};
+type StepOneErrors = Partial<Record<keyof StepOneData, string>>;
 
 const countries = [
   "Nigeria",
@@ -101,8 +93,11 @@ const StepOne = ({ data, updateFormData, onNext }: StepOneProps) => {
 
         {/* Country */}
         <div className="space-y-1.5">
-          <label className="text-sm text-charcoal">Select Country</label>
+          <label htmlFor="country" className="text-sm text-charcoal">
+            Select Country
+          </label>
           <select
+            id="country"
             value={data.country}
             onChange={(e) => updateFormData({ country: e.target.value })}
             className={selectClass}

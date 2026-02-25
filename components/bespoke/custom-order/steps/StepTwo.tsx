@@ -1,11 +1,13 @@
-import { FormData, StepTwoData } from "@/types/customOrder";
+import { CustomOrderFormData, StepTwoData } from "@/types/customOrder";
 
 type StepTwoProps = {
-  data: FormData;
-  updateFormData: (fields: Partial<FormData>) => void;
+  data: StepTwoData;
+  updateFormData: (fields: Partial<CustomOrderFormData>) => void;
   onNext: () => void;
   onPrev: () => void;
 };
+
+type StepTwoErrors = Partial<Record<keyof StepTwoData, string>>;
 
 const StepTwo = ({ data, updateFormData, onNext, onPrev }: StepTwoProps) => {
   return (

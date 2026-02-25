@@ -39,4 +39,4 @@ export type StepFourData = {
   agreedToTerms: boolean;
 };
 
-export type FormData = StepOneData & StepTwoData & StepThreeData & StepFourData;
+export type CustomOrderFormData = StepOneData & StepTwoData & StepThreeData & StepFourData;
