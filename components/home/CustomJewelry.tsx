@@ -4,7 +4,7 @@ import { gems } from "@/data/gems";
 
 export default function JewelryCarousel() {
   return (
-    <section className="relative w-full min-h-screen flex flex-col items-center justify-center overflow-hidden py-10">
+    <section className="relative w-full flex flex-col items-center justify-center overflow-hidden py-10">
       {/* Heading */}
       <div className="text-center mb-14 max-w-lg">
         <h2 className="font-medium mb-4 text-4xl">

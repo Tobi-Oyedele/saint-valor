@@ -47,13 +47,13 @@ const DesktopNav = () => {
           </button>
 
           {/* Fav */}
-          <button
-            type="button"
+          <Link
+            href="/favourites"
             className="top-nav-icon-style"
             aria-label="Open favourites"
           >
             <Heart className="w-6 h-6" />
-          </button>
+          </Link>
 
           {/* Divider */}
           <div className="w-px h-6 bg-charcoal" />

@@ -1,4 +1,4 @@
-import SignInPage from "@/app/(auth)/sign-in/page";
+import SignInPage from "@/components/auth/SignInPage";
 
 const page = () => {
   return <SignInPage variant="admin" />;

@@ -32,7 +32,7 @@ const Button = ({
 
   const variantStyles = {
     primary: "bg-gold text-ivory",
-    outline: "border border-gold bg-white text-gold",
+    outline: "bg-white text-gold",
   };
 
   return (

@@ -43,11 +43,9 @@ export default function ProductSlider({
       {/* Header row */}
       <div className="flex items-start justify-between">
         <div className="flex flex-col gap-1">
-          <h2 className="text-2xl font-semibold text-gray-800">{title}</h2>
+          <h1 className="text-4xl font-medium text-charcoal">{title}</h1>
           {subtitle && (
-            <p className="text-xs text-gray-400 max-w-xs leading-relaxed">
-              {subtitle}
-            </p>
+            <p className="text-xs max-w-xs leading-relaxed">{subtitle}</p>
           )}
         </div>
 

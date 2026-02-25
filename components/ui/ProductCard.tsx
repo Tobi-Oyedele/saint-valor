@@ -57,6 +57,8 @@ export default function ProductCard({
         >
           <Button
             label="Add to cart"
+            size="md"
+            type="button"
             onClick={() => onAddToCart(product.id)}
             fullWidth
             variant="outline"
