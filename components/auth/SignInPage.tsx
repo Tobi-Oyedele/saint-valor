@@ -67,26 +67,23 @@ export default function SignInPage({ variant }: SignInFormProps) {
 
       const { response, data } = await login(formData);
 
-      if (
-        response.ok &&
-        variant === "admin" &&
-        data.data.user.role === "admin"
-      ) {
+      if (!response.ok) {
+        setErrors({ form: data.message || "Invalid credentials." });
+        return;
+      }
+
+      if (variant === "admin" && data.data.user.role === "admin") {
         localStorage.setItem("token", data.token);
         document.cookie = `token=${data.token}; path=/`;
         router.push("/admin/dashboard");
         setErrors({});
-      } else if (
-        response.ok &&
-        variant === "shop" &&
-        data.data.user.role === "customer"
-      ) {
+      } else if (variant === "shop" && data.data.user.role === "customer") {
         localStorage.setItem("token", data.token);
         document.cookie = `token=${data.token}; path=/`;
         router.push("/");
         setErrors({});
       } else {
-        setErrors({ form: "Access denied" });
+        setErrors({ form: "Access denied." });
       }
     } catch {
       setErrors({ form: "Something went wrong. Please try again." });
@@ -135,6 +132,9 @@ export default function SignInPage({ variant }: SignInFormProps) {
                 placeholder="Enter Password"
                 error={errors.password}
               />
+              {errors.form && (
+                <p className="text-xs text-red-500">{errors.form}</p>
+              )}
               {variant === "shop" && (
                 <Link href="/forgot-password" className="text-xs text-charcoal">
                   Forgot password?

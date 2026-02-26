@@ -6,6 +6,7 @@ import PasswordInput from "@/components/ui/PasswordInput";
 import Button from "@/components/ui/Button";
 import { useRouter } from "next/navigation";
 import AuthHeader from "@/components/ui/AuthHeader";
+import AuthWrapper from "@/components/auth/AuthWrapper";
 
 type FormErrors = {
   password?: string;
@@ -85,41 +86,43 @@ export default function ResetPasswordPage() {
   }
 
   return (
-    <main className="flex items-center justify-center bg-white p-6 rounded-2xl mx-4">
-      <div className="w-full max-w-md space-y-4">
-        <AuthHeader
-          title="Create New Password"
-          description="Enter a password you can remember, to secure your account"
-        />
-
-        <form onSubmit={handleSubmit} className="space-y-5">
-          <PasswordInput
-            label="Password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            placeholder="Enter Password"
-            error={errors.password}
+    <AuthWrapper>
+      <main className="flex items-center justify-center bg-white p-6 rounded-2xl mx-4">
+        <div className="w-full max-w-md space-y-4">
+          <AuthHeader
+            title="Create New Password"
+            description="Enter a password you can remember, to secure your account"
           />
 
-          <PasswordInput
-            label="Confirm Password"
-            name="confirmPassword"
-            value={formData.confirmPassword}
-            onChange={handleChange}
-            placeholder="Confirm Password"
-            error={errors.confirmPassword}
-          />
+          <form onSubmit={handleSubmit} className="space-y-5">
+            <PasswordInput
+              label="Password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              placeholder="Enter Password"
+              error={errors.password}
+            />
 
-          <Button
-            type="submit"
-            label="Reset Password"
-            fullWidth
-            loading={loading}
-            loadingText="Resetting Password..."
-          />
-        </form>
-      </div>
-    </main>
+            <PasswordInput
+              label="Confirm Password"
+              name="confirmPassword"
+              value={formData.confirmPassword}
+              onChange={handleChange}
+              placeholder="Confirm Password"
+              error={errors.confirmPassword}
+            />
+
+            <Button
+              type="submit"
+              label="Reset Password"
+              fullWidth
+              loading={loading}
+              loadingText="Resetting Password..."
+            />
+          </form>
+        </div>
+      </main>
+    </AuthWrapper>
   );
 }

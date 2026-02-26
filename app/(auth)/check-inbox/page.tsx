@@ -1,10 +1,13 @@
 import { Suspense } from "react";
 import EmailVerification from "@/components/auth/EmailVerification";
+import AuthWrapper from "@/components/auth/AuthWrapper";
 
 export default function CheckInboxPage() {
   return (
-    <Suspense>
-      <EmailVerification />
-    </Suspense>
+    <AuthWrapper>
+      <Suspense>
+        <EmailVerification />
+      </Suspense>
+    </AuthWrapper>
   );
 }
