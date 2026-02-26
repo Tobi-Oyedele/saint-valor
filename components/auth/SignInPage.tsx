@@ -74,6 +74,7 @@ export default function SignInPage({ variant }: SignInFormProps) {
         data.data.user.role === "admin"
       ) {
         localStorage.setItem("token", data.token);
+        document.cookie = `token=${data.token}; path=/`;
         router.push("/admin/dashboard");
         setErrors({});
       } else if (
@@ -82,6 +83,7 @@ export default function SignInPage({ variant }: SignInFormProps) {
         data.data.user.role === "customer"
       ) {
         localStorage.setItem("token", data.token);
+        document.cookie = `token=${data.token}; path=/`;
         router.push("/");
         setErrors({});
       } else {
