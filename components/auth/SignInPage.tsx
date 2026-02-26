@@ -72,12 +72,11 @@ export default function SignInPage({ variant }: SignInFormProps) {
         return;
       }
 
-      if (variant === "admin" && data.data.user.role === "admin") {
+      if (variant === "admin") {
         localStorage.setItem("token", data.token);
         document.cookie = `token=${data.token}; path=/`;
         router.push("/admin/dashboard");
-        setErrors({});
-      } else if (variant === "shop" && data.data.user.role === "customer") {
+      } else if (variant === "shop") {
         localStorage.setItem("token", data.token);
         document.cookie = `token=${data.token}; path=/`;
         router.push("/");
@@ -85,7 +84,8 @@ export default function SignInPage({ variant }: SignInFormProps) {
       } else {
         setErrors({ form: "Access denied." });
       }
-    } catch {
+    } catch (error) {
+      console.log(error);
       setErrors({ form: "Something went wrong. Please try again." });
     } finally {
       setLoading(false);

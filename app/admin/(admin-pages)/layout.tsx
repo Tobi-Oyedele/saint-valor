@@ -1,4 +1,4 @@
-import AdminNavbar from "../_components/AdminNavbar";
+import AdminNavbar from "../_components/navbar/AdminNavbar";
 
 export default function AuthLayout({
   children,
