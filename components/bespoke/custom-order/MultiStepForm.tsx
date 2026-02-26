@@ -1,7 +1,13 @@
 "use client";
 import { useState } from "react";
 import StepIndicator from "./StepIndicator";
-import { CustomOrderFormData } from "@/types/customOrder";
+import {
+  CustomOrderFormData,
+  StepOneData,
+  StepTwoData,
+  StepThreeData,
+  StepFourData,
+} from "@/types/customOrder";
 import StepOne from "./steps/StepOne";
 import StepTwo from "./steps/StepTwo";
 import StepThree from "./steps/StepThree";
@@ -48,9 +54,17 @@ const MultiStepForm = () => {
   });
   const [currentStep, setCurrentStep] = useState(1);
 
-  const updateFormData = (fields: Partial<CustomOrderFormData>) => {
+  const updateStep1 = (fields: Partial<StepOneData>) =>
     setFormData((prev) => ({ ...prev, ...fields }));
-  };
+
+  const updateStep2 = (fields: Partial<StepTwoData>) =>
+    setFormData((prev) => ({ ...prev, ...fields }));
+
+  const updateStep3 = (fields: Partial<StepThreeData>) =>
+    setFormData((prev) => ({ ...prev, ...fields }));
+
+  const updateStep4 = (fields: Partial<StepFourData>) =>
+    setFormData((prev) => ({ ...prev, ...fields }));
 
   const TOTAL_STEPS = 4;
   const nextStep = () =>
@@ -62,16 +76,16 @@ const MultiStepForm = () => {
       case 1:
         return (
           <StepOne
-            data={formData}
-            updateFormData={updateFormData}
+            data={formData as StepOneData}
+            updateFormData={updateStep1}
             onNext={nextStep}
           />
         );
       case 2:
         return (
           <StepTwo
-            data={formData}
-            updateFormData={updateFormData}
+            data={formData as StepTwoData}
+            updateFormData={updateStep2}
             onNext={nextStep}
             onPrev={prevStep}
           />
@@ -79,8 +93,8 @@ const MultiStepForm = () => {
       case 3:
         return (
           <StepThree
-            data={formData}
-            updateFormData={updateFormData}
+            data={formData as StepThreeData}
+            updateFormData={updateStep3}
             onNext={nextStep}
             onPrev={prevStep}
           />
@@ -88,8 +102,8 @@ const MultiStepForm = () => {
       case 4:
         return (
           <StepFour
-            data={formData}
-            updateFormData={updateFormData}
+            data={formData as StepFourData}
+            updateFormData={updateStep4}
             onPrev={prevStep}
           />
         );

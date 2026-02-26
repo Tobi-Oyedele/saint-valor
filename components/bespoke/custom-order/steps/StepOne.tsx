@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { CustomOrderFormData, StepOneData } from "@/types/customOrder";
+import { StepOneData } from "@/types/customOrder";
 import TextInput from "@/components/ui/TextInput";
 import EmailInput from "@/components/ui/EmailInput";
 import Button from "@/components/ui/Button";
@@ -13,7 +13,7 @@ import {
 
 type StepOneProps = {
   data: StepOneData;
-  updateFormData: (fields: Partial<CustomOrderFormData>) => void;
+  updateFormData: (fields: Partial<StepOneData>) => void;
   onNext: () => void;
 };
 

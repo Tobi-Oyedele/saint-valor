@@ -1,8 +1,8 @@
-import { CustomOrderFormData, StepThreeData } from "@/types/customOrder";
+import { StepThreeData } from "@/types/customOrder";
 
 type StepThreeProps = {
-  data: CustomOrderFormData;
-  updateFormData: (fields: Partial<CustomOrderFormData>) => void;
+  data: StepThreeData;
+  updateFormData: (fields: Partial<StepThreeData>) => void;
   onNext: () => void;
   onPrev: () => void;
 };

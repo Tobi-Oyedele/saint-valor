@@ -10,6 +10,7 @@ import Button from "@/components/ui/Button";
 import GoogleSSOButton from "@/components/ui/GoogleSSOButton";
 import OrDivider from "@/components/ui/OrDivider";
 import AuthHeader from "@/components/ui/AuthHeader";
+import { useRouter } from "next/navigation";
 
 interface SignInFormProps {
   variant: "shop" | "admin";
@@ -36,6 +37,8 @@ export default function SignInPage({ variant }: SignInFormProps) {
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState<FormErrors>({});
 
+  const router = useRouter();
+
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -61,8 +64,23 @@ export default function SignInPage({ variant }: SignInFormProps) {
     try {
       setLoading(true);
 
-      setFormData(initialSignInData);
-      setErrors({});
+      const response = await fetch(
+        "https://saint-valor-backend.onrender.com/api/v1/auth/login",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData),
+        },
+      );
+
+      const data = await response.json();
+      if (response.ok && data.data.user.role === "admin") {
+        localStorage.setItem("token", data.token);
+        router.push("/admin/dashboard");
+        setErrors({});
+      } else {
+        setErrors({ form: "Access denied" });
+      }
     } catch {
       setErrors({ form: "Something went wrong. Please try again." });
     } finally {
