@@ -11,6 +11,7 @@ import GoogleSSOButton from "@/components/ui/GoogleSSOButton";
 import OrDivider from "@/components/ui/OrDivider";
 import AuthHeader from "@/components/ui/AuthHeader";
 import { useRouter } from "next/navigation";
+import { login } from "@/lib/api/auth";
 
 interface SignInFormProps {
   variant: "shop" | "admin";
@@ -64,19 +65,24 @@ export default function SignInPage({ variant }: SignInFormProps) {
     try {
       setLoading(true);
 
-      const response = await fetch(
-        "https://saint-valor-backend.onrender.com/api/v1/auth/login",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(formData),
-        },
-      );
+      const { response, data } = await login(formData);
+      console.log(data);
 
-      const data = await response.json();
-      if (response.ok && data.data.user.role === "admin") {
+      if (
+        response.ok &&
+        variant === "admin" &&
+        data.data.user.role === "admin"
+      ) {
         localStorage.setItem("token", data.token);
         router.push("/admin/dashboard");
+        setErrors({});
+      } else if (
+        response.ok &&
+        variant === "shop" &&
+        data.data.user.role === "customer"
+      ) {
+        localStorage.setItem("token", data.token);
+        router.push("/");
         setErrors({});
       } else {
         setErrors({ form: "Access denied" });
