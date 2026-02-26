@@ -3,12 +3,9 @@
 import { useState } from "react";
 import PasswordInput from "@/components/ui/PasswordInput";
 import EmailInput from "@/components/ui/EmailInput";
-import Link from "next/link";
 import Image from "next/image";
 import { signInSchema } from "@/lib/validation/auth";
 import Button from "@/components/ui/Button";
-import GoogleSSOButton from "@/components/ui/GoogleSSOButton";
-import OrDivider from "@/components/ui/OrDivider";
 import AuthHeader from "@/components/ui/AuthHeader";
 import { useRouter } from "next/navigation";
 import { login } from "@/lib/api/auth";
@@ -29,7 +26,7 @@ const initialSignInData: SignInFormData = {
   password: "",
 };
 
-export default function SignInPage() {
+export default function AdminSignInPage() {
   const [formData, setFormData] = useState<SignInFormData>(initialSignInData);
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState<FormErrors>({});
@@ -67,8 +64,7 @@ export default function SignInPage() {
 
       localStorage.setItem("token", data.token);
       document.cookie = `token=${data.token}; path=/`;
-      router.push("/");
-      setErrors({});
+      router.push("/admin/dashboard");
     } catch (error) {
       console.log(error);
       setErrors({ form: "Something went wrong. Please try again." });
@@ -93,8 +89,8 @@ export default function SignInPage() {
       <div className="flex min-h-screen items-center justify-center px-4 lg:px-16">
         <div className="w-full max-w-md bg-white p-6">
           <AuthHeader
-            title="Sign In"
-            description="Welcome back to Saint Valor — continue your journey through curated luxury jewelry."
+            title="Admin Sign In"
+            description="Welcome to Saint Valor Admin Dashboard"
           />
 
           <form onSubmit={handleSubmit} className="mt-3 space-y-2">
@@ -119,9 +115,6 @@ export default function SignInPage() {
               {errors.form && (
                 <p className="text-xs text-red-500">{errors.form}</p>
               )}
-              <Link href="/forgot-password" className="text-xs text-charcoal">
-                Forgot password?
-              </Link>
             </div>
 
             <div className="pt-2">
@@ -133,17 +126,7 @@ export default function SignInPage() {
                 loadingText="Signing in..."
               />
             </div>
-
-            <p className="text-center text-xs text-secondary">
-              Don&apos;t have an account?
-              <Link href="/sign-up" className="text-charcoal underline pl-1">
-                Sign Up
-              </Link>
-            </p>
           </form>
-
-          <OrDivider />
-          <GoogleSSOButton />
         </div>
       </div>
     </main>

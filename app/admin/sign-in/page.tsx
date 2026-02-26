@@ -1,7 +1,7 @@
-import SignInPage from "@/components/auth/SignInPage";
+import AdminSignInPage from "../_components/auth/AdminSignInPage";
 
 const page = () => {
-  return <SignInPage variant="admin" />;
+  return <AdminSignInPage />;
 };
 
 export default page;
