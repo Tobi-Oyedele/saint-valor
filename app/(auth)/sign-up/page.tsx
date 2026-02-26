@@ -11,6 +11,9 @@ import Button from "@/components/ui/Button";
 import GoogleSSOButton from "@/components/ui/GoogleSSOButton";
 import OrDivider from "@/components/ui/OrDivider";
 import AuthHeader from "@/components/ui/AuthHeader";
+import { signUp } from "@/lib/api/auth";
+import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 
 type SignUpFormData = {
   email: string;
@@ -39,6 +42,8 @@ export default function SignUpPage() {
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState<FormErrors>({});
 
+  const router = useRouter();
+
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = e.target;
 
@@ -47,7 +52,6 @@ export default function SignUpPage() {
       [name]: value,
     }));
 
-    //clear errors while typing
     setErrors((prev) => ({ ...prev, [name]: undefined, form: undefined }));
   }
 
@@ -71,8 +75,18 @@ export default function SignUpPage() {
     try {
       setLoading(true);
 
-      setFormData(initialSignUpData);
-      setErrors({});
+      const { response, data } = await signUp(formData);
+
+      if (response.ok) {
+        localStorage.setItem("token", data.token);
+        document.cookie = `token=${data.token}; path=/`;
+        toast.success("Account created successfully!");
+        router.push("/sign-in");
+        setFormData(initialSignUpData);
+        setErrors({});
+      } else {
+        setErrors({ form: data.message || "Failed to create account." });
+      }
     } catch {
       setErrors({ form: "Something went wrong. Please try again." });
     } finally {

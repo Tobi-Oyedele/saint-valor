@@ -66,7 +66,6 @@ export default function SignInPage({ variant }: SignInFormProps) {
       setLoading(true);
 
       const { response, data } = await login(formData);
-      console.log(data);
 
       if (
         response.ok &&
