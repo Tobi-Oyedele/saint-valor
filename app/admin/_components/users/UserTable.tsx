@@ -3,6 +3,8 @@
 import { useState, useEffect } from "react";
 import EmptyState from "./EmptyState";
 import { ChevronRight } from "lucide-react";
+import UserTableSkeleton from "./UserTableSkeleton";
+import { useRouter } from "next/navigation";
 
 interface User {
   _id: string;
@@ -17,6 +19,8 @@ const UserTable = () => {
   const [data, setData] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  const router = useRouter();
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -43,7 +47,7 @@ const UserTable = () => {
     fetchUsers();
   }, []);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <UserTableSkeleton />;
   if (error) return <div>{error}</div>;
 
   if (data.length === 0) {
@@ -70,16 +74,23 @@ const UserTable = () => {
               </td>
               <td className="py-4 text-charcoal">{user.email}</td>
               <td className="py-4 text-charcoal">
-                {new Date(user.memberSince).toLocaleDateString("en-US", {
+                {`${new Date(user.memberSince).toLocaleDateString("en-US", {
                   year: "numeric",
                   month: "short",
                   day: "numeric",
-                  hour: "numeric",
-                  minute: "2-digit",
-                })}
+                })} at ${new Date(user.memberSince).toLocaleTimeString(
+                  "en-US",
+                  {
+                    hour: "numeric",
+                    minute: "2-digit",
+                  },
+                )}`}
               </td>
               <td className="py-4 text-right">
-                <button className="text-sm text-charcoal font-semibold flex items-center gap-1 ml-auto cursor-pointer">
+                <button
+                  onClick={() => router.push(`/admin/users/${user._id}`)}
+                  className="text-sm text-charcoal font-semibold flex items-center gap-1 ml-auto cursor-pointer"
+                >
                   More details <ChevronRight size={16} />
                 </button>
               </td>
