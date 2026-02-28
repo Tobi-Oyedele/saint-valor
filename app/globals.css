@@ -31,10 +31,6 @@ h3 {
 }
 
 @layer components {
-  .top-nav-icon-style {
-    @apply flex items-center justify-center w-10 h-10 text-burgundy cursor-pointer;
-  }
-
   .bottom-nav-link-style {
     @apply uppercase text-sm hover:text-burgundy cursor-pointer text-charcoal font-medium;
   }

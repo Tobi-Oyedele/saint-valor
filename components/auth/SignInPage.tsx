@@ -12,6 +12,7 @@ import OrDivider from "@/components/ui/OrDivider";
 import AuthHeader from "@/components/ui/AuthHeader";
 import { useRouter } from "next/navigation";
 import { login } from "@/lib/api/auth";
+import { toast } from "react-toastify";
 
 type SignInFormData = {
   email: string;
@@ -66,7 +67,18 @@ export default function SignInPage() {
       }
 
       localStorage.setItem("token", data.token);
+      const profileRes = await fetch(
+        "https://saint-valor-backend.onrender.com/api/v1/auth/me",
+        {
+          headers: {
+            Authorization: `Bearer ${data.token}`,
+          },
+        },
+      );
+      const profileData = await profileRes.json();
+      localStorage.setItem("firstName", profileData.data.user.firstName);
       document.cookie = `token=${data.token}; path=/`;
+      toast.success("Signed in successfully!");
       router.push("/");
       setErrors({});
     } catch (error) {

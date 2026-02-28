@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { IBM_Plex_Sans, Inter } from "next/font/google";
 import "./globals.css";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const inter = Inter({
   variable: "--font-inter",
@@ -30,6 +32,7 @@ export default function RootLayout({
         className={`${plex.variable} ${inter.variable} antialiased flex flex-col min-h-screen`}
       >
         {children}
+        <ToastContainer />
       </body>
     </html>
   );
