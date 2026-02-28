@@ -60,6 +60,7 @@ export default function MobileDrawer({ isOpen, onClose }: DrawerProps) {
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder="Search..."
+                  aria-label="Search"
                   className="w-full bg-transparent py-2 pl-9 pr-2 text-sm outline-none"
                 />
               </div>
