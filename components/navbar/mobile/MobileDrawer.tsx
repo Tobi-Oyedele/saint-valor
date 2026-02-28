@@ -10,11 +10,12 @@ import {
   ShoppingCart,
   X,
   Search,
+  User,
 } from "lucide-react";
 
-import { CurrencyDropdown } from "./CurrencyDropdown";
-import { MENU } from "../../data/mobileDrawer";
-import LinkButton from "../ui/LinkButton";
+import { CurrencyDropdown } from "../CurrencyDropdown";
+import { MENU } from "../../../data/mobileDrawer";
+import LinkButton from "../../ui/LinkButton";
 
 type DrawerProps = {
   isOpen: boolean;
@@ -167,8 +168,15 @@ export default function MobileDrawer({ isOpen, onClose }: DrawerProps) {
             {/* Divider */}
             <div className="my-4 h-px w-full bg-burgundy/20" />
 
-            {/* Cart + Favourites */}
+            {/* Profile + Cart + Favourites */}
             <div className="space-y-3">
+              <button className="flex items-center justify-between py-2 text-xs font-semibold text-charcoal">
+                <span className="flex items-center gap-2">
+                  <User className="h-4 w-4 text-burgundy" />
+                  PROFILE
+                </span>
+                <ChevronRight className="h-4 w-4 text-charcoal" />
+              </button>
               <Link
                 href="/cart"
                 onClick={onClose}

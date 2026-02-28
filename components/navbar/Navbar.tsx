@@ -1,5 +1,5 @@
-import MobileNav from "./MobileNav";
-import DesktopNav from "./DesktopNav";
+import MobileNav from "./mobile/MobileNav";
+import DesktopNav from "./desktop/DesktopNav";
 const Navbar = () => {
   return (
     <section>
