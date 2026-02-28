@@ -9,6 +9,8 @@ import Button from "@/components/ui/Button";
 import AuthHeader from "@/components/ui/AuthHeader";
 import { useRouter } from "next/navigation";
 import { login } from "@/lib/api/auth";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 type SignInFormData = {
   email: string;
@@ -42,7 +44,6 @@ export default function AdminSignInPage() {
     e.preventDefault();
 
     const result = signInSchema.safeParse(formData);
-
     if (!result.success) {
       const fieldErrors: FormErrors = {};
       result.error.issues.forEach((issue) => {
@@ -55,19 +56,14 @@ export default function AdminSignInPage() {
 
     try {
       setLoading(true);
-      const { response, data } = await login(formData);
-
-      if (!response.ok) {
-        setErrors({ form: data.message || "Invalid credentials." });
-        return;
-      }
-
-      localStorage.setItem("token", data.token);
-      document.cookie = `token=${data.token}; path=/`;
+      await login(formData);
+      toast.success("Signed in successfully!");
       router.push("/admin/dashboard");
-    } catch (error) {
-      console.log(error);
-      setErrors({ form: "Something went wrong. Please try again." });
+    } catch (error: unknown) {
+      const message = axios.isAxiosError(error)
+        ? error.response?.data?.message || "Invalid credentials."
+        : "Something went wrong. Please try again.";
+      setErrors({ form: message });
     } finally {
       setLoading(false);
     }
