@@ -14,6 +14,7 @@ import AuthHeader from "@/components/ui/AuthHeader";
 import { signUp } from "@/lib/api/auth";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
+import axios from "axios";
 
 type SignUpFormData = {
   email: string;
@@ -74,21 +75,14 @@ export default function SignUpPage() {
 
     try {
       setLoading(true);
-
-      const { response, data } = await signUp(formData);
-
-      if (response.ok) {
-        localStorage.setItem("token", data.token);
-        document.cookie = `token=${data.token}; path=/`;
-        toast.success("Account created successfully!");
-        router.push("/sign-in");
-        setFormData(initialSignUpData);
-        setErrors({});
-      } else {
-        setErrors({ form: data.message || "Failed to create account." });
-      }
-    } catch {
-      setErrors({ form: "Something went wrong. Please try again." });
+      await signUp(formData);
+      toast.success("Account created successfully!");
+      router.push("/sign-in");
+    } catch (error: unknown) {
+      const message = axios.isAxiosError(error)
+        ? error.response?.data?.message || "Failed to create account."
+        : "Something went wrong. Please try again.";
+      setErrors({ form: message });
     } finally {
       setLoading(false);
     }

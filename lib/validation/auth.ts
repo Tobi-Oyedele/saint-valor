@@ -56,15 +56,6 @@ export const singlePasswordSchema = z.string().superRefine((val, ctx) => {
     });
     return z.NEVER;
   }
-
-  if (!/[^a-zA-Z0-9]/.test(val)) {
-    ctx.addIssue({
-      code: z.ZodIssueCode.custom,
-      message: "Must contain at least one special character",
-      fatal: true,
-    });
-    return z.NEVER;
-  }
 });
 
 export const passwordConfirmSchema = z

@@ -1,3 +1,5 @@
+import api from "../axios";
+
 type LoginProps = {
   email: string;
   password: string;
@@ -10,20 +12,26 @@ type SignUpProps = {
   lastName: string;
 };
 
-export async function login({ email, password }: LoginProps) {
-  const response = await fetch(
-    "https://saint-valor-backend.onrender.com/api/v1/auth/login",
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email, password }),
-    },
-  );
+function saveToken(token: string) {
+  localStorage.setItem("token", token);
+  document.cookie = `token=${token}; path=/`;
+}
 
-  const data = await response.json();
-  return { response, data };
+export function clearToken() {
+  localStorage.removeItem("token");
+  localStorage.removeItem("firstName");
+  document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+}
+
+export async function login({ email, password }: LoginProps) {
+  const { data } = await api.post("/api/v1/auth/login", { email, password });
+  saveToken(data.token);
+
+  const profileRes = await api.get("/api/v1/auth/me");
+  const firstName = profileRes.data.data.user.firstName;
+  localStorage.setItem("firstName", firstName);
+
+  return { firstName };
 }
 
 export async function signUp({
@@ -32,17 +40,16 @@ export async function signUp({
   firstName,
   lastName,
 }: SignUpProps) {
-  const response = await fetch(
-    "https://saint-valor-backend.onrender.com/api/v1/auth/signup",
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email, password, firstName, lastName }),
-    },
-  );
+  const { data } = await api.post("/api/v1/auth/signup", {
+    email,
+    password,
+    firstName,
+    lastName,
+  });
+  saveToken(data.token);
+}
 
-  const data = await response.json();
-  return { response, data };
+export async function logout() {
+  await api.post("/api/v1/auth/logout");
+  clearToken();
 }

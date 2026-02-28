@@ -13,6 +13,7 @@ import AuthHeader from "@/components/ui/AuthHeader";
 import { useRouter } from "next/navigation";
 import { login } from "@/lib/api/auth";
 import { toast } from "react-toastify";
+import axios from "axios";
 
 type SignInFormData = {
   email: string;
@@ -46,7 +47,6 @@ export default function SignInPage() {
     e.preventDefault();
 
     const result = signInSchema.safeParse(formData);
-
     if (!result.success) {
       const fieldErrors: FormErrors = {};
       result.error.issues.forEach((issue) => {
@@ -59,31 +59,14 @@ export default function SignInPage() {
 
     try {
       setLoading(true);
-      const { response, data } = await login(formData);
-
-      if (!response.ok) {
-        setErrors({ form: data.message || "Invalid credentials." });
-        return;
-      }
-
-      localStorage.setItem("token", data.token);
-      const profileRes = await fetch(
-        "https://saint-valor-backend.onrender.com/api/v1/auth/me",
-        {
-          headers: {
-            Authorization: `Bearer ${data.token}`,
-          },
-        },
-      );
-      const profileData = await profileRes.json();
-      localStorage.setItem("firstName", profileData.data.user.firstName);
-      document.cookie = `token=${data.token}; path=/`;
+      await login(formData);
       toast.success("Signed in successfully!");
       router.push("/");
-      setErrors({});
-    } catch (error) {
-      console.log(error);
-      setErrors({ form: "Something went wrong. Please try again." });
+    } catch (error: unknown) {
+      const message = axios.isAxiosError(error)
+        ? error.response?.data?.message || "Invalid credentials."
+        : "Something went wrong. Please try again.";
+      setErrors({ form: message });
     } finally {
       setLoading(false);
     }

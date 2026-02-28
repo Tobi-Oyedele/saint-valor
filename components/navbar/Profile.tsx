@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
+import { logout } from "@/lib/api/auth";
 
 const Profile = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -21,33 +22,13 @@ const Profile = () => {
   const router = useRouter();
   const handleLogout = async () => {
     try {
-      const response = await fetch(
-        "https://saint-valor-backend.onrender.com/api/v1/auth/logout",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        },
-      );
-
-      localStorage.removeItem("token");
-      localStorage.removeItem("firstName");
-      document.cookie =
-        "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+      await logout();
       setIsLoggedIn(false);
       setUserName(null);
-
-      if (response.ok) {
-        toast.success("Logged out successfully!");
-        setIsOpen(false);
-        router.push("/");
-      } else {
-        toast.error("Something went wrong. Please try again.");
-      }
-    } catch (error) {
-      console.error("Logout error:", error);
+      toast.success("Logged out successfully!");
+      setIsOpen(false);
+      router.push("/");
+    } catch {
       toast.error("Something went wrong. Please try again.");
     }
   };
