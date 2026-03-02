@@ -12,10 +12,14 @@ import {
   Search,
   User,
 } from "lucide-react";
-
 import { CurrencyDropdown } from "../CurrencyDropdown";
 import { MENU } from "../../../data/mobileDrawer";
 import LinkButton from "../../ui/LinkButton";
+import { useAuthStore } from "@/store/authStore";
+import { logout } from "@/lib/api/auth";
+import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
+import Button from "@/components/ui/Button";
 
 type DrawerProps = {
   isOpen: boolean;
@@ -25,8 +29,10 @@ type DrawerProps = {
 export default function MobileDrawer({ isOpen, onClose }: DrawerProps) {
   const [openSection, setOpenSection] = useState<string | null>(null);
   const [query, setQuery] = useState("");
+  const { isLoggedIn, clearAuth } = useAuthStore();
 
-  // Close on ESC
+  const router = useRouter();
+
   useEffect(() => {
     if (!isOpen) return;
     const onKeyDown = (e: KeyboardEvent) => {
@@ -35,6 +41,18 @@ export default function MobileDrawer({ isOpen, onClose }: DrawerProps) {
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [isOpen, onClose]);
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      clearAuth();
+      toast.success("Logged out successfully!");
+      onClose();
+      router.push("/");
+    } catch {
+      toast.error("Something went wrong. Please try again.");
+    }
+  };
 
   return (
     <>
@@ -170,13 +188,20 @@ export default function MobileDrawer({ isOpen, onClose }: DrawerProps) {
 
             {/* Profile + Cart + Favourites */}
             <div className="space-y-3">
-              <button className="flex items-center justify-between py-2 text-xs font-semibold text-charcoal">
-                <span className="flex items-center gap-2">
-                  <User className="h-4 w-4 text-burgundy" />
-                  PROFILE
-                </span>
-                <ChevronRight className="h-4 w-4 text-charcoal" />
-              </button>
+              {isLoggedIn && (
+                <Link
+                  href="/profile"
+                  onClick={onClose}
+                  className="flex items-center justify-between py-2 text-xs font-semibold text-charcoal"
+                >
+                  <span className="flex items-center gap-2">
+                    <User className="h-4 w-4 text-burgundy" />
+                    PROFILE
+                  </span>
+                  <ChevronRight className="h-4 w-4 text-charcoal" />
+                </Link>
+              )}
+
               <Link
                 href="/cart"
                 onClick={onClose}
@@ -205,22 +230,32 @@ export default function MobileDrawer({ isOpen, onClose }: DrawerProps) {
 
           {/* Bottom buttons */}
           <div className="border-t border-burgundy/15 px-4 py-4">
-            <div className="space-y-3">
-              <LinkButton
-                href="/sign-in"
-                label="Log In"
+            {isLoggedIn ? (
+              <Button
+                label="Log Out"
                 size="sm"
                 variant="primary"
                 fullWidth
+                onClick={handleLogout}
               />
-              <LinkButton
-                href="/sign-up"
-                label="Sign Up"
-                size="sm"
-                variant="outline"
-                fullWidth
-              />
-            </div>
+            ) : (
+              <div className="space-y-3">
+                <LinkButton
+                  href="/sign-in"
+                  label="Log In"
+                  size="sm"
+                  variant="primary"
+                  fullWidth
+                />
+                <LinkButton
+                  href="/sign-up"
+                  label="Sign Up"
+                  size="sm"
+                  variant="outline"
+                  fullWidth
+                />
+              </div>
+            )}
           </div>
         </div>
       </aside>

@@ -6,25 +6,18 @@ import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { logout } from "@/lib/api/auth";
+import { useAuthStore } from "@/store/authStore";
 
 const Profile = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(() => {
-    if (typeof window === "undefined") return false;
-    return !!localStorage.getItem("token");
-  });
-  const [userName, setUserName] = useState(() => {
-    if (typeof window === "undefined") return null;
-    return localStorage.getItem("firstName");
-  });
+  const { isLoggedIn, userName, clearAuth } = useAuthStore();
 
   const wrapperRef = useRef<HTMLDivElement | null>(null);
   const router = useRouter();
   const handleLogout = async () => {
     try {
       await logout();
-      setIsLoggedIn(false);
-      setUserName(null);
+      clearAuth();
       toast.success("Logged out successfully!");
       setIsOpen(false);
       router.push("/");

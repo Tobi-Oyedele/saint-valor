@@ -14,6 +14,7 @@ import { useRouter } from "next/navigation";
 import { login } from "@/lib/api/auth";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { useAuthStore } from "@/store/authStore";
 
 type SignInFormData = {
   email: string;
@@ -43,6 +44,8 @@ export default function SignInPage() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   }
 
+  const { setAuth } = useAuthStore();
+
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
@@ -59,7 +62,8 @@ export default function SignInPage() {
 
     try {
       setLoading(true);
-      await login(formData);
+      const { firstName } = await login(formData);
+      setAuth(firstName);
       toast.success("Signed in successfully!");
       router.push("/");
     } catch (error: unknown) {
