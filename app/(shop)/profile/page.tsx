@@ -4,8 +4,13 @@ import { useAuthStore } from "@/store/authStore";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { getUserProfile, updateProfile, deleteAccount } from "@/lib/api/auth";
-import { Pencil, Trash2, MapPin } from "lucide-react";
 import { toast } from "react-toastify";
+import ProfileTabs from "@/components/profile/ProfileTabs";
+import ProfileHeader from "@/components/profile/ProfileHeader";
+import AccountDetails from "@/components/profile/UserAccountDetails";
+import BillingAddress from "@/components/profile/BillingAddress";
+import OrdersTab from "@/components/profile/OrdersTab";
+import NotificationsTab from "@/components/profile/NotificationsTab";
 
 interface User {
   firstName: string;
@@ -22,7 +27,6 @@ const UserProfile = () => {
   const [error, setError] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<Tab>("profile");
 
-  // Edit states
   const [editName, setEditName] = useState(false);
   const [firstNameValue, setFirstNameValue] = useState("");
   const [lastNameValue, setLastNameValue] = useState("");
@@ -107,13 +111,6 @@ const UserProfile = () => {
     }
   };
 
-  const tabClass = (tab: Tab) =>
-    `pb-3 text-sm font-medium border-b-2 transition-colors cursor-pointer ${
-      activeTab === tab
-        ? "border-charcoal text-charcoal"
-        : "border-transparent text-secondary hover:text-charcoal"
-    }`;
-
   if (isLoading) {
     return (
       <div className="min-h-screen bg-ivory flex items-center justify-center">
@@ -133,186 +130,44 @@ const UserProfile = () => {
   return (
     <div className="min-h-screen bg-ivory">
       <div className="max-w-7xl mx-auto px-6 py-8">
-        {/* Tabs */}
-        <div className="flex gap-8 border-b border-border mb-8">
-          <button
-            className={tabClass("profile")}
-            onClick={() => setActiveTab("profile")}
-          >
-            Profile
-          </button>
-          <button
-            className={tabClass("orders")}
-            onClick={() => setActiveTab("orders")}
-          >
-            Orders
-          </button>
-          <button
-            className={tabClass("notifications")}
-            onClick={() => setActiveTab("notifications")}
-          >
-            Notifications
-          </button>
-        </div>
+        <ProfileTabs activeTab={activeTab} onTabChange={setActiveTab} />
 
-        {/* Profile Tab */}
         {activeTab === "profile" && user && (
           <div className="flex flex-col gap-8">
-            {/* Header row */}
-            <div className="flex items-start flex-col md:flex-row md:justify-between gap-4">
-              <div className="flex items-center gap-4">
-                {/* Avatar */}
-                <div className="w-12 h-12 rounded-full bg-charcoal text-ivory flex items-center justify-center text-lg font-semibold uppercase">
-                  {user.firstName[0]}
-                </div>
-                <div>
-                  <div className="flex items-center gap-2">
-                    {editName ? (
-                      <div className="flex gap-2">
-                        <input
-                          value={firstNameValue}
-                          onChange={(e) => setFirstNameValue(e.target.value)}
-                          className="border border-border rounded px-2 py-1 text-sm text-charcoal outline-none"
-                        />
-                        <input
-                          value={lastNameValue}
-                          onChange={(e) => setLastNameValue(e.target.value)}
-                          className="border border-border rounded px-2 py-1 text-sm text-charcoal outline-none"
-                        />
-                      </div>
-                    ) : (
-                      <h2 className="text-xl font-semibold text-charcoal capitalize">
-                        {user.firstName} {user.lastName}
-                      </h2>
-                    )}
-                    <button onClick={() => setEditName((prev) => !prev)}>
-                      <Pencil className="w-4 h-4 cursor-pointer" />
-                    </button>
-                  </div>
-                  <p className="text-sm text-secondary mt-0.5">
-                    Saint Valor member since {user.memberSince}
-                  </p>
-                </div>
-              </div>
+            <ProfileHeader
+              firstName={user.firstName}
+              lastName={user.lastName}
+              memberSince={user.memberSince}
+              editName={editName}
+              firstNameValue={firstNameValue}
+              lastNameValue={lastNameValue}
+              onToggleEditName={() => setEditName((prev) => !prev)}
+              onFirstNameChange={setFirstNameValue}
+              onLastNameChange={setLastNameValue}
+              onDeleteAccount={handleDeleteAccount}
+            />
 
-              {/* Delete Account */}
-              <button
-                onClick={handleDeleteAccount}
-                className="flex items-center gap-1.5 text-sm text-red-500 transition cursor-pointer"
-              >
-                <Trash2 className="w-4 h-4" />
-                Delete Account
-              </button>
-            </div>
-
-            {/* Main content grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {/* Left — Email & Password */}
-              <div className="flex flex-col gap-5">
-                {/* Email */}
-                <div>
-                  <label className="text-xs text-secondary uppercase tracking-wide mb-1.5 block">
-                    Email Address
-                  </label>
-                  <div className="flex items-center border border-border rounded-md bg-white px-3 py-2 gap-2">
-                    <input
-                      type="email"
-                      value={emailValue}
-                      disabled={!editEmail}
-                      onChange={(e) => setEmailValue(e.target.value)}
-                      className="flex-1 text-sm text-charcoal bg-transparent outline-none disabled:text-secondary"
-                    />
-                    <button
-                      onClick={() => setEditEmail((prev) => !prev)}
-                      className="text-secondary hover:text-charcoal transition"
-                    >
-                      <Pencil className="w-4 h-4" />
-                    </button>
-                  </div>
-                </div>
-
-                {/* Password */}
-                <div>
-                  <label className="text-xs text-secondary uppercase tracking-wide mb-1.5 block">
-                    Password
-                  </label>
-                  <div className="flex items-center border border-border rounded-md bg-white px-3 py-2 gap-2">
-                    <input
-                      type="password"
-                      value={editPassword ? passwordValue : "••••••••••••••"}
-                      disabled={!editPassword}
-                      onChange={(e) => setPasswordValue(e.target.value)}
-                      placeholder={editPassword ? "Enter new password" : ""}
-                      className="flex-1 text-sm text-charcoal bg-transparent outline-none disabled:text-secondary"
-                    />
-                    <button
-                      onClick={() => setEditPassword((prev) => !prev)}
-                      className="text-secondary hover:text-charcoal transition"
-                    >
-                      <Pencil className="w-4 h-4" />
-                    </button>
-                  </div>
-                </div>
-
-                {/* Save Button */}
-                <button
-                  onClick={handleSaveChanges}
-                  disabled={
-                    isSaving || (!editEmail && !editPassword && !editName)
-                  }
-                  className="w-fit px-6 py-2.5 bg-gold text-white text-sm font-medium rounded-md hover:opacity-90 transition disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  {isSaving ? "Saving..." : "Save Changes"}
-                </button>
-              </div>
-
-              {/* Right — Billing Address */}
-              <div>
-                <h3 className="text-sm font-semibold text-charcoal uppercase tracking-wide mb-4">
-                  Billing Address
-                </h3>
-                <div className="border border-border rounded-md bg-white p-8 flex flex-col items-center justify-center text-center gap-3 min-h-45">
-                  <MapPin className="w-6 h-6 text-secondary" />
-                  <div>
-                    <p className="text-sm font-medium text-charcoal">
-                      No Addresses
-                    </p>
-                    <p className="text-xs text-secondary mt-0.5">
-                      You&apos;ve not saved any addresses
-                    </p>
-                  </div>
-                  <button className="mt-1 px-5 py-2 border border-gold text-gold text-sm rounded-md hover:bg-gold hover:text-white transition">
-                    Add Address
-                  </button>
-                </div>
-              </div>
+              <AccountDetails
+                editEmail={editEmail}
+                emailValue={emailValue}
+                editPassword={editPassword}
+                passwordValue={passwordValue}
+                isSaving={isSaving}
+                hasChanges={editEmail || editPassword || editName}
+                onToggleEditEmail={() => setEditEmail((prev) => !prev)}
+                onEmailChange={setEmailValue}
+                onToggleEditPassword={() => setEditPassword((prev) => !prev)}
+                onPasswordChange={setPasswordValue}
+                onSave={handleSaveChanges}
+              />
+              <BillingAddress />
             </div>
           </div>
         )}
 
-        {/* Orders Tab */}
-        {activeTab === "orders" && (
-          <div className="flex flex-col items-center justify-center py-20 text-center gap-3">
-            <p className="text-charcoal font-medium">No Orders Yet</p>
-            <p className="text-sm text-secondary">
-              Your order history will appear here.
-            </p>
-            <button
-              onClick={() => router.push("/")}
-              className="mt-2 px-6 py-2.5 bg-gold text-white text-sm font-medium rounded-md hover:opacity-90 transition"
-            >
-              Start Shopping
-            </button>
-          </div>
-        )}
-
-        {/* Notifications Tab */}
-        {activeTab === "notifications" && (
-          <div className="flex flex-col items-center justify-center py-20 text-center gap-3">
-            <p className="text-charcoal font-medium">No Notifications</p>
-            <p className="text-sm text-secondary">You&apos;re all caught up!</p>
-          </div>
-        )}
+        {activeTab === "orders" && <OrdersTab />}
+        {activeTab === "notifications" && <NotificationsTab />}
       </div>
     </div>
   );
