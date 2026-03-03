@@ -5,6 +5,8 @@ import EmptyState from "./EmptyState";
 import { ChevronRight } from "lucide-react";
 import UserTableSkeleton from "./UserTableSkeleton";
 import { useRouter } from "next/navigation";
+import api from "@/lib/axios";
+import axios from "axios";
 
 interface User {
   _id: string;
@@ -25,20 +27,13 @@ const UserTable = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await fetch(
-          "https://saint-valor-backend.onrender.com/api/v1/admin/users",
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          },
-        );
-        const result = await response.json();
-        setData(result.data.users);
-      } catch {
-        setError("Failed to fetch users");
+        const { data } = await api.get("/api/v1/admin/users");
+        setData(data.data.users);
+      } catch (err: unknown) {
+        const message = axios.isAxiosError(err)
+          ? err.response?.data?.message || "Failed to fetch users."
+          : "Something went wrong. Please try again.";
+        setError(message);
       } finally {
         setLoading(false);
       }

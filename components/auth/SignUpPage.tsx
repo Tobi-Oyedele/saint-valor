@@ -77,7 +77,7 @@ export default function SignUpPage() {
       setLoading(true);
       await signUp(formData);
       toast.success("Account created successfully!");
-      router.push("/sign-in");
+      router.push(`/otp?email=${encodeURIComponent(formData.email)}`);
     } catch (error: unknown) {
       const message = axios.isAxiosError(error)
         ? error.response?.data?.message || "Failed to create account."
