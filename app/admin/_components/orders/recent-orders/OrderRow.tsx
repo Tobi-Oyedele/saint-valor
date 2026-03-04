@@ -58,7 +58,7 @@ const OrderRow = ({ order }: OrderRowProps) => {
       <td className="py-4 px-4">
         <button
           onClick={() => router.push(`/admin/orders/${order._id}`)}
-          className="inline-flex items-center gap-1 text-sm text-[#1a1a1a]/50 hover:text-[#C9A050] transition-colors font-medium"
+          className="inline-flex cursor-pointer items-center gap-1 text-sm text-charcoal transition-colors font-medium"
         >
           More details
           <ChevronRight size={14} />
