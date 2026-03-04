@@ -5,14 +5,16 @@ import api from "@/lib/axios";
 import axios from "axios";
 import StatCard from "./StatCard";
 import SkeletonCard from "./SkeletonCard";
+import { RecentOrder } from "../../../../types/order";
+import RecentOrdersTable from "../orders/RecentOrdersTable";
 
 interface DashboardStats {
   totalUsers: number;
   totalSales: number;
   totalEarnings: number;
+  recentOrders: RecentOrder[];
 }
 
-// Mock sparkline data — replace with real data when backend supports it
 const MOCK_SPARKLINES = {
   earnings: [120, 180, 150, 200, 170, 220, 190, 250, 210, 280],
   sales: [80, 120, 90, 150, 110, 130, 100, 160, 140, 170],
@@ -57,7 +59,7 @@ const StatsSection = () => {
   }
 
   return (
-    <section className="mx-10">
+    <section className="mx-10 pb-10">
       <div className="mb-4">
         <h2 className="text-2xl font-semibold uppercase tracking-[0.15em] text-charcoal">
           Dashboard
@@ -97,6 +99,8 @@ const StatsSection = () => {
           </>
         ) : null}
       </div>
+
+      {stats && <RecentOrdersTable orders={stats.recentOrders} />}
     </section>
   );
 };

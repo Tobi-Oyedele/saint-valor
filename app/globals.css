@@ -21,7 +21,9 @@ h6,
 a,
 span,
 label,
-button {
+button,
+td,
+th {
   font-family: var(--font-inter);
 }
 
