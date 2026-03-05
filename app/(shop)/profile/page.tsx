@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 import ProfileTabs from "@/components/profile/ProfileTabs";
 import ProfileHeader from "@/components/profile/ProfileHeader";
 import AccountDetails from "@/components/profile/UserAccountDetails";
-import BillingAddress from "@/components/profile/BillingAddress";
+import BillingAddress from "@/components/profile/billingAddress/BillingAddress";
 import OrdersTab from "@/components/profile/OrdersTab";
 import NotificationsTab from "@/components/profile/NotificationsTab";
 import { formatDate } from "@/lib/utils";
