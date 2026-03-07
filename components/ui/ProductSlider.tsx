@@ -77,7 +77,6 @@ export default function ProductSlider({
             key={product._id}
             product={product}
             onAddToCart={(id) => console.log("Add to cart:", id)}
-            onFavourite={(id) => console.log("Favourite:", id)}
           />
         ))}
       </div>

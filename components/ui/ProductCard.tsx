@@ -5,20 +5,20 @@ import { useState } from "react";
 import { Heart } from "lucide-react";
 import Button from "./Button";
 import { Product } from "@/types/product";
+import { useFavouritesStore } from "@/store/favouritesStore";
 
 interface ProductCardProps {
   product: Product;
   onAddToCart: (id: string) => void;
-  onFavourite: (id: string) => void;
 }
 
 export default function ProductCard({
   product,
   onAddToCart,
-  onFavourite,
 }: ProductCardProps) {
   const [isHovered, setIsHovered] = useState(false);
-  const [isFavourite, setIsFavourite] = useState(false);
+  const { favouriteIds, toggleFavourite } = useFavouritesStore();
+  const isFavourite = favouriteIds.has(product._id);
 
   return (
     <div
@@ -36,10 +36,7 @@ export default function ProductCard({
 
         <button
           aria-label="Heart Icon"
-          onClick={() => {
-            setIsFavourite(!isFavourite);
-            onFavourite(product._id);
-          }}
+          onClick={() => toggleFavourite(product._id)}
           className="absolute top-2 right-2 bg-white rounded-full p-1.5 shadow-sm transition-transform duration-200 hover:scale-110 cursor-pointer"
         >
           <Heart

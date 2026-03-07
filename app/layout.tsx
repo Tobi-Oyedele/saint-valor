@@ -3,6 +3,7 @@ import { IBM_Plex_Sans, Inter } from "next/font/google";
 import "./globals.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import AuthPromptModal from "@/components/ui/AuthPromptModal";
 
 export const inter = Inter({
   variable: "--font-inter",
@@ -33,6 +34,7 @@ export default function RootLayout({
       >
         {children}
         <ToastContainer />
+        <AuthPromptModal />
       </body>
     </html>
   );
