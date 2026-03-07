@@ -16,6 +16,30 @@ export interface ProductCollection {
   image?: string;
 }
 
+export interface ProductFilters {
+  page?: number;
+  limit?: number;
+  category?: string;
+  collection?: string;
+  minPrice?: number;
+  maxPrice?: number;
+  inStock?: boolean;
+  search?: string;
+  material?: string;
+  weight?: string;
+  size?: string;
+  karat?: string;
+  jewelryType?: string;
+  sort?: string;
+}
+
+export interface PaginatedProducts {
+  products: Product[];
+  totalItems: number;
+  totalPages: number;
+  currentPage: number;
+}
+
 export interface Product {
   _id: string;
   productName: string;

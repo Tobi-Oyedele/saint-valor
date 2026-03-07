@@ -1,24 +1,7 @@
 import publicApi from "../api/publicApi";
 import { Product } from "@/types/product";
-
-export interface ProductFilters {
-  page?: number;
-  limit?: number;
-  category?: string;
-  collection?: string;
-  minPrice?: number;
-  maxPrice?: number;
-  inStock?: boolean;
-  search?: string;
-  material?: string;
-}
-
-export interface PaginatedProducts {
-  products: Product[];
-  totalItems: number;
-  totalPages: number;
-  currentPage: number;
-}
+import { ProductFilters } from "@/types/product";
+import { PaginatedProducts } from "@/types/product";
 
 export const getAllProducts = async (
   filters?: ProductFilters,
@@ -26,9 +9,9 @@ export const getAllProducts = async (
   const { data } = await publicApi.get("/products", { params: filters });
   return {
     products: data.data.products,
-    totalItems: data.totalItems,
-    totalPages: data.totalPages,
-    currentPage: data.currentPage,
+    totalItems: data.pagination.totalItems,
+    totalPages: data.pagination.totalPages,
+    currentPage: data.pagination.currentPage,
   };
 };
 
