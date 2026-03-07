@@ -24,7 +24,7 @@ const AuthPromptModal = () => {
         </div>
 
         <h2 className="text-base font-semibold text-charcoal mb-2">
-          Sign in to save favourites
+          Sign in to add to favourites
         </h2>
         <p className="text-sm text-secondary mb-6">
           Create an account or sign in to start saving your favourite pieces.

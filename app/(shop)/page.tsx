@@ -16,7 +16,7 @@ const HomePage = () => {
 
   useEffect(() => {
     if (isLoggedIn) fetchFavourites();
-  }, [isLoggedIn]);
+  }, [isLoggedIn, fetchFavourites]);
 
   return (
     <main className="bg-ivory">

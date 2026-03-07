@@ -13,6 +13,7 @@ export interface ProductCollection {
   _id: string;
   name: string;
   slug: string;
+  image?: string;
 }
 
 export interface Product {
@@ -21,13 +22,16 @@ export interface Product {
   productDescription: string;
   productPrice: number;
   mainImage: string;
-  otherImages: string[];
+  subImages: string[];
   productJewelryType: string;
   productMaterial: string;
   productKarat: string;
+  productWeight: string;
   productSizes: ProductSize[];
   productCategory: ProductCategory;
   productCollection: ProductCollection;
-  productSalesCount: number;
+  salesCount: number;
+  isNewArrival: boolean;
   createdAt: string;
+  updatedAt: string;
 }
