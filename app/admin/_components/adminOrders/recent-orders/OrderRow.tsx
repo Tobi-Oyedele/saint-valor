@@ -1,7 +1,7 @@
 import { RecentOrder } from "@/types/adminOrder";
 import { OrderStatus } from "@/types/adminOrder";
 import StatusBadge from "@/components/ui/StatusBadge";
-import MoreDetails from "../../ui/MoreDetails";
+import MoreDetails from "../../adminUI/MoreDetails";
 import { formatDate } from "@/lib/utils";
 
 interface OrderRowProps {
