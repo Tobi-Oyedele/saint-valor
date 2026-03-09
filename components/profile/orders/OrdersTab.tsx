@@ -102,8 +102,8 @@ const OrdersTab = () => {
             </p>
             {!search && filter === "ongoing" && (
               <button
-                onClick={() => router.push("/")}
-                className="mt-2 px-6 py-2.5 bg-gold text-white text-sm font-medium rounded-md hover:opacity-90 transition"
+                onClick={() => router.push("/shop")}
+                className="mt-2 px-6 py-2.5 cursor-pointer bg-gold text-white text-sm font-medium rounded-md"
               >
                 Start Shopping
               </button>
