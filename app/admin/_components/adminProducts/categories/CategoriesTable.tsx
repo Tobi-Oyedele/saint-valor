@@ -3,9 +3,17 @@ import { useEffect, useState, useRef } from "react";
 import CategoriesSearch from "./CategoriesSearch";
 import AddNewCategory from "./AddNewCategory";
 import CategoriesEmptyState from "./CategoriesEmptyState";
+import DeleteCategoryModal from "./DeleteCategoryModal";
+import EditCategoryModal from "./EditCategoryModal";
 import { Category } from "@/types/product";
-import { getAllCategories } from "@/lib/api/admin/adminCategories";
+import {
+  deleteCategory,
+  getAllCategories,
+  updateCategory,
+} from "@/lib/api/admin/adminCategories";
 import { AlertCircle, MoreVertical, Eye, Pencil, Trash2 } from "lucide-react";
+import { formatDate } from "@/lib/utils";
+import { AxiosError } from "axios";
 
 const CategoriesTable = () => {
   const [search, setSearch] = useState("");
@@ -13,7 +21,51 @@ const CategoriesTable = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
   const [openMenuId, setOpenMenuId] = useState<string | null>(null);
+  const [categoryToEdit, setCategoryToEdit] = useState<Category | null>(null);
+  const [categoryToDelete, setCategoryToDelete] = useState<Category | null>(
+    null,
+  );
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
+  const [deleteError, setDeleteError] = useState("");
+
   const menuRef = useRef<HTMLDivElement>(null);
+
+  const handleDelete = async () => {
+    if (!categoryToDelete) return;
+    try {
+      setIsDeleting(true);
+      await deleteCategory({ _id: categoryToDelete._id });
+      setCategories((prev) =>
+        prev.filter((cat) => cat._id !== categoryToDelete._id),
+      );
+      setCategoryToDelete(null);
+    } catch (err) {
+      const axiosErr = err as AxiosError<{ message: string }>;
+      const message =
+        axiosErr?.response?.data?.message ||
+        "Failed to delete category. Please try again";
+      setDeleteError(message);
+    } finally {
+      setIsDeleting(false);
+    }
+  };
+
+  const handleEdit = async (name: string) => {
+    if (!categoryToEdit) return;
+    try {
+      setIsSaving(true);
+      const updated = await updateCategory({ _id: categoryToEdit._id, name });
+      setCategories((prev) =>
+        prev.map((cat) => (cat._id === categoryToEdit._id ? updated : cat)),
+      );
+    } catch {
+      setError("Failed to update category. Please try again");
+    } finally {
+      setIsSaving(false);
+      setCategoryToEdit(null);
+    }
+  };
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -31,7 +83,6 @@ const CategoriesTable = () => {
     fetchCategories();
   }, []);
 
-  // Close menu on outside click
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
@@ -46,17 +97,6 @@ const CategoriesTable = () => {
     cat.name.toLowerCase().includes(search.toLowerCase()),
   );
 
-  const formatDate = (dateStr: string) =>
-    new Date(dateStr).toLocaleDateString("en-US", {
-      month: "short",
-      day: "numeric",
-      year: "numeric",
-      hour: "numeric",
-      minute: "2-digit",
-      hour12: true,
-    });
-
-  // --- Loading State ---
   if (isLoading) {
     return (
       <div>
@@ -82,7 +122,6 @@ const CategoriesTable = () => {
     );
   }
 
-  // --- Error State ---
   if (error) {
     return (
       <div>
@@ -143,22 +182,34 @@ const CategoriesTable = () => {
                   onClick={() =>
                     setOpenMenuId(openMenuId === cat._id ? null : cat._id)
                   }
-                  className="p-1 rounded hover:bg-gray-100 transition-colors"
+                  className="p-1 rounded cursor-pointer"
                 >
                   <MoreVertical size={16} className="text-secondary" />
                 </button>
 
                 {openMenuId === cat._id && (
                   <div className="absolute right-0 top-8 z-10 bg-white border border-border rounded-lg shadow-md w-36 py-1">
-                    <button className="flex items-center gap-2 w-full px-4 py-2 text-sm text-charcoal hover:bg-ivory transition-colors">
+                    <button className="flex items-center gap-2 w-full px-4 py-2 text-sm text-charcoal hover:bg-ivory transition-colors cursor-pointer">
                       <Eye size={14} />
                       View
                     </button>
-                    <button className="flex items-center gap-2 w-full px-4 py-2 text-sm text-charcoal hover:bg-ivory transition-colors">
+                    <button
+                      onClick={() => {
+                        setCategoryToEdit(cat);
+                        setOpenMenuId(null);
+                      }}
+                      className="flex items-center gap-2 w-full px-4 py-2 text-sm text-charcoal hover:bg-ivory transition-colors cursor-pointer"
+                    >
                       <Pencil size={14} />
                       Edit
                     </button>
-                    <button className="flex items-center gap-2 w-full px-4 py-2 text-sm text-red-500 hover:bg-ivory transition-colors">
+                    <button
+                      onClick={() => {
+                        setCategoryToDelete(cat);
+                        setOpenMenuId(null);
+                      }}
+                      className="flex items-center gap-2 w-full px-4 py-2 text-sm text-red-500 hover:bg-ivory transition-colors cursor-pointer"
+                    >
                       <Trash2 size={14} />
                       Delete
                     </button>
@@ -169,6 +220,26 @@ const CategoriesTable = () => {
           ))}
         </div>
       )}
+
+      {/* Modals */}
+      <DeleteCategoryModal
+        isOpen={!!categoryToDelete}
+        onClose={() => {
+          setCategoryToDelete(null);
+          setDeleteError("");
+        }}
+        onConfirm={handleDelete}
+        isDeleting={isDeleting}
+        deleteError={deleteError}
+      />
+      <EditCategoryModal
+        key={categoryToEdit?._id}
+        isOpen={!!categoryToEdit}
+        onClose={() => setCategoryToEdit(null)}
+        onConfirm={handleEdit}
+        category={categoryToEdit}
+        isSaving={isSaving}
+      />
     </div>
   );
 };
