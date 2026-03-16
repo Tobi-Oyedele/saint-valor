@@ -70,3 +70,13 @@ export type Category = {
   updatedAt: string;
   __v: number;
 };
+
+export type Collection = {
+  _id: string;
+  name: string;
+  slug: string;
+  image?: string;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+};
