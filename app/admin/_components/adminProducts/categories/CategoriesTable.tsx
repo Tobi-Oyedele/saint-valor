@@ -155,10 +155,10 @@ const CategoriesTable = () => {
       <h3 className="text-xl font-semibold py-6 text-charcoal">Categories</h3>
       <div className="border-b border-border" />
 
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center py-6">
         <CategoriesSearch value={search} onChange={setSearch} />
         <button
-          className="text-sm text-white bg-gold cursor-pointer rounded-full px-8 py-3"
+          className="bg-gold cursor-pointer hover:bg-gold/90 text-white text-sm font-medium px-8 py-3 rounded-full transition-colors"
           onClick={() => setIsAddModalOpen(true)}
         >
           Add New Category
