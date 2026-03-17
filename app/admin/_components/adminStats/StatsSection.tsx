@@ -7,6 +7,7 @@ import StatCard from "./StatCard";
 import SkeletonCard from "./SkeletonCard";
 import { RecentOrder } from "../../../../types/adminOrder";
 import RecentOrdersTable from "../adminOrders/recent-orders/RecentOrdersTable";
+import { formatEarnings } from "@/lib/utils";
 
 interface DashboardStats {
   totalUsers: number;
@@ -19,12 +20,6 @@ const MOCK_SPARKLINES = {
   earnings: [120, 180, 150, 200, 170, 220, 190, 250, 210, 280],
   sales: [80, 120, 90, 150, 110, 130, 100, 160, 140, 170],
   users: [5, 8, 6, 12, 9, 15, 11, 18, 14, 20],
-};
-
-const formatEarnings = (amount: number) => {
-  if (amount >= 1_000_000) return `₦${(amount / 1_000_000).toFixed(1)}M`;
-  if (amount >= 1_000) return `₦${(amount / 1_000).toFixed(0)}K`;
-  return `₦${amount.toLocaleString()}`;
 };
 
 const StatsSection = () => {
