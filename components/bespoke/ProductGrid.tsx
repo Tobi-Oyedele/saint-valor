@@ -27,6 +27,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
               src={product.imageSrc}
               alt={product.imageAlt}
               fill
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
               className="object-cover"
             />
           </div>

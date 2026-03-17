@@ -33,6 +33,7 @@ const ProductImageGallery = ({
             src={img}
             alt={`${productName} view ${i + 1}`}
             fill
+            sizes="64px"
             className="object-cover"
           />
         </button>
@@ -49,6 +50,7 @@ const ProductImageGallery = ({
           alt={productName}
           fill
           priority
+          sizes="100vw"
           className="object-cover transition-opacity duration-300"
         />
       </div>

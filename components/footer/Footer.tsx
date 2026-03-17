@@ -18,7 +18,7 @@ export default function Footer() {
                   width={80}
                   height={50}
                   alt="Saint Valor Logo"
-                  style={{ height: "auto" }}
+                  style={{ width: "50px", height: "auto" }}
                 />
               </Link>
 

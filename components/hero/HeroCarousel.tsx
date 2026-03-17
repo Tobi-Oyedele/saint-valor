@@ -71,6 +71,7 @@ export default function HeroCarousel({
           alt="Hero background image"
           fill
           priority
+          sizes="100vw"
           className="object-cover"
         />
 

@@ -17,7 +17,7 @@ const DesktopTopNav = () => {
             width={50}
             height={50}
             alt="Saint Valor Logo"
-            style={{ height: "auto" }}
+            style={{ width: "50px", height: "auto" }}
           />
         </Link>
       </div>
