@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { toast } from "react-toastify";
 import { getCollections } from "@/lib/api/products";
 import { ProductCollection } from "@/types/product";
 
@@ -17,7 +18,7 @@ export default function ShopCollectionSection() {
         // only show collections that have an image
         setCollections(data.filter((c: ProductCollection) => c.image));
       } catch {
-        // fail silently, hardcoded fallback still shows
+        toast.error("Something went wrong. Please try again.");
       } finally {
         setIsLoading(false);
       }

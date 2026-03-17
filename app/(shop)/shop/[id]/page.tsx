@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
+import { toast } from "react-toastify";
 import { Product } from "@/types/product";
 import { getProductById } from "@/lib/api/products";
 import { useFavouritesStore } from "@/store/favouritesStore";
@@ -28,7 +29,8 @@ const ProductDetailPage = () => {
         const data = await getProductById(id);
         setProduct(data);
       } catch {
-        setError("Failed to load product. Please try again.");
+        toast.error("Could not load product details.");
+        setError("Could not load product details.");
       } finally {
         setIsLoading(false);
       }

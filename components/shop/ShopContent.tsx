@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useCallback } from "react";
 import { useSearchParams } from "next/navigation";
+import { toast } from "react-toastify";
 import {
   getAllProducts,
   getCollections,
@@ -59,12 +60,16 @@ export default function ShopContent() {
   // fetch collections and categories once
   useEffect(() => {
     const fetchMeta = async () => {
-      const [cols, cats] = await Promise.all([
-        getCollections(),
-        getCategories(),
-      ]);
-      setCollections(cols);
-      setCategories(cats);
+      try {
+        const [cols, cats] = await Promise.all([
+          getCollections(),
+          getCategories(),
+        ]);
+        setCollections(cols);
+        setCategories(cats);
+      } catch {
+        toast.error("Something went wrong. Please try again.");
+      }
     };
     fetchMeta();
   }, []);
@@ -91,6 +96,8 @@ export default function ShopContent() {
       setProducts(result.products);
       setTotalItems(result.totalItems);
       setTotalPages(result.totalPages);
+    } catch {
+      toast.error("Unable to load products. Please try again.");
     } finally {
       setIsLoading(false);
     }

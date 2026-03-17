@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { toast } from "react-toastify";
 import {
   addFavourite,
   removeFavourite,
@@ -81,6 +82,7 @@ export const useFavouritesStore = create<FavouritesStore>((set, get) => ({
     } catch {
       // revert on failure
       set({ favouriteIds, favourites });
+      toast.error("Something went wrong. Please try again.");
     }
   },
 }));
