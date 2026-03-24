@@ -101,7 +101,6 @@ const CollectionsTable = () => {
     c.name.toLowerCase().includes(search.toLowerCase()),
   );
 
-  // --- Loading ---
   if (isLoading) {
     return (
       <div>
@@ -127,7 +126,6 @@ const CollectionsTable = () => {
     );
   }
 
-  // --- Error ---
   if (error) {
     return (
       <div>
@@ -205,7 +203,7 @@ const CollectionsTable = () => {
 
                   {openMenuId === collection._id && (
                     <div className="absolute right-0 top-8 z-10 bg-white border border-border rounded-lg shadow-md w-36 py-1">
-                      <button className="flex items-center gap-2 w-full px-4 py-2 text-sm text-charcoal hover:bg-ivory transition-colors">
+                      <button className="flex cursor-pointer items-center gap-2 w-full px-4 py-2 text-sm text-charcoal hover:bg-ivory transition-colors">
                         <Eye size={14} />
                         View
                       </button>
@@ -214,7 +212,7 @@ const CollectionsTable = () => {
                           setCollectionToEdit(collection);
                           setOpenMenuId(null);
                         }}
-                        className="flex items-center gap-2 w-full px-4 py-2 text-sm text-charcoal hover:bg-ivory transition-colors"
+                        className="flex cursor-pointer items-center gap-2 w-full px-4 py-2 text-sm text-charcoal hover:bg-ivory transition-colors"
                       >
                         <Pencil size={14} />
                         Edit
@@ -224,7 +222,7 @@ const CollectionsTable = () => {
                           setCollectionToDelete(collection);
                           setOpenMenuId(null);
                         }}
-                        className="flex items-center gap-2 w-full px-4 py-2 text-sm text-red-500 hover:bg-ivory transition-colors"
+                        className="flex cursor-pointer items-center gap-2 w-full px-4 py-2 text-sm text-red-500 hover:bg-ivory transition-colors"
                       >
                         <Trash2 size={14} />
                         Delete

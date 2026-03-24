@@ -70,7 +70,7 @@ const EditCollectionModal = ({
               />
               <button
                 onClick={() => fileInputRef.current?.click()}
-                className="absolute inset-0 flex items-center justify-center bg-black/30 text-white text-xs font-medium"
+                className="absolute cursor-pointer inset-0 flex items-center justify-center bg-black/30 text-white text-xs font-medium"
               >
                 Change Image
               </button>
@@ -78,7 +78,7 @@ const EditCollectionModal = ({
           ) : (
             <button
               onClick={() => fileInputRef.current?.click()}
-              className="w-full border border-dashed border-border rounded-lg py-8 text-xs text-secondary hover:border-gold transition-colors"
+              className="w-full cursor-pointer border border-dashed border-border rounded-lg py-8 text-xs text-secondary hover:border-gold transition-colors"
             >
               Upload file
             </button>
@@ -95,14 +95,14 @@ const EditCollectionModal = ({
         <button
           onClick={() => onConfirm(name, newImage ?? undefined)}
           disabled={isSaving || !name.trim()}
-          className="w-full bg-gold hover:bg-gold/90 disabled:opacity-60 text-white font-medium py-3 rounded-full transition-colors mb-3"
+          className="w-full cursor-pointer bg-gold hover:bg-gold/90 disabled:opacity-60 text-white font-medium py-3 rounded-full transition-colors mb-3"
         >
           {isSaving ? "Saving..." : "Save Changes"}
         </button>
         <button
           onClick={onClose}
           disabled={isSaving}
-          className="w-full text-gold font-medium py-3 rounded-full border border-gold hover:bg-gold/5 transition-colors"
+          className="w-full cursor-pointer text-gold font-medium py-3 rounded-full border border-gold hover:bg-gold/5 transition-colors"
         >
           Cancel
         </button>

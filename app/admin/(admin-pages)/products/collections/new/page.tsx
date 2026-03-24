@@ -3,7 +3,6 @@
 import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import Link from "next/link";
 import { ArrowLeft, CloudUpload } from "lucide-react";
 import { toast } from "react-toastify";
 import { addNewCollection } from "@/lib/api/admin/adminCollections";
@@ -44,18 +43,11 @@ const AddNewCollectionPage = () => {
       <div className="flex items-center gap-2 mb-6">
         <button
           onClick={() => router.back()}
-          className="flex items-center gap-1 text-xs text-secondary hover:text-charcoal transition-colors"
+          className="flex items-center gap-1 text-xs text-secondary hover:text-charcoal transition-colors cursor-pointer"
         >
           <ArrowLeft size={14} />
           Back
         </button>
-        <span className="text-secondary text-xs">|</span>
-        <Link
-          href="/admin/products"
-          className="text-xs text-secondary hover:text-charcoal transition-colors"
-        >
-          Product Collections
-        </Link>
         <span className="text-secondary text-xs">|</span>
         <span className="text-xs text-charcoal">Add New Collection</span>
       </div>
