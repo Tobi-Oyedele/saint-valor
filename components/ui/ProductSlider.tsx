@@ -73,11 +73,7 @@ export default function ProductSlider({
         className="grid grid-cols-2 md:grid-cols-4 gap-4 animate-fade-in"
       >
         {visibleProducts.map((product) => (
-          <ProductCard
-            key={product._id}
-            product={product}
-            onAddToCart={(id) => console.log("Add to cart:", id)}
-          />
+          <ProductCard key={product._id} product={product} />
         ))}
       </div>
     </section>
