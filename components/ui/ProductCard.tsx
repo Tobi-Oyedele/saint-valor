@@ -30,23 +30,22 @@ export default function ProductCard({ product }: ProductCardProps) {
   return (
     <div className="flex flex-col gap-2">
       <div className="relative overflow-hidden aspect-3/4 w-full">
-        <Link href={`/shop/${product._id}`} className="block w-full h-full">
-          <Image
-            src={product.mainImage ?? "/images/shop-1.png"}
-            alt={product.productName ?? ""}
-            fill
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-            loading="eager"
-            priority
-            className="object-cover transition-transform duration-500 group-hover:scale-105"
-          />
-        </Link>
+        <Link href={`/shop/${product._id}`} className="absolute inset-0 z-10" />
 
-        {/* Favourite button */}
+        <Image
+          src={product.mainImage ?? "/images/shop-1.png"}
+          alt={product.productName ?? ""}
+          fill
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          loading="eager"
+          priority
+          className="object-cover transition-transform duration-500 group-hover:scale-105"
+        />
+
         <button
           aria-label="Toggle favourite"
           onClick={handleFavourites}
-          className="absolute top-2 right-2 bg-white rounded-full p-1.5 shadow-sm transition-transform duration-200 hover:scale-110 cursor-pointer z-10"
+          className="absolute top-2 right-2 bg-white rounded-full p-1.5 shadow-sm transition-transform duration-200 hover:scale-110 cursor-pointer z-20"
         >
           <Heart
             size={14}

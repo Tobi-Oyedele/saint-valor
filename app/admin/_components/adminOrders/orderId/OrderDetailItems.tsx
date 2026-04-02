@@ -1,5 +1,5 @@
-import Image from "next/image";
 import { OrderItem } from "@/types/adminOrder";
+import { Package } from "lucide-react";
 
 interface OrderDetailItemsProps {
   items: OrderItem[];
@@ -12,15 +12,8 @@ const OrderDetailItems = ({ items }: OrderDetailItemsProps) => {
       <div className="space-y-6">
         {items.map((item) => (
           <div key={item.productId} className="flex gap-4">
-            <div className="relative w-24 h-24 rounded-xl overflow-hidden shrink-0 bg-ivory">
-              <Image
-                src={item.image || "/images/shop-1.png"}
-                alt={item.productName}
-                fill
-                sizes="96px"
-                loading="eager"
-                className="object-cover"
-              />
+            <div className="w-24 h-24 flex justify-center items-center shrink-0 rounded-xl bg-ivory">
+              <Package size={40} className="text-secondary" />
             </div>
             <div className="flex flex-col justify-between py-1">
               <div>
