@@ -106,7 +106,7 @@ const VerifyPaymentPage = () => {
       </div>
       <div className="flex flex-col sm:flex-row items-center gap-3 mt-2">
         <Link
-          href="/orders/me"
+          href="/profile/orders"
           className="text-xs font-semibold text-white bg-gold px-6 py-2.5 hover:bg-gold/90 transition-colors duration-200"
         >
           View My Orders

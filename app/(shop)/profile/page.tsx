@@ -5,12 +5,9 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { getUserProfile, updateProfile, deleteAccount } from "@/lib/api/auth";
 import { toast } from "react-toastify";
-import ProfileTabs from "@/components/profile/ProfileTabs";
 import ProfileHeader from "@/components/profile/ProfileHeader";
 import AccountDetails from "@/components/profile/UserAccountDetails";
 import BillingAddress from "@/components/profile/billingAddress/BillingAddress";
-import OrdersTab from "@/components/profile/orders/OrdersTab";
-import NotificationsTab from "@/components/profile/NotificationsTab";
 import { formatDate } from "@/lib/utils";
 import { Address } from "@/types/address";
 
@@ -22,13 +19,10 @@ interface User {
   address: Address | null;
 }
 
-type Tab = "profile" | "orders" | "notifications";
-
 const UserProfile = () => {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [activeTab, setActiveTab] = useState<Tab>("profile");
 
   const [editName, setEditName] = useState(false);
   const [firstNameValue, setFirstNameValue] = useState("");
@@ -36,7 +30,7 @@ const UserProfile = () => {
   const [emailValue, setEmailValue] = useState("");
   const [isSaving, setIsSaving] = useState(false);
 
-  const { isLoggedIn, clearAuth } = useAuthStore();
+  const { clearAuth } = useAuthStore();
   const router = useRouter();
 
   const fetchUser = async () => {
@@ -55,12 +49,8 @@ const UserProfile = () => {
   };
 
   useEffect(() => {
-    if (!isLoggedIn) {
-      router.push("/");
-      return;
-    }
     fetchUser();
-  }, [isLoggedIn, router]);
+  }, []);
 
   const handleSaveChanges = async () => {
     try {
@@ -133,43 +123,36 @@ const UserProfile = () => {
   }
 
   return (
-    <div className="min-h-screen bg-ivory">
-      <div className="max-w-7xl mx-auto px-6 py-8">
-        <ProfileTabs activeTab={activeTab} onTabChange={setActiveTab} />
+    <div className=" mx-auto px-6 py-8">
+      {user && (
+        <div className="flex flex-col gap-8">
+          <ProfileHeader
+            firstName={user.firstName}
+            lastName={user.lastName}
+            memberSince={formatDate(user.memberSince)}
+            editName={editName}
+            firstNameValue={firstNameValue}
+            lastNameValue={lastNameValue}
+            onToggleEditName={() => setEditName((prev) => !prev)}
+            onFirstNameChange={setFirstNameValue}
+            onLastNameChange={setLastNameValue}
+            onDeleteAccount={handleDeleteAccount}
+          />
 
-        {activeTab === "profile" && user && (
-          <div className="flex flex-col gap-8">
-            <ProfileHeader
-              firstName={user.firstName}
-              lastName={user.lastName}
-              memberSince={formatDate(user.memberSince)}
-              editName={editName}
-              firstNameValue={firstNameValue}
-              lastNameValue={lastNameValue}
-              onToggleEditName={() => setEditName((prev) => !prev)}
-              onFirstNameChange={setFirstNameValue}
-              onLastNameChange={setLastNameValue}
-              onDeleteAccount={handleDeleteAccount}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <AccountDetails
+              emailValue={emailValue}
+              isSaving={isSaving}
+              hasChanges={editName}
+              onSave={handleSaveChanges}
             />
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <AccountDetails
-                emailValue={emailValue}
-                isSaving={isSaving}
-                hasChanges={editName}
-                onSave={handleSaveChanges}
-              />
-              <BillingAddress
-                address={user.address ?? null}
-                onSave={handleSaveAddress}
-              />
-            </div>
+            <BillingAddress
+              address={user.address ?? null}
+              onSave={handleSaveAddress}
+            />
           </div>
-        )}
-
-        {activeTab === "orders" && <OrdersTab />}
-        {activeTab === "notifications" && <NotificationsTab />}
-      </div>
+        </div>
+      )}
     </div>
   );
 };
