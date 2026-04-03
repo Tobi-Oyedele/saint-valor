@@ -40,10 +40,12 @@ const VerifyPaymentPage = () => {
 
         if (message.toLowerCase().includes("expired")) {
           setState("expired");
+          localStorage.removeItem("pendingOrder");
           setTimeout(() => router.push("/cart"), 5000);
         } else {
           setState("error");
           toast.error("Payment verification failed. Redirecting to cart...");
+          localStorage.removeItem("pendingOrder");
           setTimeout(() => router.push("/cart"), 3000);
         }
       }
