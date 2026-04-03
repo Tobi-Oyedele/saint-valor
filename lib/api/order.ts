@@ -4,8 +4,6 @@ import { CartItem } from "@/types/cart";
 type InitializeOrderPayload = {
   items: {
     productId: string;
-    productName: string;
-    price: number;
     quantity: number;
     size: string | null;
   }[];
@@ -29,8 +27,6 @@ type InitializeOrderResponse = {
 export function buildOrderItems(items: CartItem[]) {
   return items.map((i) => ({
     productId: i.productId,
-    productName: i.productName,
-    price: i.productPrice,
     quantity: i.quantity,
     size: i.size,
   }));
