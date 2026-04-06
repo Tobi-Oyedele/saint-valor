@@ -11,15 +11,7 @@ import { getUserProfile } from "@/lib/api/auth";
 import { initializeOrder, buildOrderItems } from "@/lib/api/order";
 import { NIGERIAN_STATES } from "@/lib/utils";
 import AuthPromptModal from "@/components/ui/AuthPromptModal";
-
-type ShippingForm = {
-  firstName: string;
-  lastName: string;
-  phoneNumber: string;
-  address: string;
-  state: string;
-  city: string;
-};
+import { ShippingForm } from "@/types/shippingForm";
 
 const CartPage = () => {
   const { items, removeFromCart, updateQuantity, clearCart, totalPrice } =
@@ -57,6 +49,11 @@ const CartPage = () => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const cleaned = e.target.value.replace(/\D/g, "").slice(0, 11);
+    setForm((prev) => ({ ...prev, phoneNumber: cleaned }));
+  };
+
   const handleCheckout = async () => {
     if (!isLoggedIn) {
       setShowAuthModal(true);
@@ -73,6 +70,11 @@ const CartPage = () => {
       !city
     ) {
       toast.error("Please fill in all shipping details.");
+      return;
+    }
+
+    if (phoneNumber.length !== 11 || !phoneNumber.startsWith("0")) {
+      toast.error("Enter a valid phone number (e.g. 08012345678).");
       return;
     }
 
@@ -123,7 +125,7 @@ const CartPage = () => {
   }
 
   const inputClass =
-    "w-full border border-border bg-white px-3 py-2.5 text-xs text-charcoal placeholder:text-secondary focus:outline-none focus:border-charcoal transition-colors";
+    "w-full bg-white px-3 py-2.5 text-xs text-charcoal placeholder:text-secondary focus:outline-none focus:border-charcoal transition-colors";
 
   return (
     <div className="min-h-screen bg-ivory px-4 md:px-16 py-10">
@@ -247,42 +249,62 @@ const CartPage = () => {
               </h2>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <input
-                  name="firstName"
-                  value={form.firstName}
-                  onChange={handleChange}
-                  placeholder="First name"
-                  className={inputClass}
-                />
-                <input
-                  name="lastName"
-                  value={form.lastName}
-                  onChange={handleChange}
-                  placeholder="Last name"
-                  className={inputClass}
-                />
+                <div className="flex items-center bg-white overflow-hidden">
+                  <span className="px-3 text-xs text-secondary border-r border-border py-2.5 bg-white shrink-0">
+                    First Name
+                  </span>
+                  <input
+                    name="firstName"
+                    value={form.firstName}
+                    onChange={handleChange}
+                    type="text"
+                    placeholder="First name"
+                    className={inputClass}
+                  />
+                </div>
+
+                <div className="flex items-center bg-white overflow-hidden">
+                  <span className="px-3 text-xs text-secondary border-r border-border py-2.5 bg-white shrink-0">
+                    Last Name
+                  </span>
+                  <input
+                    name="lastName"
+                    value={form.lastName}
+                    onChange={handleChange}
+                    type="text"
+                    placeholder="Last name"
+                    className={inputClass}
+                  />
+                </div>
               </div>
 
               <div className="flex items-center border border-border bg-white overflow-hidden">
                 <span className="px-3 text-xs text-secondary border-r border-border py-2.5 bg-white shrink-0">
-                  +234
+                  Phone Number
                 </span>
                 <input
                   name="phoneNumber"
                   value={form.phoneNumber}
-                  onChange={handleChange}
-                  placeholder="Phone number"
+                  onChange={handlePhoneChange}
+                  type="tel"
+                  placeholder="Enter your phone number"
                   className="flex-1 px-3 py-2.5 text-xs text-charcoal placeholder:text-secondary focus:outline-none"
                 />
               </div>
 
-              <input
-                name="address"
-                value={form.address}
-                onChange={handleChange}
-                placeholder="Delivery address"
-                className={inputClass}
-              />
+              <div className="flex items-center bg-white overflow-hidden">
+                <span className="px-3 text-xs text-secondary border-r border-border py-2.5 bg-white shrink-0">
+                  Address
+                </span>
+
+                <input
+                  name="address"
+                  value={form.address}
+                  onChange={handleChange}
+                  placeholder="Enter your delivery address"
+                  className={inputClass}
+                />
+              </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <select

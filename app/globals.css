@@ -38,6 +38,14 @@ textarea {
   font-size: 16px;
 }
 
+@media (min-width: 768px) {
+  input,
+  select,
+  textarea {
+    font-size: inherit;
+  }
+}
+
 @layer components {
   .bottom-nav-link-style {
     @apply uppercase text-sm hover:text-burgundy cursor-pointer text-charcoal font-medium;

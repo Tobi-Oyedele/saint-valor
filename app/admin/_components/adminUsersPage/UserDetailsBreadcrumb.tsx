@@ -13,14 +13,6 @@ const UserDetailsBreadcrumb = () => {
         <ChevronLeft size={14} /> Back
       </button>
       <span className="text-secondary">|</span>
-      <button
-        type="button"
-        onClick={() => router.back()}
-        className="cursor-pointer underline text-secondary"
-      >
-        User
-      </button>
-      <span className="text-secondary">|</span>
       <span className="text-charcoal font-medium underline">User Details</span>
     </div>
   );
