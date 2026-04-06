@@ -29,7 +29,7 @@ api.interceptors.response.use(
       useAuthStore.getState().clearAuth();
 
       // Redirect to sign in
-      window.location.href = "/signin";
+      window.location.href = "/sign-in";
     }
 
     return Promise.reject(error);
