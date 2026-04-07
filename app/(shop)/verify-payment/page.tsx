@@ -28,25 +28,50 @@ const VerifyPaymentPage = () => {
     }
 
     const verify = async () => {
-      try {
-        await api.post(`/orders/verify/${reference}`);
-        clearCart();
-        localStorage.removeItem("pendingOrder");
-        setState("success");
-      } catch (error: unknown) {
-        const message = axios.isAxiosError(error)
-          ? (error.response?.data?.message ?? "")
-          : "";
+      const MAX_RETRIES = 5;
+      const BASE_DELAY = 3000;
 
-        if (message.toLowerCase().includes("expired")) {
-          setState("expired");
+      for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
+        try {
+          await api.post(`/orders/verify/${reference}`);
+          clearCart();
           localStorage.removeItem("pendingOrder");
-          setTimeout(() => router.push("/cart"), 5000);
-        } else {
+          setState("success");
+          return;
+        } catch (error: unknown) {
+          if (axios.isAxiosError(error)) {
+            const status = error.response?.status;
+            const message = error.response?.data?.message ?? "";
+
+            if (status === 409) {
+              if (attempt < MAX_RETRIES) {
+                const delay = BASE_DELAY * 2 ** (attempt - 1);
+                // 3s, 6s, 12s, 24s...
+                await new Promise((resolve) => setTimeout(resolve, delay));
+                continue;
+              }
+
+              setState("error");
+              toast.error(
+                "Payment is taking longer than expected. Please contact support.",
+              );
+              localStorage.removeItem("pendingOrder");
+              return;
+            }
+
+            if (message.toLowerCase().includes("expired")) {
+              setState("expired");
+              localStorage.removeItem("pendingOrder");
+              setTimeout(() => router.push("/cart"), 5000);
+              return;
+            }
+          }
+
           setState("error");
           toast.error("Payment verification failed. Redirecting to cart...");
           localStorage.removeItem("pendingOrder");
           setTimeout(() => router.push("/cart"), 3000);
+          return;
         }
       }
     };
