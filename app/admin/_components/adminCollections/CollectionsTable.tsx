@@ -11,10 +11,10 @@ import {
   deleteCollection,
   updateCollection,
 } from "@/lib/api/admin/adminCollections";
-import CategoriesSearch from "../categories/CategoriesSearch";
-import CollectionsEmptyState from "../collections/CollectionEmptyState";
-import DeleteCollectionModal from "../collections/DeleteCollectionModal";
-import EditCollectionModal from "../collections/EditCollectionModal";
+import CategoriesSearch from "../adminCategories/CategoriesSearch";
+import CollectionsEmptyState from "./CollectionEmptyState";
+import DeleteCollectionModal from "./DeleteCollectionModal";
+import EditCollectionModal from "./EditCollectionModal";
 
 const CollectionsTable = () => {
   const router = useRouter();
@@ -149,7 +149,7 @@ const CollectionsTable = () => {
       <div className="flex justify-between items-center py-6">
         <CategoriesSearch value={search} onChange={setSearch} />
         <button
-          onClick={() => router.push("/admin/products/collections/new")}
+          onClick={() => router.push("/admin/collections/new")}
           className="bg-gold cursor-pointer hover:bg-gold/90 text-white text-sm font-medium px-8 py-3 rounded-full transition-colors"
         >
           Add New Collection

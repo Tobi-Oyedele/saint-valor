@@ -13,6 +13,8 @@ const navLinks = [
   { label: "Dashboard", href: "/admin/dashboard" },
   { label: "Users", href: "/admin/users" },
   { label: "Orders", href: "/admin/orders" },
+  { label: "Collections", href: "/admin/collections" },
+  { label: "Categories", href: "/admin/categories" },
   { label: "Products", href: "/admin/products" },
 ];
 
