@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { X } from "lucide-react";
-import React from "react";
+import React, { useEffect, useRef } from "react";
 
 interface AuthPromptModalProps {
   isOpen: boolean;
@@ -19,10 +19,29 @@ const AuthPromptModal = ({
   title,
   description,
 }: AuthPromptModalProps) => {
-  if (!isOpen) return null;
+  const dialogRef = useRef<HTMLDialogElement>(null);
+
+  useEffect(() => {
+    const dialog = dialogRef.current;
+    if (!dialog) return;
+
+    if (isOpen && !dialog.open) {
+      dialog.showModal();
+    } else if (!isOpen && dialog.open) {
+      dialog.close();
+    }
+  }, [isOpen]);
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4">
+    <dialog
+      ref={dialogRef}
+      onClose={onClose}
+      onClick={(e) => {
+        if (e.target === dialogRef.current) onClose();
+      }}
+      className="backdrop:bg-black/50 bg-transparent p-4 m-auto"
+      aria-labelledby="auth-modal-title"
+    >
       <div className="relative bg-white rounded-xl p-8 w-full max-w-sm shadow-xl text-center">
         <button
           onClick={onClose}
@@ -35,7 +54,12 @@ const AuthPromptModal = ({
           {icon}
         </div>
 
-        <h2 className="text-base font-semibold text-charcoal mb-2">{title}</h2>
+        <h2
+          id="auth-modal-title"
+          className="text-base font-semibold text-charcoal mb-2"
+        >
+          {title}
+        </h2>
         <p className="text-sm text-secondary mb-6">{description}</p>
 
         <div className="flex flex-col gap-3">
@@ -54,7 +78,7 @@ const AuthPromptModal = ({
           </button>
         </div>
       </div>
-    </div>
+    </dialog>
   );
 };
 
