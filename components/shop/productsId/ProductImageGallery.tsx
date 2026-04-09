@@ -33,7 +33,7 @@ const ProductImageGallery = ({
             src={img}
             alt={`${productName} view ${i + 1}`}
             fill
-            loading="eager"
+            loading="lazy"
             sizes="64px"
             className="object-cover"
           />
