@@ -1,5 +1,5 @@
 import { X, Package } from "lucide-react";
-import { formatDate } from "@/lib/utils";
+import { formatDate, formatPrice } from "@/lib/utils";
 import StatusBadge from "@/components/ui/StatusBadge";
 import { OrderStatus } from "@/types/adminOrder";
 import { Order } from "./types";
@@ -8,13 +8,6 @@ interface OrderModalProps {
   order: Order;
   onClose: () => void;
 }
-
-const formatPrice = (price: number) =>
-  new Intl.NumberFormat("en-NG", {
-    style: "currency",
-    currency: "NGN",
-    minimumFractionDigits: 0,
-  }).format(price);
 
 const OrderModal = ({ order, onClose }: OrderModalProps) => (
   <div

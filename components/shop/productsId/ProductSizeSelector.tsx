@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import { ProductSize } from "@/types/product";
 
 interface ProductSizeSelectorProps {
@@ -28,15 +29,17 @@ const ProductSizeSelector = ({
               <button
                 onClick={() => onSelect(s.size)}
                 disabled={isOutOfStock}
-                className={`px-4 py-2 text-sm border rounded-sm transition-colors duration-150
-                  ${
-                    isOutOfStock
-                      ? "border-border text-secondary opacity-40 cursor-not-allowed line-through"
-                      : isSelected
-                        ? "bg-charcoal text-ivory border-charcoal"
-                        : "bg-transparent text-charcoal border-border hover:border-charcoal"
-                  }
-                `}
+                className={clsx(
+                  "px-4 py-2 text-sm border rounded-sm transition-colors duration-150",
+                  isOutOfStock &&
+                    "border-border text-secondary opacity-40 cursor-not-allowed line-through",
+                  !isOutOfStock &&
+                    isSelected &&
+                    "bg-charcoal text-ivory border-charcoal",
+                  !isOutOfStock &&
+                    !isSelected &&
+                    "bg-transparent text-charcoal border-border hover:border-charcoal",
+                )}
               >
                 {s.size}
               </button>

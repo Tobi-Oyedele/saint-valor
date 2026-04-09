@@ -18,6 +18,13 @@ export const formatEarnings = (amount: number) => {
   return `₦${amount.toLocaleString()}`;
 };
 
+export const formatPrice = (price: number) =>
+  new Intl.NumberFormat("en-NG", {
+    style: "currency",
+    currency: "NGN",
+    minimumFractionDigits: 0,
+  }).format(price);
+
 export const NIGERIAN_STATES = [
   "Abia",
   "Adamawa",
