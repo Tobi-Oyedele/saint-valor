@@ -39,10 +39,7 @@ const OrderRow = ({ order, onView }: OrderRowProps) => (
         className="flex items-center gap-1 text-sm text-charcoal font-medium cursor-pointer"
       >
         View
-        <ChevronRight
-          size={16}
-          className="group-hover:translate-x-0.5 transition-transform"
-        />
+        <ChevronRight size={16} />
       </button>
     </div>
   </div>

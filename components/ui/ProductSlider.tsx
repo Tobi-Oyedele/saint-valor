@@ -19,6 +19,25 @@ export default function ProductSlider({
   const [currentIndex, setCurrentIndex] = useState(0);
   const itemsToShow = 4;
 
+  if (products.length === 0) {
+    return (
+      <section className="flex flex-col gap-6 max-w-5xl mx-auto px-6 py-10">
+        <div className="flex flex-col gap-1">
+          <h1 className="text-4xl font-medium text-charcoal">{title}</h1>
+          {subtitle && (
+            <p className="text-xs max-w-xs leading-relaxed">{subtitle}</p>
+          )}
+        </div>
+        <div className="flex flex-col items-center gap-2 py-12">
+          <p className="text-sm font-medium text-charcoal">Coming Soon</p>
+          <p className="text-xs text-secondary text-center">
+            New pieces are being crafted. Check back soon.
+          </p>
+        </div>
+      </section>
+    );
+  }
+
   const visibleProducts = products.slice(
     currentIndex,
     currentIndex + itemsToShow,
