@@ -62,7 +62,7 @@ export default function ShopCollectionSection() {
                       src={item.image!}
                       alt={item.name}
                       fill
-                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                      className="object-cover transition-transform duration-500"
                       sizes="(max-width: 768px) 100vw, 25vw"
                     />
                   </div>
