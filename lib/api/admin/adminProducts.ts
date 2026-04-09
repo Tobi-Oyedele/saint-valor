@@ -1,0 +1,14 @@
+import api from "@/lib/axios";
+import { Product } from "@/types/product";
+
+export async function getAllProducts(): Promise<Product[]> {
+  const res = await api.get("/admin/products");
+  return res.data.data.products;
+}
+
+export async function createProduct(formData: FormData): Promise<Product> {
+  const res = await api.post("/admin/products", formData, {
+    headers: { "Content-Type": "multipart/form-data" },
+  });
+  return res.data.data.product;
+}

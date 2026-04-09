@@ -1,5 +1,3 @@
-export type ProductsTab = "categories" | "collections";
-
 export interface ProductSize {
   size: string;
   quantity: number;
