@@ -152,7 +152,7 @@ const ProductForm = () => {
       toast.success("Product created successfully!");
       router.push("/admin/products");
     } catch {
-      toast.error("Failed to create product. Please try again.");
+      toast.error("Missing required fields or invalid Product Sizes");
     } finally {
       setIsSubmitting(false);
     }

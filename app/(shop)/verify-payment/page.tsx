@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { CheckCircle, XCircle, Loader2 } from "lucide-react";
@@ -16,18 +16,8 @@ const VerifyPaymentPage = () => {
   const { clearCart } = useCartStore();
   const [state, setState] = useState<VerifyState>("loading");
 
-  useEffect(() => {
-    const reference = new URLSearchParams(window.location.search).get(
-      "reference",
-    );
-
-    if (!reference) {
-      toast.error("Invalid payment reference.");
-      router.push("/cart");
-      return;
-    }
-
-    const verify = async () => {
+  const verify = useCallback(
+    async (reference: string) => {
       const MAX_RETRIES = 5;
       const BASE_DELAY = 3000;
 
@@ -43,10 +33,15 @@ const VerifyPaymentPage = () => {
             const status = error.response?.status;
             const message = error.response?.data?.message ?? "";
 
+            if (status === 401) {
+              toast.error("Please sign in to verify your payment.");
+              router.push("/sign-in");
+              return;
+            }
+
             if (status === 409) {
               if (attempt < MAX_RETRIES) {
                 const delay = BASE_DELAY * 2 ** (attempt - 1);
-                // 3s, 6s, 12s, 24s...
                 await new Promise((resolve) => setTimeout(resolve, delay));
                 continue;
               }
@@ -74,10 +69,27 @@ const VerifyPaymentPage = () => {
           return;
         }
       }
-    };
+    },
+    [router, clearCart],
+  );
 
-    verify();
-  }, [router, clearCart]);
+  useEffect(() => {
+    const reference = new URLSearchParams(window.location.search).get(
+      "reference",
+    );
+
+    if (!reference) {
+      toast.error("Invalid payment reference.");
+      router.push("/cart");
+      return;
+    }
+
+    const timeout = setTimeout(() => {
+      verify(reference);
+    }, 500);
+
+    return () => clearTimeout(timeout);
+  }, [router, clearCart, verify]);
 
   if (state === "loading") {
     return (

@@ -18,12 +18,17 @@ api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (axios.isAxiosError(error) && error.response?.status === 401) {
+      const url = error.config?.url ?? "";
+
+      if (url.includes("/orders/verify")) {
+        return Promise.reject(error);
+      }
+
       localStorage.removeItem("token");
       localStorage.removeItem("firstName");
       document.cookie =
         "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 
-      // avoid redirect loop if already on sign-in
       if (!window.location.pathname.includes("/sign-in")) {
         window.location.href = "/sign-in";
       }

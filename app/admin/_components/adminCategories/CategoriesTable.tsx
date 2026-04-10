@@ -175,6 +175,9 @@ const CategoriesTable = () => {
               ? `No results for "${search}"`
               : "No categories yet. Add one to get started."
           }
+          subMessage={
+            search ? undefined : "Add a new collection to view your collection"
+          }
         />
       ) : (
         <div className="mt-2">
