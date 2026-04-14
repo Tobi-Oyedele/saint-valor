@@ -48,7 +48,10 @@ export default function OrdersPage() {
     }
 
     return orders.filter(
-      (o) => o.orderStatus === "completed" || o.orderStatus === "cancelled",
+      (o) =>
+        o.orderStatus === "completed" ||
+        o.orderStatus === "cancelled" ||
+        o.orderStatus === "failed",
     );
   }, [orders, activeTab]);
 

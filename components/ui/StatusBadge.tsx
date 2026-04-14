@@ -8,7 +8,7 @@ const statusConfig: Record<OrderStatus, { label: string; className: string }> =
     },
     ongoing: {
       label: "Ongoing",
-      className: "bg-ivory text-[#b8860b] border border-[#d4af37]",
+      className: "bg-ivory text-gold border border-gold",
     },
     completed: {
       label: "Completed",

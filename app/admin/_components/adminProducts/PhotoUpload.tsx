@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import { Upload, Trash2, ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
+import { useEffect } from "react";
 
 type Props = {
   mainImage: File | null;
@@ -24,6 +25,14 @@ const PhotoUpload = ({
   const [carouselIndex, setCarouselIndex] = useState(0);
   const [mainImagePreview, setMainImagePreview] = useState<string | null>(null);
   const [subImagePreviews, setSubImagePreviews] = useState<string[]>([]);
+
+  useEffect(() => {
+    return () => {
+      subImagePreviews.forEach((url) => URL.revokeObjectURL(url));
+      if (mainImagePreview) URL.revokeObjectURL(mainImagePreview);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleMainImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0] ?? null;
