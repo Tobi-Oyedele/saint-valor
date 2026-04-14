@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { updateProduct } from "@/lib/api/admin/adminProducts";
-import { Product } from "@/types/product";
 import {
   KARAT_OPTIONS,
   MATERIAL_OPTIONS,
@@ -26,17 +25,16 @@ const EditProductPage = () => {
   });
 
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const raw = params.get("data");
+    const raw = sessionStorage.getItem(`edit-product-${id}`);
 
     if (!raw) {
-      toast.error("Product data not found.");
+      toast.error("Product data not found. Please try again.");
       router.push("/admin/products");
       return;
     }
 
     try {
-      const product: Product = JSON.parse(decodeURIComponent(raw));
+      const product = JSON.parse(raw);
       setForm({
         productName: product.productName,
         productDescription: product.productDescription,
@@ -51,7 +49,7 @@ const EditProductPage = () => {
     } finally {
       setIsLoading(false);
     }
-  }, [router]);
+  }, [id, router]);
 
   const update = (field: keyof typeof form, value: string) => {
     setForm((prev) => ({ ...prev, [field]: value }));
@@ -90,6 +88,7 @@ const EditProductPage = () => {
         productKarat,
       });
       toast.success("Product updated successfully!");
+      sessionStorage.removeItem(`edit-product-${id}`);
       router.push("/admin/products");
     } catch {
       toast.error("Failed to update product. Please try again.");
