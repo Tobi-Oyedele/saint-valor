@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, use } from "react";
 import { useRouter } from "next/navigation";
 import api from "@/lib/axios";
 import { toast } from "react-toastify";
@@ -14,7 +14,7 @@ import StatusConfirmModal from "@/app/admin/_components/adminOrders/mainOrders/S
 
 const OrderDetailPage = ({ params }: { params: Promise<{ id: string }> }) => {
   const router = useRouter();
-  const [id, setId] = useState<string | null>(null);
+  const { id } = use(params);
   const [order, setOrder] = useState<OrderDetail | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -24,12 +24,6 @@ const OrderDetailPage = ({ params }: { params: Promise<{ id: string }> }) => {
   >(null);
 
   useEffect(() => {
-    params.then(({ id }) => setId(id));
-  }, [params]);
-
-  useEffect(() => {
-    if (!id) return;
-
     const fetchOrder = async () => {
       try {
         const { data } = await api.get(`/admin/orders/${id}`);
