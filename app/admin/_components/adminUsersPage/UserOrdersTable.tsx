@@ -1,8 +1,9 @@
-import { ChevronDown } from "lucide-react";
 import { Order } from "@/types";
 import { formatDate } from "@/lib/utils";
 import OrdersFilterTabs from "../adminOrders/mainOrders/OrdersFilterTabs";
 import MoreDetails from "../adminUI/MoreDetails";
+import StatusBadge from "@/components/ui/StatusBadge";
+import { OrderStatus } from "@/types/adminOrder";
 
 interface OrdersTableProps {
   orders: Order[];
@@ -44,13 +45,7 @@ const OrdersTable = ({ orders, activeTab, onTabChange }: OrdersTableProps) => {
                     &#8358;{order.totalPrice.toLocaleString()}
                   </td>
                   <td className="px-6 py-4">
-                    <button
-                      type="button"
-                      className="inline-flex items-center gap-1 border border-gray-200 rounded-md px-2 py-1 text-xs text-secondary cursor-pointer hover:bg-gray-50"
-                    >
-                      <span className="capitalize">{order.orderStatus}</span>
-                      <ChevronDown size={12} />
-                    </button>
+                    <StatusBadge status={order.orderStatus as OrderStatus} />
                   </td>
                   <td className="px-6 py-4">
                     <MoreDetails orderId={order._id} />
