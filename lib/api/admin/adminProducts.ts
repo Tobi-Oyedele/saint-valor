@@ -1,9 +1,15 @@
 import api from "@/lib/axios";
 import { Product } from "@/types/product";
+import { Pagination } from "@/types/pagination";
 
-export async function getAllProducts(): Promise<Product[]> {
-  const res = await api.get("/admin/products");
-  return res.data.data.products;
+export async function getAllProducts(
+  page = 1,
+): Promise<{ products: Product[]; pagination: Pagination }> {
+  const res = await api.get("/admin/products", { params: { page } });
+  return {
+    products: res.data.data.products,
+    pagination: res.data.pagination,
+  };
 }
 
 export async function createProduct(formData: FormData): Promise<Product> {

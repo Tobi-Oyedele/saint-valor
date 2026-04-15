@@ -9,19 +9,24 @@ import { toast } from "react-toastify";
 import { formatDate } from "@/lib/utils";
 import { User } from "@/types/adminUsers";
 import { getAllUsers } from "@/lib/api/admin/adminUsers";
+import { Pagination } from "@/types/pagination";
+import PaginationControls from "../adminUI/PaginationControls";
 
 const UserTable = () => {
   const [data, setData] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [pagination, setPagination] = useState<Pagination | null>(null);
+  const [page, setPage] = useState(1);
 
   const router = useRouter();
 
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const users = await getAllUsers();
+        const { users, pagination } = await getAllUsers(page);
         setData(users);
+        setPagination(pagination);
       } catch {
         toast.error("Could not load users.");
         setError("Could not load users.");
@@ -31,7 +36,7 @@ const UserTable = () => {
     };
 
     fetchUsers();
-  }, []);
+  }, [page]);
 
   if (loading) return <UserTableSkeleton />;
   if (error) return <div>{error}</div>;
@@ -74,6 +79,10 @@ const UserTable = () => {
           ))}
         </tbody>
       </table>
+
+      {pagination && (
+        <PaginationControls pagination={pagination} onPageChange={setPage} />
+      )}
     </div>
   );
 };

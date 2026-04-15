@@ -1,7 +1,14 @@
 import api from "@/lib/axios";
 import { RecentOrder } from "@/types/adminOrder";
+import { Pagination } from "@/types/pagination";
 
-export async function getAllOrders(): Promise<RecentOrder[]> {
-  const res = await api.get("/admin/orders");
-  return res.data.data.orders;
+
+export async function getAllOrders(
+  page = 1,
+): Promise<{ orders: RecentOrder[]; pagination: Pagination }> {
+  const res = await api.get("/admin/orders", { params: { page } });
+  return {
+    orders: res.data.data.orders,
+    pagination: res.data.pagination,
+  };
 }

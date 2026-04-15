@@ -14,6 +14,8 @@ import { getAllProducts, deleteProduct } from "@/lib/api/admin/adminProducts";
 import { Product } from "@/types/product";
 import Image from "next/image";
 import DeleteProductModal from "./DeleteProductModal";
+import { Pagination } from "@/types/pagination";
+import PaginationControls from "../adminUI/PaginationControls";
 
 const ProductsTable = () => {
   const router = useRouter();
@@ -25,12 +27,15 @@ const ProductsTable = () => {
   const [deletingId, setDeletingId] = useState<string | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
   const [deleteError, setDeleteError] = useState("");
+  const [pagination, setPagination] = useState<Pagination | null>(null);
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const data = await getAllProducts();
-        setProducts(data);
+        const { products, pagination } = await getAllProducts(page);
+        setProducts(products);
+        setPagination(pagination);
       } catch {
         toast.error("Failed to load products.");
       } finally {
@@ -38,7 +43,7 @@ const ProductsTable = () => {
       }
     };
     fetchProducts();
-  }, []);
+  }, [page]);
 
   // Close menu when clicking outside
   useEffect(() => {
@@ -223,6 +228,10 @@ const ProductsTable = () => {
         isDeleting={isDeleting}
         error={deleteError}
       />
+
+      {pagination && (
+        <PaginationControls pagination={pagination} onPageChange={setPage} />
+      )}
     </div>
   );
 };

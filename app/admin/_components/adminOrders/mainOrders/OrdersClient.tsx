@@ -10,6 +10,8 @@ import OrdersTable from "./OrdersTable";
 import StatusConfirmModal from "./StatusConfirmModal";
 import { getAllOrders } from "@/lib/api/admin/adminOrders";
 import OrdersTableSkeleton from "./OrdersTableSkeleton";
+import { Pagination } from "@/types/pagination";
+import PaginationControls from "../../adminUI/PaginationControls";
 
 interface PendingStatusChange {
   orderId: string;
@@ -24,13 +26,16 @@ export default function OrdersPage() {
   const [pendingChange, setPendingChange] =
     useState<PendingStatusChange | null>(null);
   const [isUpdating, setIsUpdating] = useState(false);
+  const [pagination, setPagination] = useState<Pagination | null>(null);
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
     const fetchOrders = async () => {
       try {
         setLoading(true);
-        const data: RecentOrder[] = await getAllOrders();
-        setOrders(data);
+        const { orders, pagination } = await getAllOrders(page);
+        setOrders(orders);
+        setPagination(pagination);
       } catch {
         toast.error("Could not load orders.");
         setError("Could not load orders.");
@@ -40,7 +45,7 @@ export default function OrdersPage() {
     };
 
     fetchOrders();
-  }, []);
+  }, [page]);
 
   const filteredOrders = useMemo(() => {
     if (activeTab === "ongoing") {
@@ -86,7 +91,7 @@ export default function OrdersPage() {
 
   return (
     <div className="min-h-screen bg-ivory px-6 py-8">
-      <OrdersHeader count={orders.length} />
+      <OrdersHeader count={pagination?.totalItems ?? orders.length} />
       <OrdersFilterTabs activeTab={activeTab} onTabChange={setActiveTab} />
 
       {loading && <OrdersTableSkeleton rows={6} />}
@@ -96,6 +101,9 @@ export default function OrdersPage() {
       )}
 
       {!loading && !error && <OrdersTable orders={filteredOrders} />}
+      {pagination && (
+        <PaginationControls pagination={pagination} onPageChange={setPage} />
+      )}
 
       <StatusConfirmModal
         isOpen={!!pendingChange}
