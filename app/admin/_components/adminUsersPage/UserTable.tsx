@@ -5,10 +5,10 @@ import EmptyState from "./EmptyState";
 import { ChevronRight } from "lucide-react";
 import UserTableSkeleton from "./UserTableSkeleton";
 import { useRouter } from "next/navigation";
-import api from "@/lib/axios";
 import { toast } from "react-toastify";
 import { formatDate } from "@/lib/utils";
 import { User } from "@/types/adminUsers";
+import { getAllUsers } from "@/lib/api/admin/adminUsers";
 
 const UserTable = () => {
   const [data, setData] = useState<User[]>([]);
@@ -20,8 +20,8 @@ const UserTable = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const { data } = await api.get("/admin/users");
-        setData(data.data.users);
+        const users = await getAllUsers();
+        setData(users);
       } catch {
         toast.error("Could not load users.");
         setError("Could not load users.");
