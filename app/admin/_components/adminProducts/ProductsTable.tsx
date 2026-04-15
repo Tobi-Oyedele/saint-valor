@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import {
@@ -25,7 +25,6 @@ const ProductsTable = () => {
   const [deletingId, setDeletingId] = useState<string | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
   const [deleteError, setDeleteError] = useState("");
-  const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -43,11 +42,7 @@ const ProductsTable = () => {
 
   // Close menu when clicking outside
   useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
-        setOpenMenuId(null);
-      }
-    };
+    const handleClickOutside = () => setOpenMenuId(null);
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
@@ -167,8 +162,8 @@ const ProductsTable = () => {
 
                 {/* 3-dot button */}
                 <div
-                  ref={openMenuId === product._id ? menuRef : null}
                   className="absolute top-2 right-2"
+                  onMouseDown={(e) => e.stopPropagation()}
                 >
                   <button
                     onClick={(e) => {
