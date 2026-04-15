@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import { Collection } from "@/types/product";
 
@@ -25,6 +25,19 @@ const EditCollectionModal = ({
     collection?.image ?? null,
   );
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const firstFocusRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (isOpen) firstFocusRef.current?.focus();
+  }, [isOpen]);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [onClose]);
 
   if (!isOpen) return null;
 
@@ -36,13 +49,20 @@ const EditCollectionModal = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="edit-collection-modal-title"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/40"
+    >
       <div className="bg-white rounded-2xl w-full max-w-sm mx-4 px-8 py-10">
-        <h2 className="text-xl font-bold text-charcoal mb-6">
+        <h2
+          id="edit-collection-modal-title"
+          className="text-xl font-bold text-charcoal mb-6"
+        >
           Edit Collection
         </h2>
 
-        {/* Name input */}
         <div className="mb-5">
           <label className="block text-sm text-secondary mb-2">
             Collection Name
@@ -55,7 +75,6 @@ const EditCollectionModal = ({
           />
         </div>
 
-        {/* Photo upload */}
         <div className="mb-8">
           <label className="block text-sm text-secondary mb-2">
             Photo Upload
@@ -93,6 +112,7 @@ const EditCollectionModal = ({
         </div>
 
         <button
+          ref={firstFocusRef}
           onClick={() => onConfirm(name, newImage ?? undefined)}
           disabled={isSaving || !name.trim()}
           className="w-full cursor-pointer bg-gold hover:bg-gold/90 disabled:opacity-60 text-white font-medium py-3 rounded-full transition-colors mb-3"

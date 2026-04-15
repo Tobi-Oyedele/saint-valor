@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 
 interface AddCategoryModalProps {
   isOpen: boolean;
@@ -15,6 +15,19 @@ const AddCategoryModal = ({
   isSaving,
 }: AddCategoryModalProps) => {
   const [name, setName] = useState("");
+  const firstFocusRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (isOpen) firstFocusRef.current?.focus();
+  }, [isOpen]);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [onClose]);
 
   if (!isOpen) return null;
 
@@ -25,9 +38,19 @@ const AddCategoryModal = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="add-category-modal-title"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/40"
+    >
       <div className="bg-white rounded-2xl w-full max-w-sm mx-4 px-8 py-10">
-        <h2 className="text-xl font-bold text-charcoal mb-6">New Category</h2>
+        <h2
+          id="add-category-modal-title"
+          className="text-xl font-bold text-charcoal mb-6"
+        >
+          New Category
+        </h2>
 
         <div className="mb-8">
           <label className="block text-sm text-secondary mb-2">
@@ -43,6 +66,7 @@ const AddCategoryModal = ({
         </div>
 
         <button
+          ref={firstFocusRef}
           onClick={handleConfirm}
           disabled={isSaving || !name.trim()}
           className="w-full cursor-pointer bg-gold hover:bg-gold/90 disabled:opacity-60 text-white font-medium py-3 rounded-full transition-colors mb-3"
