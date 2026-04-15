@@ -8,15 +8,7 @@ import { useRouter } from "next/navigation";
 import api from "@/lib/axios";
 import { toast } from "react-toastify";
 import { formatDate } from "@/lib/utils";
-
-interface User {
-  _id: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  memberSince: string;
-  role: string;
-}
+import { User } from "@/types/adminUsers";
 
 const UserTable = () => {
   const [data, setData] = useState<User[]>([]);
