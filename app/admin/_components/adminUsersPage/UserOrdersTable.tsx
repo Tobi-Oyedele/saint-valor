@@ -3,7 +3,6 @@ import { formatDate } from "@/lib/utils";
 import OrdersFilterTabs from "../adminOrders/mainOrders/OrdersFilterTabs";
 import MoreDetails from "../adminUI/MoreDetails";
 import StatusBadge from "@/components/ui/StatusBadge";
-import { OrderStatus } from "@/types/adminOrder";
 
 interface OrdersTableProps {
   orders: Order[];
@@ -45,7 +44,7 @@ const OrdersTable = ({ orders, activeTab, onTabChange }: OrdersTableProps) => {
                     &#8358;{order.totalPrice.toLocaleString()}
                   </td>
                   <td className="px-6 py-4">
-                    <StatusBadge status={order.orderStatus as OrderStatus} />
+                    <StatusBadge status={order.orderStatus} />
                   </td>
                   <td className="px-6 py-4">
                     <MoreDetails orderId={order._id} />

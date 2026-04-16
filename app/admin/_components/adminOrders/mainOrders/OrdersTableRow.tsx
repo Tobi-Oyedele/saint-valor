@@ -1,6 +1,5 @@
 import { RecentOrder } from "@/types/adminOrder";
 import StatusBadge from "@/components/ui/StatusBadge";
-import { OrderStatus } from "@/types/adminOrder";
 import MoreDetails from "../../adminUI/MoreDetails";
 import { formatDate } from "@/lib/utils";
 
@@ -33,7 +32,7 @@ export default function OrdersTableRow({ order }: OrdersTableRowProps) {
 
       {/* Status */}
       <td className={orderTableRowStyles}>
-        <StatusBadge status={order.orderStatus as OrderStatus} />
+        <StatusBadge status={order.orderStatus} />
       </td>
 
       {/* More Details */}

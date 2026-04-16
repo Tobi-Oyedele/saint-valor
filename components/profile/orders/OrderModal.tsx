@@ -1,7 +1,6 @@
 import { X, Package } from "lucide-react";
 import { formatDate, formatPrice } from "@/lib/utils";
 import StatusBadge from "@/components/ui/StatusBadge";
-import { OrderStatus } from "@/types/adminOrder";
 import { Order } from "./types";
 
 interface OrderModalProps {
@@ -46,7 +45,7 @@ const OrderModal = ({ order, onClose }: OrderModalProps) => (
         </div>
         <div>
           <p className="text-xs text-secondary mb-0.5">Status</p>
-          <StatusBadge status={order.orderStatus as OrderStatus} />
+          <StatusBadge status={order.orderStatus} />
         </div>
       </div>
 

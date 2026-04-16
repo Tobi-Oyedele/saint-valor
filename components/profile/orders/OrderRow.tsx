@@ -1,7 +1,6 @@
 import { ChevronRight } from "lucide-react";
 import { formatDate } from "@/lib/utils";
 import StatusBadge from "@/components/ui/StatusBadge";
-import { OrderStatus } from "@/types/adminOrder";
 import { Order } from "./types";
 
 interface OrderRowProps {
@@ -29,7 +28,7 @@ const OrderRow = ({ order, onView }: OrderRowProps) => (
 
     <div className="sm:w-32">
       <p className="text-xs text-secondary mb-1">Status</p>
-      <StatusBadge status={order.orderStatus as OrderStatus} />
+      <StatusBadge status={order.orderStatus} />
     </div>
 
     <div className="flex flex-col">

@@ -1,3 +1,5 @@
+import { OrderStatus } from "@/types/adminOrder";
+
 export interface OrderItem {
   productId: string;
   productName: string;
@@ -11,7 +13,7 @@ export interface Order {
   orderId: string;
   items: OrderItem[];
   totalPrice: number;
-  orderStatus: string;
+  orderStatus: OrderStatus;
   createdAt: string;
 }
 

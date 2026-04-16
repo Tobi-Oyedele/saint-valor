@@ -1,5 +1,4 @@
 import { RecentOrder } from "@/types/adminOrder";
-import { OrderStatus } from "@/types/adminOrder";
 import StatusBadge from "@/components/ui/StatusBadge";
 import MoreDetails from "../../adminUI/MoreDetails";
 import { formatDate } from "@/lib/utils";
@@ -30,7 +29,7 @@ const OrderRow = ({ order }: OrderRowProps) => {
 
       {/* Status */}
       <td className="py-4 px-4">
-        <StatusBadge status={order.orderStatus as OrderStatus} />
+        <StatusBadge status={order.orderStatus} />
       </td>
 
       {/* More Details */}
