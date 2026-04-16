@@ -39,13 +39,15 @@ export default function AdminNavbar() {
 
   return (
     <nav className="w-full bg-ivory px-8 py-4 flex items-center justify-between gap-12">
-      <Image
-        src="/images/Logo.svg"
-        alt="Saint Valor Logo"
-        width={50}
-        height={50}
-        style={{ height: "auto" }}
-      />
+      <Link href="/admin/dashboard">
+        <Image
+          src="/images/Logo.svg"
+          alt="Saint Valor Logo"
+          width={50}
+          height={50}
+          style={{ height: "auto" }}
+        />
+      </Link>
 
       <ul className="flex items-center gap-8">
         {navLinks.map((link) => {

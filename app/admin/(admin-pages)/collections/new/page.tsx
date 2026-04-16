@@ -39,7 +39,8 @@ const AddNewCollectionPage = () => {
     try {
       setIsSubmitting(true);
       await addNewCollection({ name, image: image ?? undefined });
-      router.push("/admin/products");
+      toast.success("Collection created successfully!");
+      router.push("/admin/collections");
     } catch {
       toast.error("Something went wrong. Please try again.");
       setError("Something went wrong. Please try again.");
@@ -77,7 +78,7 @@ const AddNewCollectionPage = () => {
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder="Enter Collection Name"
-          className="w-full border border-border rounded-lg px-4 py-3 text-sm text-charcoal placeholder:text-secondary focus:outline-none focus:border-gold transition-colors"
+          className="w-full border border-border rounded-lg px-4 py-3 text-sm text-charcoal placeholder:text-secondary focus:outline-none"
         />
       </div>
 
@@ -105,7 +106,7 @@ const AddNewCollectionPage = () => {
         ) : (
           <div
             onClick={() => fileInputRef.current?.click()}
-            className="w-full border border-dashed border-border rounded-lg py-14 flex flex-col items-center gap-3 cursor-pointer hover:border-gold transition-colors bg-ivory"
+            className="w-full border border-dashed border-border rounded-lg py-14 flex flex-col items-center gap-3 cursor-pointer bg-ivory"
           >
             <CloudUpload size={28} className="text-secondary" />
             <p className="text-xs text-secondary">
@@ -114,7 +115,7 @@ const AddNewCollectionPage = () => {
             <p className="text-xs text-secondary">(JPEG, PNG)</p>
             <button
               type="button"
-              className="mt-1 px-4 py-2 border border-border rounded text-xs text-charcoal hover:border-charcoal transition-colors"
+              className="mt-1 px-4 py-2 border border-border rounded text-xs text-charcoal"
             >
               Upload file
             </button>
@@ -135,7 +136,7 @@ const AddNewCollectionPage = () => {
       <button
         onClick={handleSubmit}
         disabled={isSubmitting || !name.trim()}
-        className="bg-gold hover:bg-gold/90 disabled:opacity-60 text-white font-medium px-8 py-3 rounded-full transition-colors"
+        className="bg-gold hover:bg-gold/90 disabled:opacity-60 text-white font-medium px-8 py-3 rounded-full transition-colors cursor-pointer"
       >
         {isSubmitting ? "Creating..." : "Create Collection"}
       </button>

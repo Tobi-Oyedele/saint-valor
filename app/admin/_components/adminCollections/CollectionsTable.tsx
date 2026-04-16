@@ -68,6 +68,7 @@ const CollectionsTable = () => {
         prev.filter((c) => c._id !== collectionToDelete._id),
       );
       setCollectionToDelete(null);
+      toast.success("Collection deleted successfully!");
     } catch {
       toast.error("Something went wrong. Please try again.");
       setDeleteError("Something went wrong. Please try again.");
