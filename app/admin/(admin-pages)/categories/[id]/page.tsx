@@ -22,7 +22,7 @@ const CategoryViewPage = () => {
     const fetch = async () => {
       try {
         const all = await getAllProducts();
-        setProducts(all.filter((p) => p.productCategory._id === id));
+        setProducts(all.products.filter((p) => p.productCategory._id === id));
       } catch {
         toast.error("Failed to load products.");
       } finally {
