@@ -19,7 +19,7 @@ const navLinks = [
 ];
 
 export default function AdminNavbar() {
-  const { clearAuth, setIsLoggingOut } = useAuthStore();
+  const { clearAuth, setIsLoggingOut, isLoggingOut } = useAuthStore();
   const pathname = usePathname();
   const router = useRouter();
 
@@ -70,11 +70,12 @@ export default function AdminNavbar() {
       <div>
         <button
           type="button"
-          className="cursor-pointer flex gap-1.5 items-center"
+          className="cursor-pointer flex gap-1.5 items-center disabled:opacity-50"
           onClick={handleLogout}
+          disabled={isLoggingOut}
         >
-          <Power className="w-4 h-4" />
-          <p>Log Out</p>
+          <Power className={`w-4 h-4 ${isLoggingOut ? "animate-spin" : ""}`} />
+          <p>{isLoggingOut ? "Logging out..." : "Log Out"}</p>
         </button>
       </div>
     </nav>
