@@ -91,6 +91,7 @@ const PhotoUpload = ({
               />
               <button
                 type="button"
+                aria-label="Remove image"
                 onClick={removeMainImage}
                 className="absolute top-1 right-1 bg-burgundy text-white p-0.5 hover:opacity-80 transition-opacity cursor-pointer"
               >
@@ -142,6 +143,7 @@ const PhotoUpload = ({
             {subImagePreviews.length > 3 && (
               <button
                 type="button"
+                aria-label="Previous images"
                 onClick={() => setCarouselIndex(Math.max(0, carouselIndex - 1))}
                 className="w-6 h-6 bg-gold text-white flex items-center justify-center"
               >
@@ -163,6 +165,7 @@ const PhotoUpload = ({
                   />
                   <button
                     type="button"
+                    aria-label={`Remove image ${carouselIndex + i + 1}`}
                     onClick={() => removeSubImage(carouselIndex + i)}
                     className="absolute top-1 right-1 bg-burgundy text-white p-0.5 hover:opacity-80 transition-opacity"
                   >
@@ -174,6 +177,7 @@ const PhotoUpload = ({
             {subImagePreviews.length > 3 && (
               <button
                 type="button"
+                aria-label="Next images"
                 onClick={() =>
                   setCarouselIndex(
                     Math.min(subImages.length - 3, carouselIndex + 1),
