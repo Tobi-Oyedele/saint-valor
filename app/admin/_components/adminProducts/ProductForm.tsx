@@ -337,7 +337,11 @@ const ProductForm = () => {
           placeholder="Enter product description"
           value={form.productDescription}
           onChange={(e) => update("productDescription", e.target.value)}
+          maxLength={500}
         />
+        <p className="text-xs text-secondary text-right">
+          {form.productDescription.length}/500
+        </p>
       </div>
 
       {/* New Arrival */}
