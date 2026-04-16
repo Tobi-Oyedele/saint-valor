@@ -2,13 +2,18 @@ import api from "@/lib/axios";
 import { RecentOrder } from "@/types/adminOrder";
 import { Pagination } from "@/types/pagination";
 
-
 export async function getAllOrders(
   page = 1,
 ): Promise<{ orders: RecentOrder[]; pagination: Pagination }> {
-  const res = await api.get("/admin/orders", { params: { page } });
-  return {
-    orders: res.data.data.orders,
-    pagination: res.data.pagination,
-  };
+  try {
+    const res = await api.get("/admin/orders", { params: { page } });
+    return {
+      orders: res.data.data.orders,
+      pagination: res.data.pagination,
+    };
+  } catch (error) {
+    throw new Error(
+      error instanceof Error ? error.message : "Failed to fetch orders.",
+    );
+  }
 }

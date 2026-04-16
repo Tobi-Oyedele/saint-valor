@@ -5,11 +5,17 @@ import { Pagination } from "@/types/pagination";
 export async function getAllProducts(
   page = 1,
 ): Promise<{ products: Product[]; pagination: Pagination }> {
-  const res = await api.get("/admin/products", { params: { page } });
-  return {
-    products: res.data.data.products,
-    pagination: res.data.pagination,
-  };
+  try {
+    const res = await api.get("/admin/products", { params: { page } });
+    return {
+      products: res.data.data.products,
+      pagination: res.data.pagination,
+    };
+  } catch (error) {
+    throw new Error(
+      error instanceof Error ? error.message : "Failed to fetch products.",
+    );
+  }
 }
 
 export async function createProduct(formData: FormData): Promise<Product> {
