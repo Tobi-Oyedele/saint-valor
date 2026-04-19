@@ -1,3 +1,5 @@
+import { OrderItem } from "./index";
+
 export type OrderStatus =
   | "pending"
   | "ongoing"
@@ -14,15 +16,6 @@ export interface RecentOrder {
   totalPrice: number;
   orderStatus: OrderStatus;
   createdAt: string;
-}
-
-export interface OrderItem {
-  productId: string;
-  productName: string;
-  size: string;
-  quantity: number;
-  price: number;
-  image: string;
 }
 
 export interface OrderDetail {

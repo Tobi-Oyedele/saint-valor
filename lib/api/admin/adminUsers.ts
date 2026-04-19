@@ -13,7 +13,7 @@ export async function getAllUsers(
     };
   } catch (error) {
     throw new Error(
-      error instanceof Error ? error.message : "Failed to fetch products.",
+      error instanceof Error ? error.message : "Failed to fetch users.",
     );
   }
 }
