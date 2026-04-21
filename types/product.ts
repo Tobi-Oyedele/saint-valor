@@ -31,6 +31,7 @@ export interface ProductFilters {
   karat?: string;
   jewelryType?: string;
   sort?: string;
+  gender?: string;
 }
 
 export interface PaginatedProducts {
@@ -58,6 +59,7 @@ export interface Product {
   isNewArrival: boolean;
   createdAt: string;
   updatedAt: string;
+  productGender: string;
 }
 
 export type Category = {

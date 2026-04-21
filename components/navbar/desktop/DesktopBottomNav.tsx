@@ -19,52 +19,61 @@ const DesktopBottomNav = () => {
 
       <DesktopDropdown
         label="Female"
-        href="/female"
+        href="/shop?gender=Female"
         items={[
-          { label: "Rings", href: "/new-arrivals/latest", count: 22 },
-          { label: "Necklaces", href: "/new-arrivals/trending", count: 88 },
-          { label: "Earrings", href: "/new-arrivals/earrings", count: 39 },
-          { label: "Bracelets", href: "/new-arrivals/bracelets", count: 23 },
+          { label: "Rings", href: "/shop?gender=Female&category=rings" },
+          {
+            label: "Necklaces",
+            href: "/shop?gender=Female&category=necklaces",
+          },
+          { label: "Earrings", href: "/shop?gender=Female&category=earrings" },
+          {
+            label: "Bracelets",
+            href: "/shop?gender=Female&category=bracelets",
+          },
           {
             label: "Pant Chains",
-            href: "/new-arrivals/pant-chains",
-            count: 12,
+            href: "/shop?gender=Female&category=pant-chains",
           },
-          { label: "Anklet", href: "/new-arrivals/anklet", count: 12 },
+          { label: "Anklet", href: "/shop?gender=Female&category=anklets" },
         ]}
       />
 
       <DesktopDropdown
         label="Male"
-        href="/male"
+        href="/shop?gender=Male"
         items={[
-          { label: "Rings", href: "/new-arrivals/latest", count: 22 },
-          { label: "Necklaces", href: "/new-arrivals/trending", count: 88 },
-          { label: "Earrings", href: "/new-arrivals/earrings", count: 39 },
-          { label: "Bracelets", href: "/new-arrivals/bracelets", count: 23 },
+          { label: "Rings", href: "/shop?gender=Male&category=rings" },
+          { label: "Necklaces", href: "/shop?gender=Male&category=necklaces" },
+          { label: "Earrings", href: "/shop?gender=Male&category=earrings" },
+          { label: "Bracelets", href: "/shop?gender=Male&category=bracelets" },
           {
             label: "Pant Chains",
-            href: "/new-arrivals/pant-chains",
-            count: 12,
+            href: "/shop?gender=Male&category=pant-chains",
           },
-          { label: "Anklet", href: "/new-arrivals/anklet", count: 12 },
+          { label: "Anklet", href: "/shop?gender=Male&category=anklets" },
         ]}
       />
 
       <DesktopDropdown
         label="Fashion"
-        href="/fashion"
+        href="/shop?gender=Unisex"
         items={[
-          { label: "Rings", href: "/new-arrivals/latest", count: 22 },
-          { label: "Necklaces", href: "/new-arrivals/trending", count: 88 },
-          { label: "Earrings", href: "/new-arrivals/earrings", count: 39 },
-          { label: "Bracelets", href: "/new-arrivals/bracelets", count: 23 },
+          { label: "Rings", href: "/shop?gender=Unisex&category=rings" },
+          {
+            label: "Necklaces",
+            href: "/shop?gender=Unisex&category=necklaces",
+          },
+          { label: "Earrings", href: "/shop?gender=Unisex&category=earrings" },
+          {
+            label: "Bracelets",
+            href: "/shop?gender=Unisex&category=bracelets",
+          },
           {
             label: "Pant Chains",
-            href: "/new-arrivals/pant-chains",
-            count: 12,
+            href: "/shop?gender=Unisex&category=pant-chains",
           },
-          { label: "Anklet", href: "/new-arrivals/anklet", count: 12 },
+          { label: "Anklet", href: "/shop?gender=Unisex&category=anklets" },
         ]}
       />
 

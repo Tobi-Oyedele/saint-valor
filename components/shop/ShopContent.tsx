@@ -29,11 +29,13 @@ const EMPTY_FILTERS: SidebarFilters = {
   karats: [],
   jewelryTypes: [],
   categories: [],
+  gender: "",
 };
 
 export default function ShopContent() {
   const searchParams = useSearchParams();
   const collectionParam = searchParams.get("collection");
+  const genderParam = searchParams.get("gender");
 
   const [products, setProducts] = useState<Product[]>([]);
   const [collections, setCollections] = useState<ProductCollection[]>([]);
@@ -50,6 +52,7 @@ export default function ShopContent() {
   const [filters, setFilters] = useState<SidebarFilters>({
     ...EMPTY_FILTERS,
     collections: collectionParam ? [collectionParam] : [],
+    gender: genderParam || "",
   });
 
   // derive page title from selected collection
@@ -101,6 +104,7 @@ export default function ShopContent() {
         weight: filters.weights[0] || undefined,
         minPrice: filters.minPrice ? Number(filters.minPrice) : undefined,
         maxPrice: filters.maxPrice ? Number(filters.maxPrice) : undefined,
+        gender: filters.gender || undefined,
       });
       setProducts(result.products);
       setTotalItems(result.totalItems);

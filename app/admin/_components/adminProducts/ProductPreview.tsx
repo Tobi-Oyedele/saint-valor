@@ -15,6 +15,7 @@ type PreviewData = {
   productWeight: string;
   productMaterial: string;
   productSizes: ProductSize[];
+  productGender: string;
   mainImage: File | null;
   subImages: File[];
 };
@@ -156,6 +157,10 @@ const ProductPreview = ({ data, onBack, onSubmit, isSubmitting }: Props) => {
             </p>
             <p className="text-xs text-secondary">
               Material · {data.productMaterial}
+            </p>
+
+            <p className="text-xs text-secondary">
+              Gender · {data.productGender}
             </p>
           </div>
 

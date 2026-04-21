@@ -8,4 +8,5 @@ export interface SidebarFilters {
   karats: string[];
   jewelryTypes: string[];
   categories: string[];
+  gender: string;
 }

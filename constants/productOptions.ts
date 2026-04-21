@@ -30,3 +30,9 @@ export const JEWELRY_TYPE_OPTIONS = [
   { label: "Bracelets", value: "Bracelets" },
   { label: "Anklets", value: "Anklets" },
 ];
+
+export const GENDER_OPTIONS = [
+  { label: "Male", value: "Male" },
+  { label: "Female", value: "Female" },
+  { label: "Unisex", value: "Unisex" },
+];

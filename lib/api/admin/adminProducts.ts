@@ -34,6 +34,7 @@ export async function updateProduct(
     productJewelryType: string;
     productMaterial: string;
     productKarat: string;
+    productGender: string;
   },
 ): Promise<Product> {
   const res = await api.put(`/admin/products/${id}`, payload);

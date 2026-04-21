@@ -8,6 +8,7 @@ import {
   KARAT_OPTIONS,
   MATERIAL_OPTIONS,
   JEWELRY_TYPE_OPTIONS,
+  GENDER_OPTIONS,
 } from "@/constants/productOptions";
 
 const EditProductPage = () => {
@@ -22,6 +23,7 @@ const EditProductPage = () => {
     productJewelryType: "",
     productMaterial: "",
     productKarat: "",
+    productGender: "",
   });
 
   useEffect(() => {
@@ -42,6 +44,7 @@ const EditProductPage = () => {
         productJewelryType: product.productJewelryType,
         productMaterial: product.productMaterial,
         productKarat: product.productKarat,
+        productGender: product.productGender ?? "Unisex",
       });
     } catch {
       toast.error("Failed to load product.");
@@ -63,6 +66,7 @@ const EditProductPage = () => {
       productJewelryType,
       productMaterial,
       productKarat,
+      productGender,
     } = form;
 
     if (
@@ -71,6 +75,7 @@ const EditProductPage = () => {
       !productPrice ||
       !productJewelryType ||
       !productMaterial ||
+      !productGender ||
       !productKarat
     ) {
       toast.error("Please fill in all fields.");
@@ -86,6 +91,7 @@ const EditProductPage = () => {
         productJewelryType,
         productMaterial,
         productKarat,
+        productGender,
       });
       toast.success("Product updated successfully!");
       sessionStorage.removeItem(`edit-product-${id}`);
@@ -188,6 +194,23 @@ const EditProductPage = () => {
             {JEWELRY_TYPE_OPTIONS.map((j) => (
               <option key={j.value} value={j.value}>
                 {j.label}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        {/* Gender */}
+        <div className="flex flex-col gap-1">
+          <label className={labelClass}>Gender</label>
+          <select
+            className={selectClass}
+            value={form.productGender}
+            onChange={(e) => update("productGender", e.target.value)}
+          >
+            <option value="">Select</option>
+            {GENDER_OPTIONS.map((g) => (
+              <option key={g.value} value={g.value}>
+                {g.label}
               </option>
             ))}
           </select>

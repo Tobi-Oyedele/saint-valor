@@ -16,6 +16,7 @@ import {
   WEIGHT_OPTIONS,
   MATERIAL_OPTIONS,
   JEWELRY_TYPE_OPTIONS,
+  GENDER_OPTIONS,
 } from "@/constants/productOptions";
 
 type FormState = {
@@ -29,6 +30,7 @@ type FormState = {
   productMaterial: string;
   productJewelryType: string;
   productSizes: ProductSize[];
+  productGender: string;
   mainImage: File | null;
   subImages: File[];
   isNewArrival: boolean;
@@ -52,6 +54,7 @@ const ProductForm = () => {
     productWeight: "",
     productMaterial: "",
     productJewelryType: "",
+    productGender: "",
     productSizes: [{ size: "", quantity: 1 }],
     mainImage: null,
     subImages: [],
@@ -96,6 +99,7 @@ const ProductForm = () => {
       productJewelryType,
       productSizes,
       mainImage,
+      productGender,
     } = form;
 
     if (
@@ -107,7 +111,8 @@ const ProductForm = () => {
       !productKarat ||
       !productWeight ||
       !productMaterial ||
-      !productJewelryType
+      !productJewelryType ||
+      !productGender
     ) {
       toast.error("Please fill in all fields.");
       return false;
@@ -147,6 +152,7 @@ const ProductForm = () => {
       formData.append("productJewelryType", form.productJewelryType);
       formData.append("productSizes", JSON.stringify(form.productSizes));
       formData.append("isNewArrival", String(form.isNewArrival));
+      formData.append("productGender", form.productGender);
 
       // First file = main image, rest = sub-images, all under "images"
       if (form.mainImage) formData.append("images", form.mainImage);
@@ -182,6 +188,7 @@ const ProductForm = () => {
           productWeight: form.productWeight,
           productMaterial: form.productMaterial,
           productSizes: form.productSizes,
+          productGender: form.productGender,
           mainImage: form.mainImage,
           subImages: form.subImages,
         }}
@@ -359,6 +366,23 @@ const ProductForm = () => {
         >
           Mark as New Arrival
         </label>
+      </div>
+
+      {/* Gender */}
+      <div className="flex flex-col gap-1">
+        <label className={labelClass}>Gender</label>
+        <select
+          className={selectClass}
+          value={form.productGender}
+          onChange={(e) => update("productGender", e.target.value)}
+        >
+          <option value="">Select</option>
+          {GENDER_OPTIONS.map((g) => (
+            <option key={g.value} value={g.value}>
+              {g.label}
+            </option>
+          ))}
+        </select>
       </div>
 
       {/* Sizes */}
