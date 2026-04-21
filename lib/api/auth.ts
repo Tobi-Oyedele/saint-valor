@@ -74,3 +74,14 @@ export async function updateProfile(data: {
   const res = await api.put("/auth/profile", data);
   return res.data.data.user;
 }
+
+export async function sendResetLink(email: string) {
+  await api.post("/auth/send-reset-link", { email });
+}
+
+export async function resetPassword(token: string, newPassword: string) {
+  await api.post("/auth/reset-password", {
+    token,
+    newPassword,
+  });
+}

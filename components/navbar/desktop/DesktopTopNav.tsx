@@ -1,7 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Heart } from "lucide-react";
-import { CurrencyDropdown } from "../CurrencyDropdown";
 import UserMenu from "../UserMenu";
 import CartIcon from "@/components/ui/CartIcon";
 
@@ -41,11 +40,6 @@ const DesktopTopNav = () => {
         >
           <Heart className="w-6 h-6" />
         </Link>
-
-        <div className="w-px h-6 bg-charcoal" />
-        <div>
-          <CurrencyDropdown />
-        </div>
       </div>
     </nav>
   );

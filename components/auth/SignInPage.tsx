@@ -66,7 +66,6 @@ export default function SignInPage() {
       toast.success("Signed in successfully!");
       router.push("/");
     } catch {
-      toast.error("Invalid email or password. Please try again.");
       setErrors({ form: "Invalid email or password. Please try again." });
     } finally {
       setLoading(false);

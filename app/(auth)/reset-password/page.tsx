@@ -1,59 +1,50 @@
 "use client";
 
-import { useState } from "react";
+import { useState, Suspense } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
 import { resetPasswordSchema } from "@/lib/validation/auth";
+import { resetPassword } from "@/lib/api/auth";
 import PasswordInput from "@/components/ui/PasswordInput";
 import Button from "@/components/ui/Button";
-import { useRouter } from "next/navigation";
 import AuthHeader from "@/components/ui/AuthHeader";
 import AuthWrapper from "@/components/auth/AuthWrapper";
 
 type FormErrors = {
   password?: string;
   confirmPassword?: string;
+  form?: string;
 };
+type FormData = { password: string; confirmPassword: string };
 
-type FormData = {
-  password?: string;
-  confirmPassword?: string;
-};
+const INITIAL: FormData = { password: "", confirmPassword: "" };
 
-const InitialPasswordData: FormData = {
-  password: "",
-  confirmPassword: "",
-};
-
-export default function ResetPasswordPage() {
+function ResetPasswordForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const token = searchParams.get("token");
+
   const [errors, setErrors] = useState<FormErrors>({});
-  const [formData, setFormData] = useState<FormData>(InitialPasswordData);
+  const [formData, setFormData] = useState<FormData>(INITIAL);
   const [loading, setLoading] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target; // Get the input's name and value
-    setFormData((prev) => ({
-      //update state
-      ...prev, // Keep all existing values
-      [name]: value, // Update only the field that changed
-    }));
-
-    // Clear error when user types
-    if (errors[name as keyof typeof errors]) {
-      setErrors((prev) => ({
-        ...prev,
-        [name]: "",
-      }));
-    }
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    setErrors((prev) => ({ ...prev, [name]: "", form: "" }));
   };
 
   async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault(); // Stop form from refreshing the page
+    e.preventDefault();
 
-    //zod validation
+    if (!token) {
+      setErrors({
+        form: "Invalid or missing reset token. Please request a new link.",
+      });
+      return;
+    }
+
     const result = resetPasswordSchema.safeParse(formData);
-
     if (!result.success) {
-      // Validation failed - show errors
       const fieldErrors = result.error.flatten().fieldErrors;
       setErrors({
         password: fieldErrors.password?.[0] || "",
@@ -62,27 +53,15 @@ export default function ResetPasswordPage() {
       return;
     }
 
-    // Start loading state
     setLoading(true);
-
     try {
-      // Make mock API call
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-
-      // Success! Route ro success page
-    } catch (error) {
-      // Handle errors
-      console.error("Password reset error:", error);
-      setErrors({
-        password: "",
-        confirmPassword: "Failed to reset password. Please try again.",
-      });
+      await resetPassword(token, formData.password);
+      router.push("/reset-password/success");
+    } catch {
+      setErrors({ form: "Failed to reset password. Please try again." });
     } finally {
-      // Always stop loading
       setLoading(false);
     }
-
-    router.push("/reset-password/success");
   }
 
   return (
@@ -94,6 +73,12 @@ export default function ResetPasswordPage() {
             description="Enter a password you can remember, to secure your account"
           />
 
+          {errors.form && (
+            <div className="rounded-md border border-red-200 bg-red-50 p-3 text-sm text-red-800">
+              {errors.form}
+            </div>
+          )}
+
           <form onSubmit={handleSubmit} className="space-y-5">
             <PasswordInput
               label="Password"
@@ -103,7 +88,6 @@ export default function ResetPasswordPage() {
               placeholder="Enter Password"
               error={errors.password}
             />
-
             <PasswordInput
               label="Confirm Password"
               name="confirmPassword"
@@ -112,7 +96,6 @@ export default function ResetPasswordPage() {
               placeholder="Confirm Password"
               error={errors.confirmPassword}
             />
-
             <Button
               type="submit"
               label="Reset Password"
@@ -124,5 +107,13 @@ export default function ResetPasswordPage() {
         </div>
       </main>
     </AuthWrapper>
+  );
+}
+
+export default function ResetPasswordPage() {
+  return (
+    <Suspense>
+      <ResetPasswordForm />
+    </Suspense>
   );
 }

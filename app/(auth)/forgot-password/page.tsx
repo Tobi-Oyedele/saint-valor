@@ -5,7 +5,7 @@ import EmailInput from "@/components/ui/EmailInput";
 import { emailSchema } from "@/lib/validation/auth";
 import Button from "@/components/ui/Button";
 import { useRouter } from "next/navigation";
-import { mockForgotPassword } from "@/lib/mockAuth";
+import { sendResetLink } from "@/lib/api/auth";
 import AuthHeader from "@/components/ui/AuthHeader";
 import AuthWrapper from "@/components/auth/AuthWrapper";
 
@@ -29,29 +29,21 @@ export default function ForgotPasswordPage() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-
     setErrors({});
 
     const result = emailSchema.safeParse(formData.email);
-
     if (!result.success) {
       setErrors({ email: result.error.issues[0]?.message });
       return;
     }
 
     const email = result.data.trim().toLowerCase();
-
     setLoading(true);
 
     try {
-      const res = await mockForgotPassword(email);
-
-      if (res.ok) {
-        router.push(`/check-inbox?email=${encodeURIComponent(email)}`);
-        setFormData({ email: "" });
-      } else {
-        setErrors({ form: "Something went wrong. Please try again." });
-      }
+      await sendResetLink(email);
+      router.push(`/check-inbox?email=${encodeURIComponent(email)}`);
+      setFormData({ email: "" });
     } catch {
       setErrors({ form: "Something went wrong. Please try again." });
     } finally {
