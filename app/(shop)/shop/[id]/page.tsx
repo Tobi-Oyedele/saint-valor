@@ -123,6 +123,7 @@ const ProductDetailPage = () => {
             material={product.productMaterial}
             karat={product.productKarat}
             weight={product.productWeight}
+            gender={product.productGender}
           />
         </div>
       </div>
