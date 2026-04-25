@@ -33,13 +33,6 @@ const EmailVerification: React.FC = () => {
           your account set-up.
         </p>
 
-        <p className="text-center text-sm text-gray-500">
-          No email in your inbox or spam folder?
-        </p>
-        <button className="text-charcoal font-medium underline text-xs cursor-pointer">
-          Let&apos;s resend it
-        </button>
-
         <p className="text-center text-sm text-gray-500 mt-4">
           Already reset your password?{" "}
           <Link href="/sign-in" className="text-charcoal font-medium underline">

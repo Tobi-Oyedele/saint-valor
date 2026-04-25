@@ -24,10 +24,10 @@ export const footerColumns: FooterColumn[] = [
   {
     title: "Collections",
     links: [
-      { label: "The Signature Edit", href: "/signature-edit" },
-      { label: "Heirloom Series", href: "#" },
-      { label: "The Prestige Collection", href: "#" },
-      { label: "Elysian Line", href: "#" },
+      { label: "The Signature Edit", href: "/shop" },
+      // { label: "Heirloom Series", href: "#" },
+      // { label: "The Prestige Collection", href: "#" },
+      // { label: "Elysian Line", href: "#" },
     ],
   },
   {
