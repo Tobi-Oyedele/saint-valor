@@ -72,7 +72,9 @@ const PhotoUpload = ({
 
   return (
     <div className="flex flex-col gap-4">
-      <h3 className="text-sm font-medium text-charcoal">Photo Upload</h3>
+      <h3 className="text-sm font-medium text-charcoal">
+        Photo Upload <span className="text-red-500">*</span>
+      </h3>
 
       {/* Main Image */}
       <div className="border border-dashed border-border p-8 flex flex-col items-center justify-center gap-2">

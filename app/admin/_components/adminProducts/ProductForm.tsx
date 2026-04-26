@@ -94,8 +94,6 @@ const ProductForm = () => {
       productPrice,
       productCategory,
       productCollection,
-      productDescription,
-      productKarat,
       productWeight,
       productMaterial,
       productJewelryType,
@@ -109,14 +107,12 @@ const ProductForm = () => {
       !productPrice ||
       !productCategory ||
       !productCollection ||
-      !productDescription ||
-      !productKarat ||
       !productWeight ||
       !productMaterial ||
       !productJewelryType ||
       !productGender
     ) {
-      toast.error("Please fill in all fields.");
+      toast.error("Please fill in all required fields.");
       return false;
     }
     if (productSizes.some((s) => !s.size)) {
@@ -213,7 +209,10 @@ const ProductForm = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {/* Product Name */}
         <div className="flex flex-col gap-1">
-          <label className={labelClass}>Product Name</label>
+          <label className={labelClass}>
+            Product Name <span className="text-red-500">*</span>
+          </label>
+
           <input
             className={inputClass}
             placeholder="Enter Product Name"
@@ -224,7 +223,9 @@ const ProductForm = () => {
 
         {/* Price */}
         <div className="flex flex-col gap-1">
-          <label className={labelClass}>Price</label>
+          <label className={labelClass}>
+            Price <span className="text-red-500">*</span>
+          </label>
           <input
             className={inputClass}
             placeholder="Enter Price"
@@ -236,7 +237,9 @@ const ProductForm = () => {
 
         {/* Category */}
         <div className="flex flex-col gap-1">
-          <label className={labelClass}>Product Category</label>
+          <label className={labelClass}>
+            Product Category <span className="text-red-500">*</span>
+          </label>
           <select
             className={selectClass}
             value={form.productCategory}
@@ -254,7 +257,9 @@ const ProductForm = () => {
 
         {/* Collection */}
         <div className="flex flex-col gap-1">
-          <label className={labelClass}>Product Collection</label>
+          <label className={labelClass}>
+            Product Collection <span className="text-red-500">*</span>
+          </label>
           <select
             className={selectClass}
             value={form.productCollection}
@@ -308,7 +313,9 @@ const ProductForm = () => {
 
         {/* Weight */}
         <div className="flex flex-col gap-1">
-          <label className={labelClass}>Weight</label>
+          <label className={labelClass}>
+            Weight <span className="text-red-500">*</span>
+          </label>
           <select
             className={selectClass}
             value={form.productWeight}
@@ -325,7 +332,9 @@ const ProductForm = () => {
 
         {/* Material */}
         <div className="flex flex-col gap-1">
-          <label className={labelClass}>Material</label>
+          <label className={labelClass}>
+            Material <span className="text-red-500">*</span>
+          </label>
           <select
             className={selectClass}
             value={form.productMaterial}
@@ -342,7 +351,9 @@ const ProductForm = () => {
 
         {/* Jewelry Type */}
         <div className="flex flex-col gap-1">
-          <label className={labelClass}>Jewelry type</label>
+          <label className={labelClass}>
+            Jewelry type <span className="text-red-500">*</span>
+          </label>
           <select
             className={selectClass}
             value={form.productJewelryType}
@@ -392,7 +403,9 @@ const ProductForm = () => {
 
       {/* Gender */}
       <div className="flex flex-col gap-1">
-        <label className={labelClass}>Gender</label>
+        <label className={labelClass}>
+          Gender <span className="text-red-500">*</span>
+        </label>
         <select
           className={selectClass}
           value={form.productGender}
