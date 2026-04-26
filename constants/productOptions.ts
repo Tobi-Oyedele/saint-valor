@@ -1,3 +1,5 @@
+import { Label } from "recharts";
+
 export const WEIGHT_OPTIONS = [
   { label: "3-6g", value: "3-6g" },
   { label: "7-10g", value: "7-10g" },
@@ -31,6 +33,8 @@ export const JEWELRY_TYPE_OPTIONS = [
   { label: "Anklets", value: "Anklets" },
   { label: "Pendants", value: "Pendants" },
   { label: "NeckChain", value: "NeckChain" },
+  { label: "Necklace Set", value: "Necklace Set" },
+  { label: "Bracelet and Earring set", value: "Bracelet and Earring set" },
 ];
 
 export const GENDER_OPTIONS = [

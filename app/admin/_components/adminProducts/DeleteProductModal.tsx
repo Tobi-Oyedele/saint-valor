@@ -61,7 +61,7 @@ const DeleteProductModal = ({
           ref={firstFocusRef}
           onClick={onConfirm}
           disabled={isDeleting}
-          className="w-full bg-red-500 hover:bg-red-600 disabled:opacity-60 text-white font-medium py-3 rounded-full transition-colors mb-3"
+          className="w-full bg-red-500 hover:bg-red-600 disabled:opacity-60 text-white font-medium py-3 rounded-full transition-colors mb-3 cursor-pointer"
         >
           {isDeleting ? "Deleting..." : "Delete Product"}
         </button>
