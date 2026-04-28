@@ -5,7 +5,6 @@ import { ProductCollection, ProductCategory } from "@/types/product";
 import { SidebarFilters } from "@/types/filter";
 import {
   WEIGHT_OPTIONS,
-  SIZE_OPTIONS,
   MATERIAL_OPTIONS,
   KARAT_OPTIONS,
   JEWELRY_TYPE_OPTIONS,
@@ -54,14 +53,6 @@ const FilterContent = ({
           options={WEIGHT_OPTIONS}
           selected={filters.weights}
           onChange={(val) => toggle("weights", val)}
-        />
-      </FilterSection>
-      <FilterSection title="Size">
-        <RadioFilter
-          name="size"
-          options={SIZE_OPTIONS}
-          selected={filters.sizes}
-          onChange={(val) => toggle("sizes", val)}
         />
       </FilterSection>
       <FilterSection title="Price">
