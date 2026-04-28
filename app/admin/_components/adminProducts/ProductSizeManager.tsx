@@ -4,8 +4,6 @@ import { toast } from "react-toastify";
 import { ProductSize } from "@/types/product";
 import { X } from "lucide-react";
 
-const SIZE_OPTIONS = ["Small", "Medium", "Large"];
-
 type Props = {
   sizes: ProductSize[];
   onChange: (sizes: ProductSize[]) => void;
@@ -40,26 +38,14 @@ const ProductSizeManager = ({ sizes, onChange }: Props) => {
       {sizes.map((s, index) => (
         <div key={index} className="grid grid-cols-2 gap-4 items-end">
           <div className="flex flex-col gap-1">
-            <label className="text-xs text-secondary">
-              Select Available size
-            </label>
-            <div className="relative">
-              <select
-                value={s.size}
-                onChange={(e) => updateSize(index, "size", e.target.value)}
-                className="w-full border border-border px-3 py-2 text-xs text-charcoal bg-white appearance-none focus:outline-none"
-              >
-                <option value="">Select</option>
-                {SIZE_OPTIONS.filter(
-                  (opt) =>
-                    opt === s.size || !sizes.some((s2) => s2.size === opt),
-                ).map((opt) => (
-                  <option key={opt} value={opt}>
-                    {opt}
-                  </option>
-                ))}
-              </select>
-            </div>
+            <label className="text-xs text-secondary">Size</label>
+            <input
+              type="text"
+              value={s.size}
+              placeholder="e.g. 6, 18 inches"
+              onChange={(e) => updateSize(index, "size", e.target.value)}
+              className="w-full border border-border px-3 py-2 text-xs text-charcoal placeholder:text-secondary/60 focus:outline-none"
+            />
           </div>
 
           <div className="flex flex-col gap-1">
@@ -105,12 +91,7 @@ const ProductSizeManager = ({ sizes, onChange }: Props) => {
       <button
         type="button"
         onClick={addSize}
-        disabled={sizes.length >= SIZE_OPTIONS.length}
-        className={`text-xs text-charcoal flex items-center gap-1 transition-colors w-fit ${
-          sizes.length >= SIZE_OPTIONS.length
-            ? "opacity-40 cursor-not-allowed"
-            : "cursor-pointer"
-        }`}
+        className="text-xs text-charcoal flex items-center gap-1 transition-colors w-fit cursor-pointer"
       >
         <span className="text-base leading-none">+</span> Add Size
       </button>

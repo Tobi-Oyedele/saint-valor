@@ -12,6 +12,7 @@ type PreviewData = {
   productCollection: string;
   productDescription: string;
   productKarat: string;
+  productDiamondCarat: string;
   productWeight: string;
   productMaterial: string;
   productSizes: ProductSize[];
@@ -33,7 +34,6 @@ const ProductPreview = ({ data, onBack, onSubmit, isSubmitting }: Props) => {
   const [quantity, setQuantity] = useState(1);
   const [mainIndex, setMainIndex] = useState(0);
 
-  // Generate blob URLs once, not on every render
   const allImages = useMemo(() => {
     return [
       ...(data.mainImage ? [URL.createObjectURL(data.mainImage)] : []),
@@ -61,7 +61,6 @@ const ProductPreview = ({ data, onBack, onSubmit, isSubmitting }: Props) => {
             )}
           </div>
 
-          {/* Thumbnails */}
           {allImages.length > 1 && (
             <div className="flex items-center gap-2">
               <button
@@ -134,19 +133,29 @@ const ProductPreview = ({ data, onBack, onSubmit, isSubmitting }: Props) => {
           {/* Details */}
           <div className="flex flex-col gap-1">
             <p className="text-sm font-medium text-charcoal">Details</p>
-            <p className="text-xs text-secondary">
-              Carat · {data.productKarat}
-            </p>
-            <p className="text-xs text-secondary">
-              Weight · {data.productWeight}
-            </p>
+            {data.productKarat && (
+              <p className="text-xs text-secondary">
+                Gold Carat · {data.productKarat}
+              </p>
+            )}
+            {data.productDiamondCarat && (
+              <p className="text-xs text-secondary">
+                Diamond Carat · {data.productDiamondCarat} CT
+              </p>
+            )}
+            {data.productWeight && (
+              <p className="text-xs text-secondary">
+                Weight · {data.productWeight}
+              </p>
+            )}
             <p className="text-xs text-secondary">
               Material · {data.productMaterial}
             </p>
-
-            <p className="text-xs text-secondary">
-              Gender · {data.productGender}
-            </p>
+            {data.productGender && (
+              <p className="text-xs text-secondary">
+                Gender · {data.productGender}
+              </p>
+            )}
           </div>
 
           {/* Quantity */}
@@ -191,7 +200,7 @@ const ProductPreview = ({ data, onBack, onSubmit, isSubmitting }: Props) => {
           type="button"
           onClick={onSubmit}
           disabled={isSubmitting}
-          className="text-xs bg-gold text-white px-6 py-2.5 hover:bg-gold/90 transition-colors disabled:opacity-60"
+          className="text-xs bg-gold text-white px-6 py-2.5 hover:bg-gold/90 transition-colors disabled:opacity-60 cursor-pointer"
         >
           {isSubmitting ? "Creating..." : "Create Product"}
         </button>

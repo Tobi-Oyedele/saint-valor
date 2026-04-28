@@ -1,15 +1,7 @@
-import { Label } from "recharts";
-
 export const WEIGHT_OPTIONS = [
   { label: "3-6g", value: "3-6g" },
   { label: "7-10g", value: "7-10g" },
   { label: "11-15g", value: "11-15g" },
-];
-
-export const SIZE_OPTIONS = [
-  { label: "Small", value: "Small" },
-  { label: "Medium", value: "Medium" },
-  { label: "Large", value: "Large" },
 ];
 
 export const MATERIAL_OPTIONS = [

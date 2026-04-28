@@ -91,26 +91,24 @@ const ProductForm = () => {
   const validate = () => {
     const {
       productName,
+      productDescription,
       productPrice,
       productCategory,
       productCollection,
-      productWeight,
       productMaterial,
       productJewelryType,
       productSizes,
       mainImage,
-      productGender,
     } = form;
 
     if (
       !productName ||
+      !productDescription ||
       !productPrice ||
       !productCategory ||
       !productCollection ||
-      !productWeight ||
       !productMaterial ||
-      !productJewelryType ||
-      !productGender
+      !productJewelryType
     ) {
       toast.error("Please fill in all required fields.");
       return false;
@@ -140,20 +138,24 @@ const ProductForm = () => {
       setIsSubmitting(true);
       const formData = new FormData();
       formData.append("productName", form.productName);
+      formData.append("productDescription", form.productDescription);
       formData.append("productPrice", form.productPrice);
       formData.append("productCategory", form.productCategory);
       formData.append("productCollection", form.productCollection);
-      formData.append("productDescription", form.productDescription);
-      formData.append("productKarat", form.productKarat);
-      formData.append("productDiamondCarat", form.productDiamondCarat);
-      formData.append("productWeight", form.productWeight);
       formData.append("productMaterial", form.productMaterial);
       formData.append("productJewelryType", form.productJewelryType);
       formData.append("productSizes", JSON.stringify(form.productSizes));
       formData.append("isNewArrival", String(form.isNewArrival));
-      formData.append("productGender", form.productGender);
 
-      // First file = main image, rest = sub-images, all under "images"
+      // Optional fields — only append if filled
+      if (form.productKarat) formData.append("productKarat", form.productKarat);
+      if (form.productDiamondCarat)
+        formData.append("productDiamondCarat", form.productDiamondCarat);
+      if (form.productWeight)
+        formData.append("productWeight", form.productWeight);
+      if (form.productGender)
+        formData.append("productGender", form.productGender);
+
       if (form.mainImage) formData.append("images", form.mainImage);
       form.subImages.forEach((file) => formData.append("images", file));
 
@@ -161,7 +163,7 @@ const ProductForm = () => {
       toast.success("Product created successfully!");
       router.push("/admin/products");
     } catch {
-      toast.error("Missing required fields or invalid Product Sizes");
+      toast.error("Failed to create product. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
@@ -184,6 +186,7 @@ const ProductForm = () => {
           productCollection: selectedCollection?.name ?? "",
           productDescription: form.productDescription,
           productKarat: form.productKarat,
+          productDiamondCarat: form.productDiamondCarat,
           productWeight: form.productWeight,
           productMaterial: form.productMaterial,
           productSizes: form.productSizes,
@@ -212,7 +215,6 @@ const ProductForm = () => {
           <label className={labelClass}>
             Product Name <span className="text-red-500">*</span>
           </label>
-
           <input
             className={inputClass}
             placeholder="Enter Product Name"
@@ -313,9 +315,7 @@ const ProductForm = () => {
 
         {/* Weight */}
         <div className="flex flex-col gap-1">
-          <label className={labelClass}>
-            Weight <span className="text-red-500">*</span>
-          </label>
+          <label className={labelClass}>Weight</label>
           <select
             className={selectClass}
             value={form.productWeight}
@@ -352,7 +352,7 @@ const ProductForm = () => {
         {/* Jewelry Type */}
         <div className="flex flex-col gap-1">
           <label className={labelClass}>
-            Jewelry type <span className="text-red-500">*</span>
+            Jewelry Type <span className="text-red-500">*</span>
           </label>
           <select
             className={selectClass}
@@ -371,7 +371,9 @@ const ProductForm = () => {
 
       {/* Description */}
       <div className="flex flex-col gap-1">
-        <label className={labelClass}>Product Description</label>
+        <label className={labelClass}>
+          Product Description <span className="text-red-500">*</span>
+        </label>
         <textarea
           className={`${inputClass} resize-none h-24`}
           placeholder="Enter product description"
@@ -403,9 +405,7 @@ const ProductForm = () => {
 
       {/* Gender */}
       <div className="flex flex-col gap-1">
-        <label className={labelClass}>
-          Gender <span className="text-red-500">*</span>
-        </label>
+        <label className={labelClass}>Gender</label>
         <select
           className={selectClass}
           value={form.productGender}
