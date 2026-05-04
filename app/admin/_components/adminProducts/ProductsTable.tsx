@@ -91,6 +91,7 @@ const ProductsTable = () => {
         productMaterial: product.productMaterial,
         productKarat: product.productKarat,
         productGender: product.productGender,
+        productLength: product.productLength,
       }),
     );
     router.push(`/admin/products/${product._id}/edit`);

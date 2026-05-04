@@ -94,7 +94,7 @@ const EditProductPage = () => {
         productMaterial,
         productKarat,
         productGender,
-        ...(productLength ? { productLength } : {}),
+        productLength,
       });
       toast.success("Product updated successfully!");
       sessionStorage.removeItem(`edit-product-${id}`);
