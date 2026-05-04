@@ -20,7 +20,7 @@ export const KARAT_OPTIONS = [
 export const JEWELRY_TYPE_OPTIONS = [
   { label: "Rings", value: "Rings" },
   { label: "Necklaces", value: "Necklaces" },
-  { label: "Earrings", value: "Earrings" },
+  { label: "Earring", value: "Earring" },
   { label: "Bracelets", value: "Bracelets" },
   { label: "Anklets", value: "Anklets" },
   { label: "Pendants", value: "Pendants" },
