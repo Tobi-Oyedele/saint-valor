@@ -17,6 +17,7 @@ type PreviewData = {
   productMaterial: string;
   productSizes: ProductSize[];
   productGender: string;
+  productLength: string;
   mainImage: File | null;
   subImages: File[];
 };
@@ -146,6 +147,11 @@ const ProductPreview = ({ data, onBack, onSubmit, isSubmitting }: Props) => {
             {data.productWeight && (
               <p className="text-xs text-secondary">
                 Weight · {data.productWeight}
+              </p>
+            )}
+            {data.productLength && (
+              <p className="text-xs text-secondary">
+                Length · {data.productLength}
               </p>
             )}
             <p className="text-xs text-secondary">

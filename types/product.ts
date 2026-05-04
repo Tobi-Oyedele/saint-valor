@@ -60,6 +60,7 @@ export interface Product {
   createdAt: string;
   updatedAt: string;
   productGender: string;
+  productLength?: string;
 }
 
 export type Category = {

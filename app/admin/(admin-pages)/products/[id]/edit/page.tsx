@@ -24,6 +24,7 @@ const EditProductPage = () => {
     productMaterial: "",
     productKarat: "",
     productGender: "",
+    productLength: "",
   });
 
   useEffect(() => {
@@ -45,6 +46,7 @@ const EditProductPage = () => {
         productMaterial: product.productMaterial,
         productKarat: product.productKarat,
         productGender: product.productGender ?? "Unisex",
+        productLength: product.productLength ?? "",
       });
     } catch {
       toast.error("Failed to load product.");
@@ -67,6 +69,7 @@ const EditProductPage = () => {
       productMaterial,
       productKarat,
       productGender,
+      productLength,
     } = form;
 
     if (
@@ -92,6 +95,7 @@ const EditProductPage = () => {
         productMaterial,
         productKarat,
         productGender,
+        ...(productLength ? { productLength } : {}),
       });
       toast.success("Product updated successfully!");
       sessionStorage.removeItem(`edit-product-${id}`);
@@ -214,6 +218,16 @@ const EditProductPage = () => {
               </option>
             ))}
           </select>
+        </div>
+        {/* Length */}
+        <div className="flex flex-col gap-1">
+          <label className={labelClass}>Length</label>
+          <input
+            className={inputClass}
+            placeholder="e.g. 18 inches"
+            value={form.productLength}
+            onChange={(e) => update("productLength", e.target.value)}
+          />
         </div>
       </div>
 

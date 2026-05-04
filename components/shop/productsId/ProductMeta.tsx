@@ -3,10 +3,11 @@ interface ProductMetaProps {
   karat?: string;
   weight?: string;
   gender?: string;
+  length?: string;
 }
 
-const ProductMeta = ({ material, karat, weight, gender }: ProductMetaProps) => {
-  if (!material && !karat && !weight && !gender) return null;
+const ProductMeta = ({ material, karat, weight, gender, length }: ProductMetaProps) => {
+  if (!material && !karat && !weight && !gender && !length) return null;
 
   return (
     <div className="flex flex-col gap-1.5 pt-4 border-t border-border text-xs text-secondary">
@@ -23,6 +24,11 @@ const ProductMeta = ({ material, karat, weight, gender }: ProductMetaProps) => {
       {weight && (
         <p>
           Weight: <span className="text-charcoal">{weight}</span>
+        </p>
+      )}
+      {length && (
+        <p>
+          Length: <span className="text-charcoal">{length}</span>
         </p>
       )}
       {gender && (
