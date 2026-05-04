@@ -78,8 +78,7 @@ const EditProductPage = () => {
       !productPrice ||
       !productJewelryType ||
       !productMaterial ||
-      !productGender ||
-      !productKarat
+      !productGender
     ) {
       toast.error("Please fill in all fields.");
       return;
