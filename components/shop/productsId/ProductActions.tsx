@@ -3,6 +3,7 @@
 import { Heart } from "lucide-react";
 import AddToCartButton from "@/components/ui/AddToCartButton";
 import { CartItem } from "@/types/cart";
+import { ProductSize } from "@/types/product";
 
 interface ProductActionsProps {
   productId: string;
@@ -11,6 +12,7 @@ interface ProductActionsProps {
   mainImage: string;
   selectedSize: string | null;
   hasSizes: boolean;
+  sizes: ProductSize[];
   isFavourite: boolean;
   onToggleFavourite: () => void;
 }
@@ -22,10 +24,13 @@ const ProductActions = ({
   mainImage,
   selectedSize,
   hasSizes,
+  sizes,
   isFavourite,
   onToggleFavourite,
 }: ProductActionsProps) => {
   const sizeRequired = hasSizes && !selectedSize;
+  const selectedSizeObj = sizes.find((s) => s.size === selectedSize);
+  const outOfStock = selectedSizeObj ? selectedSizeObj.quantity === 0 : false;
 
   const item: CartItem = {
     productId,
@@ -36,12 +41,19 @@ const ProductActions = ({
     quantity: 1,
   };
 
+  const isDisabled = sizeRequired || outOfStock;
+  const label = sizeRequired
+    ? "Select a size"
+    : outOfStock
+      ? "Out of stock"
+      : "Add to cart";
+
   return (
     <div className="flex flex-col gap-3">
       <AddToCartButton
         item={item}
-        disabled={sizeRequired}
-        label={sizeRequired ? "Select a size" : "Add to cart"}
+        disabled={isDisabled}
+        label={label}
       />
 
       <button

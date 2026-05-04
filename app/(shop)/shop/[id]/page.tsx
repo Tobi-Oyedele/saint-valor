@@ -115,6 +115,7 @@ const ProductDetailPage = () => {
             mainImage={product.mainImage ?? ""}
             selectedSize={selectedSize}
             hasSizes={(product.productSizes ?? []).length > 0}
+            sizes={product.productSizes ?? []}
             isFavourite={isFavourite}
             onToggleFavourite={() => toggleFavourite(product._id)}
           />
@@ -124,6 +125,7 @@ const ProductDetailPage = () => {
             karat={product.productKarat}
             weight={product.productWeight}
             gender={product.productGender}
+            length={product.productLength}
           />
         </div>
       </div>

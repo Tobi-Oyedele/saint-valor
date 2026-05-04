@@ -32,6 +32,7 @@ type FormState = {
   productJewelryType: string;
   productSizes: ProductSize[];
   productGender: string;
+  productLength: string;
   mainImage: File | null;
   subImages: File[];
   isNewArrival: boolean;
@@ -57,6 +58,7 @@ const ProductForm = () => {
     productMaterial: "",
     productJewelryType: "",
     productGender: "",
+    productLength: "",
     productSizes: [{ size: "", quantity: 1 }],
     mainImage: null,
     subImages: [],
@@ -153,6 +155,8 @@ const ProductForm = () => {
         formData.append("productDiamondCarat", form.productDiamondCarat);
       if (form.productWeight)
         formData.append("productWeight", form.productWeight);
+      if (form.productLength)
+        formData.append("productLength", form.productLength);
       if (form.productGender)
         formData.append("productGender", form.productGender);
 
@@ -191,6 +195,7 @@ const ProductForm = () => {
           productMaterial: form.productMaterial,
           productSizes: form.productSizes,
           productGender: form.productGender,
+          productLength: form.productLength,
           mainImage: form.mainImage,
           subImages: form.subImages,
         }}
@@ -328,6 +333,17 @@ const ProductForm = () => {
               </option>
             ))}
           </select>
+        </div>
+
+        {/* Length */}
+        <div className="flex flex-col gap-1">
+          <label className={labelClass}>Length</label>
+          <input
+            className={inputClass}
+            placeholder="e.g. 18 inches"
+            value={form.productLength}
+            onChange={(e) => update("productLength", e.target.value)}
+          />
         </div>
 
         {/* Material */}
